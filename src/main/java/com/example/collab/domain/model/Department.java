@@ -44,4 +44,8 @@ public class Department {
     @Setter
     private List<Integer> managerSupportRegistration;
 
+    @Getter
+    @Setter
+    private List<Integer> teamMembersRegistration;
+
 }
