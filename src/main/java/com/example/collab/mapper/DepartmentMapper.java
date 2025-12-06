@@ -15,6 +15,7 @@ public interface DepartmentMapper {
     @Mapping(target = "endDate", source = "endDate")
     @Mapping(target = "managerRegistration", source = "managerRegistration")
     @Mapping(target = "managerSupportRegistration", source = "managerSupportRegistration")
+    @Mapping(target = "teamMembersRegistration", source = "teamMembersRegistration")
     Department toEntity(DepartmentRequestDTO dto);
 
     @Mapping(target = "name", source = "name")
@@ -23,6 +24,7 @@ public interface DepartmentMapper {
     @Mapping(target = "endDate", source = "endDate")
     @Mapping(target = "managerRegistration", source = "managerRegistration")
     @Mapping(target = "managerSupportRegistration", source = "managerSupportRegistration")
+    @Mapping(target = "teamMembersRegistration", source = "teamMembersRegistration")
     void updateEntity(@MappingTarget Department department, DepartmentRequestDTO dto);
 
     @Mapping(target = "name", source = "name")
@@ -31,6 +33,7 @@ public interface DepartmentMapper {
     @Mapping(target = "endDate", source = "endDate")
     @Mapping(target = "managerRegistration", source = "managerRegistration")
     @Mapping(target = "managerSupportRegistration", source = "managerSupportRegistration")
+    @Mapping(target = "teamMembersRegistration", source = "teamMembersRegistration")
     DepartmentResponseDTO toResponse(Department department);
 
 }
