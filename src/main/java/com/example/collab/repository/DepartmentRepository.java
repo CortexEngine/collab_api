@@ -15,8 +15,8 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
     Optional<Department> findByManagerRegistration(Integer managerRegistration);
 
-    List<Department> findByManagerSupportRegistration(Integer managerSupportRegistration);
+    List<Department> findByManagerSupportRegistrationContains(Integer managerSupportRegistration);
 
-    List<Department> findByTeamMembersRegistration(Integer teamMembersRegistration);
+    List<Department> findByTeamMembersRegistrationContains(Integer teamMembersRegistration);
 
 }

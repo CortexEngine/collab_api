@@ -42,10 +42,12 @@ public class Department {
 
     @Getter
     @Setter
+    @ElementCollection
     private List<Integer> managerSupportRegistration;
 
     @Getter
     @Setter
+    @ElementCollection
     private List<Integer> teamMembersRegistration;
 
 }
