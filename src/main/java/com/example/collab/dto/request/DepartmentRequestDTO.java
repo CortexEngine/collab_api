@@ -39,5 +39,8 @@ public class DepartmentRequestDTO{
     
     @Positive
     private List<Integer> managerSupportRegistration;
+
+    @Positive
+    private List<Integer> teamMembersRegistration;
     
 }

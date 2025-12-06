@@ -26,4 +26,5 @@ public class DepartmentResponseDTO{
 
     private List<Integer> managerSupportRegistration;
 
+    private List<Integer> teamMembersRegistration;
 }
