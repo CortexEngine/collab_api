@@ -1,5 +1,7 @@
 package com.example.collab.service.validation; 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,12 +33,42 @@ public class DepartmentValidator {
 
     }
 
-    public void validateDepartmentSupportManager(Integer registration){
+    @SuppressWarnings("unchecked")
+    public void validateDepartmentSupportManager(Object registration){
 
-        if(collaboratorRepository.findByRegistrationAndSupportManager(registration, true).isEmpty()){
+        if(registration == null){
 
-            throw new RuntimeException("This collaborator does not act as a support manager");
+            throw new RuntimeException("Support manager cannot be null.");
 
+        }
+
+        if(registration instanceof Integer){
+            
+            validateSingleSupportManager((Integer) registration);
+
+        } else if (registration instanceof List) {
+
+            validateMultipleSupportManagers((List<Integer>) registration);
+
+        }
+
+    }
+
+    private void validateSingleSupportManager(Integer registration){
+
+        if(collaboratorRepository.findByRegistration(registration).isEmpty()){
+
+            throw new RuntimeException("This collaborator is already support manager of another department.");
+
+        }
+
+    }
+
+    private void validateMultipleSupportManagers(List<Integer> registrations){
+
+        for(Integer registration : registrations){
+
+            validateSingleSupportManager(registration);
         }
 
     }
@@ -58,6 +90,50 @@ public class DepartmentValidator {
             throw new RuntimeException("Number already exists");
 
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void validateDepartmentMembers(Object registration){
+
+        if(registration == null){
+
+            throw new RuntimeException("Department member cannot be null.");
+
+        }
+
+        if(registration instanceof Integer){
+
+            validateSingleMember((Integer) registration);
+
+        } else if (registration instanceof List) {
+
+            validateMultipleMembers((List<Integer>) registration);
+
+        } else {
+
+            throw new RuntimeException("Invalid type for department member registration.");
+
+        }
+
+    }
+
+    private void validateSingleMember(Integer registration){
+
+        if(collaboratorRepository.findByRegistration(registration).isEmpty()){
+
+            throw new RuntimeException("This collaborator is already member of another department.");
+
+        }
+
+    }
+
+    private void validateMultipleMembers(List<Integer> registrations){
+
+        for(Integer registration : registrations){
+
+            validateSingleMember(registration);
+        }
+
     }
 
 }
