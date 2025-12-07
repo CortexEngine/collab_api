@@ -103,4 +103,17 @@ public class DepartmentService {
         return departmentMapper.toResponse(department);
 
     }
+
+    public List<DepartmentResponseDTO> getDepartmentsBySupportManagerRegistration(Integer managerSupportRegistration){
+
+        List<Department> departments = departmentRepository.findByManagerSupportRegistrationContains(managerSupportRegistration);
+
+        if(departments.isEmpty()){
+             
+            throw new RuntimeException("Department not found for support manager registration: " + managerSupportRegistration);
+        }
+
+        return departments.stream().map(department -> departmentMapper.toResponse(department)).toList();
+
+    }
 }
