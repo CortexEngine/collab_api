@@ -19,6 +19,7 @@ public class DepartmentValidator {
     public DepartmentValidator(DepartmentRepository departmentRepository, CollaboratorRepository collaboratorRepository){
 
         this.departmentRepository = departmentRepository;
+        
         this.collaboratorRepository = collaboratorRepository;
 
     }
