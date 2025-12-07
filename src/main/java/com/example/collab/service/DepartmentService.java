@@ -44,7 +44,13 @@ public class DepartmentService {
 
            departmentValidator.validateDepartmentSupportManager(registration);
 
-         }
+        }
+
+        for(Integer registration : req.getTeamMembersRegistration()){
+
+            departmentValidator.validateDepartmentMembers(registration);
+
+        }
 
         Department department = departmentMapper.toEntity(req);
 
