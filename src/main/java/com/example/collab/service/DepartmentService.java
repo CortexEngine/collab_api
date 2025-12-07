@@ -129,5 +129,15 @@ public class DepartmentService {
         return departments.stream().map(department -> departmentMapper.toResponse(department)).toList();
 
     }
-    
+
+    public Integer deleteDepartmentByNumber(Integer number){
+
+        Department department =  departmentRepository.findByNumber(number)
+        .orElseThrow(() -> new RuntimeException("Department number not found"));
+
+        departmentRepository.delete(department);
+
+        return number;
+    }
+
 }
