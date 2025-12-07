@@ -4,11 +4,9 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class CollaboratorResponseDTO {
 
     // Gerados pelo sistema

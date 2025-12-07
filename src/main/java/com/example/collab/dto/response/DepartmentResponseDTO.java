@@ -5,11 +5,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class DepartmentResponseDTO{
 
     private String name;
