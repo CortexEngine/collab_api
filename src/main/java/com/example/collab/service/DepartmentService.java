@@ -8,6 +8,7 @@ import com.example.collab.service.validation.DepartmentValidator;
 import com.example.collab.mapper.DepartmentMapper;
 import com.example.collab.dto.request.DepartmentRequestDTO;
 import com.example.collab.dto.response.DepartmentResponseDTO;
+import com.example.collab.exception.business.BadRequestException;
 import com.example.collab.domain.model.Department;
 
 import java.util.List;
@@ -138,6 +139,29 @@ public class DepartmentService {
         departmentRepository.delete(department);
 
         return number;
+    }
+
+    public DepartmentResponseDTO updateDepartment(Integer number, DepartmentRequestDTO req){
+
+        Department existingDepartment = departmentRepository.findByNumber(number).orElseThrow(
+                () -> new BadRequestException("Department not found with number: " + number));
+        
+        departmentValidator.validateDepartmentNumber(req.getNumber());
+
+        departmentValidator.validateDepartmentName(req.getName());
+
+        departmentValidator.validateDepartmentManager(req.getManagerRegistration());
+
+        departmentValidator.validateDepartmentSupportManager(req.getManagerSupportRegistration());
+
+        departmentValidator.validateDepartmentMembers(req.getTeamMembersRegistration());
+
+        departmentMapper.updateEntity(existingDepartment, req);
+
+        Department updatedDepartment = departmentRepository.save(existingDepartment);
+
+        return departmentMapper.toResponse(updatedDepartment);
+
     }
 
 }
