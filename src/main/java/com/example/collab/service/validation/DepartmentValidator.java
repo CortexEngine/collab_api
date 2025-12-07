@@ -56,9 +56,9 @@ public class DepartmentValidator {
 
     private void validateSingleSupportManager(Integer registration){
 
-        if(collaboratorRepository.findByRegistration(registration).isEmpty()){
+        if(collaboratorRepository.findByRegistrationAndSupportManager(registration, true).isEmpty()){
 
-            throw new RuntimeException("This collaborator is already support manager of another department.");
+            throw new RuntimeException("This collaborator does not act as a support manager.");
 
         }
 
