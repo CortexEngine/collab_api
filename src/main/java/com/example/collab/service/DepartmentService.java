@@ -93,5 +93,14 @@ public class DepartmentService {
 
         return departmentMapper.toResponse(department);
 
-    }  
+    }
+
+    public DepartmentResponseDTO getDepartmentByManagerRegistration(Integer managerRegistration){
+
+        Department department = departmentRepository.findByManagerRegistration(managerRegistration)
+        .orElseThrow(() -> new RuntimeException("Department manager registration not found"));
+        
+        return departmentMapper.toResponse(department);
+
+    }
 }
