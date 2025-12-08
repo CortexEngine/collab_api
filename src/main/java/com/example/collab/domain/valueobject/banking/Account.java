@@ -1,6 +1,6 @@
 package com.example.collab.domain.valueobject.banking;
 
-import com.example.collab.exception.domain.InvalidDocumentException;
+import com.example.collab.exception.business.InvalidDocumentException;
 
 import lombok.Value;
 

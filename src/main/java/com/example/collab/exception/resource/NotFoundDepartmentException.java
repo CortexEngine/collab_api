@@ -1,6 +1,4 @@
-package com.example.collab.exception.domain;
-
-import com.example.collab.exception.resource.NotFoundException;
+package com.example.collab.exception.resource;
 
 public class NotFoundDepartmentException extends NotFoundException {
 

@@ -4,7 +4,7 @@ import com.example.collab.domain.valueobject.contact.Email;
 import com.example.collab.domain.valueobject.contact.Phone;
 import com.example.collab.domain.valueobject.document.CNPJ;
 import com.example.collab.domain.valueobject.document.CPF;
-import com.example.collab.exception.domain.InvalidDocumentException;
+import com.example.collab.exception.business.InvalidDocumentException;
 
 import lombok.Value;
 
