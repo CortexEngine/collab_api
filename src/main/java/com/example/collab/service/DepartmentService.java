@@ -9,7 +9,7 @@ import com.example.collab.mapper.DepartmentMapper;
 import com.example.collab.dto.request.DepartmentRequestDTO;
 import com.example.collab.dto.response.DepartmentResponseDTO;
 import com.example.collab.exception.business.BadRequestException;
-import com.example.collab.exception.domain.DepartmentNotFoundException;
+import com.example.collab.exception.resource.DepartmentNotFoundException;
 import com.example.collab.domain.model.Department;
 
 import java.util.List;
