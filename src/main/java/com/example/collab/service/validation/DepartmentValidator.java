@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.collab.repository.DepartmentRepository;
-import com.example.collab.exception.business.BadRequestException;
-import com.example.collab.exception.business.InvalidManagerException;
-import com.example.collab.exception.business.InvalidSupportManagerException;
 import com.example.collab.repository.CollaboratorRepository;
+import com.example.collab.repository.DepartmentRepository;
+import com.example.collab.exception.business.*;
+import com.example.collab.exception.domain.*;
 
 @Component
 public class DepartmentValidator {
@@ -81,7 +80,7 @@ public class DepartmentValidator {
 
         if(departmentRepository.findByName(name).isPresent()){
 
-            throw new RuntimeException("Name already exists");
+            throw new DuplicatedNameDepartmentException("Name already exists");
 
         }
 
@@ -91,7 +90,7 @@ public class DepartmentValidator {
 
         if(departmentRepository.findByNumber(number).isPresent()){
 
-            throw new RuntimeException("Number already exists");
+            throw new DuplicatedNumberDepartmentException("Number already exists");
 
         }
     }
@@ -115,7 +114,7 @@ public class DepartmentValidator {
 
         } else {
 
-            throw new RuntimeException("Invalid type for department member registration.");
+            throw new BadRequestException("Invalid type for department member registration.");
 
         }
 
@@ -125,7 +124,7 @@ public class DepartmentValidator {
 
         if(collaboratorRepository.findByRegistration(registration).isEmpty()){
 
-            throw new RuntimeException("This collaborator is already member of another department.");
+            throw new DuplicatedDepartmentMemberException("This collaborator is already member of another department.");
 
         }
 
