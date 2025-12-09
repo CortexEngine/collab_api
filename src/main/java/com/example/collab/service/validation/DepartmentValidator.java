@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.collab.repository.DepartmentRepository;
+import com.example.collab.exception.business.BadRequestException;
+import com.example.collab.exception.business.InvalidManagerException;
+import com.example.collab.exception.business.InvalidSupportManagerException;
 import com.example.collab.repository.CollaboratorRepository;
 
 @Component
@@ -28,7 +31,7 @@ public class DepartmentValidator {
 
         if(collaboratorRepository.findByRegistrationAndManager(registration, true).isEmpty()){
 
-            throw new RuntimeException("This collaborator does not act as a manager.");
+            throw new InvalidManagerException("This collaborator does not act as a manager.");
 
           }
 
@@ -39,7 +42,7 @@ public class DepartmentValidator {
 
         if(registration == null){
 
-            throw new RuntimeException("Support manager cannot be null.");
+            throw new BadRequestException("Support manager cannot be null.");
 
         }
 
@@ -59,7 +62,7 @@ public class DepartmentValidator {
 
         if(collaboratorRepository.findByRegistrationAndSupportManager(registration, true).isEmpty()){
 
-            throw new RuntimeException("This collaborator does not act as a support manager.");
+            throw new InvalidSupportManagerException("This collaborator does not act as a support manager.");
 
         }
 
@@ -98,7 +101,7 @@ public class DepartmentValidator {
 
         if(registration == null){
 
-            throw new RuntimeException("Department member cannot be null.");
+            throw new BadRequestException("Department member cannot be null.");
 
         }
 
