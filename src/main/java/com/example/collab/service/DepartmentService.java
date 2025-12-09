@@ -61,8 +61,8 @@ public class DepartmentService {
 
             return departmentMapper.toResponse(savedDepartment); 
         }
-       
-        throw new RuntimeException("Error creating department");
+
+        throw new BadRequestException("Error creating department");
     }
 
     public List<DepartmentResponseDTO> getAllDepartments(){
