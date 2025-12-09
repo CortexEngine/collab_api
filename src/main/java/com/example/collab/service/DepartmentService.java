@@ -9,6 +9,7 @@ import com.example.collab.mapper.DepartmentMapper;
 import com.example.collab.dto.request.DepartmentRequestDTO;
 import com.example.collab.dto.response.DepartmentResponseDTO;
 import com.example.collab.exception.business.BadRequestException;
+import com.example.collab.exception.domain.DepartmentNotFoundException;
 import com.example.collab.domain.model.Department;
 
 import java.util.List;
@@ -71,7 +72,7 @@ public class DepartmentService {
 
         if(departments.isEmpty()){
              
-            throw new RuntimeException("Department not found");
+            throw new DepartmentNotFoundException("Department not found");
         }
 
         return departments.stream().map(department -> departmentMapper.toResponse(department)).toList();
@@ -81,7 +82,7 @@ public class DepartmentService {
     public DepartmentResponseDTO getDepartmentByNumber(Integer number){
 
         Department department = departmentRepository.findByNumber(number)
-        .orElseThrow(() -> new RuntimeException("Department number not found"));
+        .orElseThrow(() -> new DepartmentNotFoundException("Department number not found"));
 
         return departmentMapper.toResponse(department);
 
@@ -90,7 +91,7 @@ public class DepartmentService {
     public DepartmentResponseDTO getDepartmentByName(String name){
 
         Department department = departmentRepository.findByName(name)
-        .orElseThrow(() -> new RuntimeException("Department name not found"));
+        .orElseThrow(() -> new DepartmentNotFoundException("Department name not found"));
 
         return departmentMapper.toResponse(department);
 
@@ -99,8 +100,8 @@ public class DepartmentService {
     public DepartmentResponseDTO getDepartmentByManagerRegistration(Integer managerRegistration){
 
         Department department = departmentRepository.findByManagerRegistration(managerRegistration)
-        .orElseThrow(() -> new RuntimeException("Department manager registration not found"));
-        
+        .orElseThrow(() -> new DepartmentNotFoundException("Department manager registration not found"));
+
         return departmentMapper.toResponse(department);
 
     }
@@ -110,8 +111,8 @@ public class DepartmentService {
         List<Department> departments = departmentRepository.findByManagerSupportRegistrationContains(managerSupportRegistration);
 
         if(departments.isEmpty()){
-             
-            throw new RuntimeException("Department not found for support manager registration: " + managerSupportRegistration);
+
+            throw new DepartmentNotFoundException("Department not found for support manager registration: " + managerSupportRegistration);
         }
 
         return departments.stream().map(department -> departmentMapper.toResponse(department)).toList();
@@ -123,8 +124,8 @@ public class DepartmentService {
         List<Department> departments = departmentRepository.findByTeamMembersRegistrationContains(teamMemberRegistration);
 
         if(departments.isEmpty()){
-             
-            throw new RuntimeException("Department not found for team member registration: " + teamMemberRegistration);
+
+            throw new DepartmentNotFoundException("Department not found for team member registration: " + teamMemberRegistration);
         }
 
         return departments.stream().map(department -> departmentMapper.toResponse(department)).toList();
@@ -134,7 +135,7 @@ public class DepartmentService {
     public Integer deleteDepartmentByNumber(Integer number){
 
         Department department =  departmentRepository.findByNumber(number)
-        .orElseThrow(() -> new RuntimeException("Department number not found"));
+        .orElseThrow(() -> new DepartmentNotFoundException("Department number not found"));
 
         departmentRepository.delete(department);
 
@@ -144,7 +145,7 @@ public class DepartmentService {
     public DepartmentResponseDTO updateDepartment(Integer number, DepartmentRequestDTO req){
 
         Department existingDepartment = departmentRepository.findByNumber(number).orElseThrow(
-                () -> new BadRequestException("Department not found with number: " + number));
+                () -> new DepartmentNotFoundException("Department not found with number: " + number));
         
         departmentValidator.validateDepartmentNumber(req.getNumber());
 
