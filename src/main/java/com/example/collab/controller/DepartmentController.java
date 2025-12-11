@@ -42,11 +42,13 @@ public class DepartmentController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/{id}")
-    public DepartmentResponseDTO getDepartment(@PathVariable Integer id) {
-        // Logic to get a department by ID
+    @GetMapping("/number/{number}")
+    public ResponseEntity<DepartmentResponseDTO> getDepartmentByNumber(@PathVariable Integer number) {
+        
+        DepartmentResponseDTO response = departmentService.getDepartmentByNumber(number);
 
-        return new DepartmentResponseDTO();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+        
     }
 
     @PutMapping("/{id}")
