@@ -4,10 +4,20 @@ import org.springframework.web.bind.annotation.*;
 
 import com.example.collab.dto.request.DepartmentRequestDTO;
 import com.example.collab.dto.response.DepartmentResponseDTO;
+import com.example.collab.service.DepartmentService;
 
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
+
+    private DepartmentService departmentService;
+
+    public DepartmentController(DepartmentService departmentService) {
+
+        this.departmentService = departmentService;
+
+    }
+
 
     @PostMapping
     public void createDepartment(@RequestBody DepartmentRequestDTO body) {
