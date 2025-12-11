@@ -28,7 +28,7 @@ public class CollaboratorController {
     }
 
     @PostMapping
-    public ResponseEntity<CollaboratorResponseDTO> create(@RequestBody @Valid CollaboratorRequestDTO body) {
+    public ResponseEntity<CollaboratorResponseDTO> createCollaborator(@RequestBody @Valid CollaboratorRequestDTO body) {
 
         CollaboratorResponseDTO response = collaboratorService.createCollaborator(body);
 
@@ -37,7 +37,7 @@ public class CollaboratorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CollaboratorResponseDTO>> getAll() {
+    public ResponseEntity<List<CollaboratorResponseDTO>> getAllCollaborators() {
 
         List<CollaboratorResponseDTO> response = collaboratorService.getAllCollaborators();
 
@@ -46,7 +46,7 @@ public class CollaboratorController {
     }
 
     @GetMapping("/registration/{registration}")
-    public ResponseEntity<CollaboratorResponseDTO> getByRegistration(@PathVariable Integer registration) {
+    public ResponseEntity<CollaboratorResponseDTO> getCollaboratorByRegistration(@PathVariable Integer registration) {
 
         CollaboratorResponseDTO response = collaboratorService.getCollaboratorByRegistration(registration);
 
@@ -91,7 +91,7 @@ public class CollaboratorController {
     }
 
     @PutMapping("/{registration}")
-    public ResponseEntity<CollaboratorResponseDTO> update(@PathVariable Integer registration,
+    public ResponseEntity<CollaboratorResponseDTO> updateCollaborator(@PathVariable Integer registration,
             @RequestBody @Valid CollaboratorRequestDTO body) {
 
         CollaboratorResponseDTO response = collaboratorService.updateCollaborator(registration, body);
@@ -101,7 +101,7 @@ public class CollaboratorController {
     }
 
     @DeleteMapping("/{registration}")
-    public ResponseEntity<String> delete(@PathVariable Integer registration) {
+    public ResponseEntity<String> deleteCollaborator(@PathVariable Integer registration) {
 
         String response = collaboratorService.deleteCollaboratorByRegistration(registration);
 
@@ -110,7 +110,7 @@ public class CollaboratorController {
     }
 
     @DeleteMapping("/cpf/{cpf}")
-    public ResponseEntity<CPF> deleteByCPF(@PathVariable String cpf) {
+    public ResponseEntity<CPF> deleteCollaboratorByCPF(@PathVariable String cpf) {
 
         CPF response = collaboratorService.deleteCollaboratorByCPF(new CPF(cpf));
 
