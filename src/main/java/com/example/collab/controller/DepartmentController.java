@@ -46,7 +46,12 @@ public class DepartmentController {
     }
 
     @GetMapping("/number/{number}")
-    public ResponseEntity<DepartmentResponseDTO> getDepartmentByNumber(@PathVariable Integer number) {
+    public ResponseEntity<DepartmentResponseDTO> getDepartmentByNumber(
+        @PathVariable
+        @NotNull(message = "Department number must not be null")
+        @Positive(message = "Department number must be a positive integer")
+        @NotBlank(message = "Department number must not be blank")
+        Integer number) {
         
         DepartmentResponseDTO response = departmentService.getDepartmentByNumber(number);
 
@@ -55,7 +60,13 @@ public class DepartmentController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<DepartmentResponseDTO> getDepartmentByName(@PathVariable String name) {
+    public ResponseEntity<DepartmentResponseDTO> getDepartmentByName(
+        @PathVariable
+        @NotNull(message = "Department name must not be null")
+        @NotBlank(message = "Department name must not be blank")
+        @Size(min = 1, message = "Department name must have at least 1 characters")
+        @Size(max = 64, message = "Department name must have at most 64 characters")
+        String name) {
         
         DepartmentResponseDTO response = departmentService.getDepartmentByName(name);
 
