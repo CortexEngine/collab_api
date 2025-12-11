@@ -3,6 +3,7 @@ package com.example.collab.exception.handler;
 import com.example.collab.exception.business.*;
 import com.example.collab.exception.domain.*;
 import com.example.collab.exception.resource.*;
+
 import com.example.collab.exception.dto.ErrorResponse;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import jakarta.validation.ConstraintViolationException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -83,6 +85,30 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
 
+    }
+
+    //Validação de parametros de caminho e requisição
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleConstraintViolation(
+            ConstraintViolationException ex, WebRequest req) {
+        
+        Map<String, String> details = new LinkedHashMap<>();
+        
+        ex.getConstraintViolations().forEach(violation -> {
+            String field = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+            details.put(field, message);
+        });
+        
+        var body = ErrorResponse.of(
+            HttpStatus.BAD_REQUEST.value(),
+            "Validation Error",
+            "Invalid path variable or request parameter",
+            path(req),
+            details
+        );
+        
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     private String path(WebRequest req) {
