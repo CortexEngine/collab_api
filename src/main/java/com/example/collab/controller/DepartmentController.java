@@ -1,5 +1,7 @@
 package com.example.collab.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,6 @@ public class DepartmentController {
 
     }
 
-
     @PostMapping
     public ResponseEntity<DepartmentResponseDTO> createDepartment(@RequestBody @Valid DepartmentRequestDTO body) {
 
@@ -31,6 +32,14 @@ public class DepartmentController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DepartmentResponseDTO>> getAllDepartments() {
+
+        List<DepartmentResponseDTO> response = departmentService.getAllDepartments();
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{id}")
