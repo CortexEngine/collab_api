@@ -53,9 +53,9 @@ public class DepartmentController {
         @NotBlank(message = "Department number must not be blank")
         Integer number) {
         
-        DepartmentResponseDTO response = departmentService.getDepartmentByNumber(number);
+            DepartmentResponseDTO response = departmentService.getDepartmentByNumber(number);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
 
@@ -68,9 +68,9 @@ public class DepartmentController {
         @Size(max = 64, message = "Department name must have at most 64 characters")
         String name) {
         
-        DepartmentResponseDTO response = departmentService.getDepartmentByName(name);
+            DepartmentResponseDTO response = departmentService.getDepartmentByName(name);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         
     }
 
@@ -82,9 +82,9 @@ public class DepartmentController {
         @NotBlank(message = "Manager registration must not be blank")
         Integer registration) {
 
-        DepartmentResponseDTO response = departmentService.getDepartmentByManagerRegistration(registration);
+            DepartmentResponseDTO response = departmentService.getDepartmentByManagerRegistration(registration);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
 
         }
 
