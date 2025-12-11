@@ -1,10 +1,14 @@
 package com.example.collab.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.collab.dto.request.DepartmentRequestDTO;
 import com.example.collab.dto.response.DepartmentResponseDTO;
 import com.example.collab.service.DepartmentService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/departments")
@@ -12,6 +16,7 @@ public class DepartmentController {
 
     private DepartmentService departmentService;
 
+    @Autowired
     public DepartmentController(DepartmentService departmentService) {
 
         this.departmentService = departmentService;
@@ -20,8 +25,12 @@ public class DepartmentController {
 
 
     @PostMapping
-    public void createDepartment(@RequestBody DepartmentRequestDTO body) {
-        // Logic to create a department
+    public ResponseEntity<DepartmentResponseDTO> createDepartment(@RequestBody @Valid DepartmentRequestDTO body) {
+
+        DepartmentResponseDTO response = departmentService.createDepartment(body);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
     }
 
     @GetMapping("/{id}")
