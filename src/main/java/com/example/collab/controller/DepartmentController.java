@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.collab.dto.request.DepartmentRequestDTO;
@@ -11,8 +12,10 @@ import com.example.collab.dto.response.DepartmentResponseDTO;
 import com.example.collab.service.DepartmentService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 
 @RestController
+@Validated
 @RequestMapping("/departments")
 public class DepartmentController {
 
@@ -46,6 +49,15 @@ public class DepartmentController {
     public ResponseEntity<DepartmentResponseDTO> getDepartmentByNumber(@PathVariable Integer number) {
         
         DepartmentResponseDTO response = departmentService.getDepartmentByNumber(number);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<DepartmentResponseDTO> getDepartmentByName(@PathVariable String name) {
+        
+        DepartmentResponseDTO response = departmentService.getDepartmentByName(name);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
         
