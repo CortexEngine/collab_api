@@ -74,6 +74,20 @@ public class DepartmentController {
         
     }
 
+    @GetMapping("/manager/{registration}")
+    public ResponseEntity<DepartmentResponseDTO> getDepartmentsByManager(
+        @PathVariable
+        @NotNull(message = "Manager registration must not be null")
+        @Positive(message = "Manager registration must be a positive integer")
+        @NotBlank(message = "Manager registration must not be blank")
+        Integer registration) {
+
+        DepartmentResponseDTO response = departmentService.getDepartmentByManagerRegistration(registration);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+        }
+
     @PutMapping("/{id}")
     public void updateDepartment(@PathVariable Integer id, @RequestBody DepartmentRequestDTO body) {
         // Logic to update a department
