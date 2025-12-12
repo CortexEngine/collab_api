@@ -101,6 +101,20 @@ public class DepartmentController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
 
         }
+    
+    @GetMapping("/team_member")
+    public ResponseEntity<List<DepartmentResponseDTO>> getDepartmentsByTeamMember(
+        @PathVariable
+        @NotNull(message = "Team member registration must not be null")
+        @Positive(message = "Team member registration must be a positive integer")
+        @NotBlank(message = "Team member registration must not be blank")
+        List<Integer> registration) {
+
+            List<DepartmentResponseDTO> response = departmentService.getDepartmentsByTeamMemberRegistration(registration);
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+
+        }
 
     @PutMapping("/{id}")
     public void updateDepartment(@PathVariable Integer id, @RequestBody DepartmentRequestDTO body) {
