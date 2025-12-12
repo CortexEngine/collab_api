@@ -104,13 +104,14 @@ public class DepartmentController {
     
     @GetMapping("/team_member")
     public ResponseEntity<List<DepartmentResponseDTO>> getDepartmentsByTeamMember(
-        @PathVariable
+        @ResquestParam
         @NotNull(message = "Team member registration must not be null")
         @Positive(message = "Team member registration must be a positive integer")
         @NotBlank(message = "Team member registration must not be blank")
-        List<Integer> registration) {
+        @Size(min = 1, message = "At least one team member registration must be provided")
+        List<Integer> registrations) {
 
-            List<DepartmentResponseDTO> response = departmentService.getDepartmentsByTeamMemberRegistration(registration);
+            List<DepartmentResponseDTO> response = departmentService.getDepartmentsByTeamMemberRegistration(registrations);
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
 
