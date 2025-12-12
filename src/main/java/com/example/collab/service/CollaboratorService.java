@@ -11,8 +11,8 @@ import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 import com.example.collab.exception.business.BadRequestException;
-import com.example.collab.exception.domain.InvalidCollaboratorException;
-import com.example.collab.exception.domain.NotFoundCollaboratorException;
+import com.example.collab.exception.business.InvalidCollaboratorException;
+import com.example.collab.exception.resource.NotFoundCollaboratorException;
 import com.example.collab.mapper.CollaboratorMapper;
 import com.example.collab.repository.CollaboratorRepository;
 import com.example.collab.service.validation.CollaboratorValidator;
@@ -52,6 +52,8 @@ public class CollaboratorService {
                 req.getPix());
 
         collaboratorValidator.validateNewCollaboratorData(req.getRegistration());
+
+        collaboratorValidator.validateCollaboratorManager(req.getRegistration());
 
         Collaborator collaborator = collaboratorMapper.toEntity(req);
 
@@ -109,21 +111,6 @@ public class CollaboratorService {
         if (collaborators.isEmpty()) {
 
             throw new NotFoundCollaboratorException("Name not found");
-
-        }
-
-        return collaborators.stream()
-                .map(collaborator -> collaboratorMapper.toResponse(collaborator))
-                .toList();
-    }
-
-    public List<CollaboratorResponseDTO> getCollaboratorByDepartment(String department) {
-
-        List<Collaborator> collaborators = collaboratorRepository.findByDepartment(department);
-
-        if (collaborators.isEmpty()) {
-
-            throw new NotFoundCollaboratorException("Department not found");
 
         }
 
@@ -194,6 +181,10 @@ public class CollaboratorService {
 
         Collaborator existingCollaborator = collaboratorRepository.findByRegistration(registration).orElseThrow(
                 () -> new BadRequestException("Collaborator not found with registration: " + registration));
+        
+        collaboratorValidator.validateNewCollaboratorData(req.getRegistration());
+
+        collaboratorValidator.validateCollaboratorManager(req.getRegistration());
 
         collaboratorMapper.updateEntity(existingCollaborator, req);
 

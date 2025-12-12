@@ -13,8 +13,6 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Long
 
     Optional<Collaborator> findByRegistration(Integer registration);
 
-    List<Collaborator> findByDepartment(String department);
-
     List<Collaborator> findByPosition(String position);
 
     List<Collaborator> findByContractType(String contractType);
@@ -44,5 +42,9 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Long
     Optional<Collaborator> findByEmail(String email);
 
     void deleteByRegistration(Integer registration);
+
+    Optional<Collaborator> findByRegistrationAndManager(Integer registration, boolean manager);
+
+    Optional<Collaborator> findByRegistrationAndSupportManager(Integer registration, boolean support_manager);
 
 }

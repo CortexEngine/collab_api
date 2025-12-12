@@ -48,7 +48,13 @@ public class CollaboratorRequestDTO {
     private String position;
 
     @Size(max = 120)
-    private String department;
+    private Integer department;
+
+    @NotNull
+    private boolean manager;
+    
+    @NotNull
+    private boolean supportManager;
 
     @PastOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")

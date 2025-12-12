@@ -2,11 +2,11 @@ package com.example.collab.exception.domain;
 
 import com.example.collab.exception.CollabApiException;
 
-public class InvalidDocumentException extends CollabApiException {
+public class ConflictException extends CollabApiException {
 
-    public InvalidDocumentException(String message) {
+    public ConflictException(String message) {
 
         super(message);
-
+        
     }
 }

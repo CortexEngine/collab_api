@@ -5,7 +5,7 @@ import lombok.Value;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-import com.example.collab.exception.domain.InvalidDocumentException;
+import com.example.collab.exception.business.InvalidDocumentException;
 
 @Value
 public class Email {

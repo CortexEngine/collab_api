@@ -1,10 +1,12 @@
 package com.example.collab.mapper;
 
 import org.mapstruct.*;
+
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
 import com.example.collab.domain.model.Collaborator;
+import com.example.collab.domain.model.Department;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 
@@ -14,7 +16,6 @@ public interface CollaboratorMapper {
     // Pega os dados do DTO e cria uma nova entidade
     @Mapping(target = "address", source = "address")
     @Mapping(target = "position", source = "position")
-    @Mapping(target = "department", source = "department")
     @Mapping(target = "admissionDate", source = "admissionDate")
     @Mapping(target = "contractType", source = "contractType")
     @Mapping(target = "salary", source = "salary")
@@ -39,12 +40,14 @@ public interface CollaboratorMapper {
     @Mapping(target = "CPF", source = "CPF", qualifiedByName = "toCPF")
     @Mapping(target = "RG", source = "RG", qualifiedByName = "toRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "toPhoneEmergency")
+    @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
+    @Mapping(target = "manager", source = "manager")
+    @Mapping(target = "supportManager", source = "supportManager")
     Collaborator toEntity(CollaboratorRequestDTO dto);
 
     // Pega os novos dados e atualiza a entidade existente
     @Mapping(target = "address", source = "address")
     @Mapping(target = "position", source = "position")
-    @Mapping(target = "department", source = "department")
     @Mapping(target = "admissionDate", source = "admissionDate")
     @Mapping(target = "contractType", source = "contractType")
     @Mapping(target = "salary", source = "salary")
@@ -69,13 +72,15 @@ public interface CollaboratorMapper {
     @Mapping(target = "CPF", source = "CPF", qualifiedByName = "toCPF")
     @Mapping(target = "RG", source = "RG", qualifiedByName = "toRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "toPhoneEmergency")
+    @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
+    @Mapping(target = "manager", source = "manager")
+    @Mapping(target = "supportManager", source = "supportManager")
     void updateEntity(@MappingTarget Collaborator collaborator, CollaboratorRequestDTO dto);
 
     // Pega a entidade e converte para o DTO de resposta
     @Mapping(target = "name", source = "name")
     @Mapping(target = "address", source = "address")
     @Mapping(target = "position", source = "position")
-    @Mapping(target = "department", source = "department")
     @Mapping(target = "admissionDate", source = "admissionDate")
     @Mapping(target = "contractType", source = "contractType")
     @Mapping(target = "salary", source = "salary")
@@ -100,6 +105,9 @@ public interface CollaboratorMapper {
     @Mapping(target = "CPF", source = "CPF", qualifiedByName = "fromCPF")
     @Mapping(target = "RG", source = "RG", qualifiedByName = "fromRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "fromPhoneEmergency")
+    @Mapping(target = "department", source = "department", qualifiedByName = "fromDepartment")
+    @Mapping(target = "manager", source = "manager")
+    @Mapping(target = "supportManager", source = "supportManager")
     CollaboratorResponseDTO toResponse(Collaborator collaborator);
 
     // Pega os dados e transforma em ValueObjects
@@ -201,6 +209,13 @@ public interface CollaboratorMapper {
 
     }
 
+    @Named("toDepartment")
+    default Department toDepartment(Integer value) {
+
+        return null;
+
+    }
+
     // pega os ValueObject's e transforma em String
     @Named("fromEmail")
     default String fromEmail(Email email) {
@@ -298,6 +313,13 @@ public interface CollaboratorMapper {
 
         return rg != null ? rg.getRg() : null;
         
+    }
+
+    @Named("fromDepartment")
+    default Integer fromDepartment(Department department) {
+
+        return department != null ? department.getNumber() : null;
+
     }
 
 }
