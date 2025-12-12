@@ -119,7 +119,7 @@ public class DepartmentService {
 
     }
 
-    public List<DepartmentResponseDTO> getDepartmentsByTeamMemberRegistration(Integer teamMemberRegistration){
+    public List<DepartmentResponseDTO> getDepartmentsByTeamMemberRegistration(List<Integer> teamMemberRegistration){
 
         List<Department> departments = departmentRepository.findByTeamMembersRegistrationContains(teamMemberRegistration);
 
