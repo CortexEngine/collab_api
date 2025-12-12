@@ -13,7 +13,7 @@ public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
     Optional<Department> findByName(String name);
 
-    Optional<Department> findByManagerRegistration(Integer managerRegistration);
+    List<Department> findByManagerRegistration(Integer managerRegistration);
 
     List<Department> findByManagerSupportRegistrationContains(Integer managerSupportRegistration);
 

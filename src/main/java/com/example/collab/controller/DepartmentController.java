@@ -75,14 +75,14 @@ public class DepartmentController {
     }
 
     @GetMapping("/manager/{registration}")
-    public ResponseEntity<DepartmentResponseDTO> getDepartmentsByManager(
+    public ResponseEntity<List<DepartmentResponseDTO>> getDepartmentsByManager(
         @PathVariable
         @NotNull(message = "Manager registration must not be null")
         @Positive(message = "Manager registration must be a positive integer")
         @NotBlank(message = "Manager registration must not be blank")
         Integer registration) {
 
-            DepartmentResponseDTO response = departmentService.getDepartmentByManagerRegistration(registration);
+            List<DepartmentResponseDTO> response = departmentService.getDepartmentsByManagerRegistration(registration);
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
 
