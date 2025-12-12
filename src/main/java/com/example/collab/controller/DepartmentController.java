@@ -117,9 +117,21 @@ public class DepartmentController {
 
         }
 
-    @PutMapping("/{id}")
-    public void updateDepartment(@PathVariable Integer id, @RequestBody DepartmentRequestDTO body) {
-        // Logic to update a department
+    @PutMapping("/{number}")
+    public ResponseEntity<DepartmentResponseDTO> updateDepartment(
+        @PathVariable
+        @NotNull(message = "Department number must not be null")
+        @Positive(message = "Department number must be a positive integer")
+        @NotBlank(message = "Department number must not be blank")
+        @Size(min = 1, message = "Department number must have at least 1 number")
+        @Size(max = 64, message = "Department number must have at most 64 numbers")
+        Integer number, 
+        @RequestBody @Valid DepartmentRequestDTO body) {
+
+        DepartmentResponseDTO response = departmentService.updateDepartment(number, body);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
     }
 
     @DeleteMapping("/{id}")
