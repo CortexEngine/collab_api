@@ -134,9 +134,20 @@ public class DepartmentController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteDepartment(@PathVariable Integer id) {
-        // Logic to delete a department
+    @DeleteMapping("/{number}")
+    public ResponseEntity<Integer> deleteDepartment(
+        @PathVariable
+        @NotNull(message = "Department number must not be null")
+        @Positive(message = "Department number must be a positive integer")
+        @NotBlank(message = "Department number must not be blank")
+        @Size(min = 1, message = "Department number must have at least 1 number")
+        @Size(max = 64, message = "Department number must have at most 64 numbers")
+        Integer number) {
+
+        Integer response = departmentService.deleteDepartmentByNumber(number);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(response);
+        
     }
 
 }
