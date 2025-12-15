@@ -4,12 +4,13 @@ import com.example.collab.domain.valueobject.contact.Email;
 import com.example.collab.domain.valueobject.contact.Phone;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.DisplayName;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 @DisplayName("Collaborator Entity Tests")
 class CollaboratorTest {
 

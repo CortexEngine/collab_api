@@ -1,6 +1,7 @@
 package com.example.collab.domain.model;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.DisplayName;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 @DisplayName("Department Entity Tests")
 class DepartmentTest {
 
