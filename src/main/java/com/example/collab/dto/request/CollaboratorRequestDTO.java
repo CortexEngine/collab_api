@@ -47,7 +47,6 @@ public class CollaboratorRequestDTO {
     @Size(max = 120)
     private String position;
 
-    @Size(max = 120)
     private Integer department;
 
     @NotNull
