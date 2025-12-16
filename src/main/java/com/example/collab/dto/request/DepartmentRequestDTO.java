@@ -23,7 +23,6 @@ public class DepartmentRequestDTO{
     private String name;
 
     @NotNull
-    @NotBlank
     private Integer number;
 
     @PastOrPresent
@@ -37,10 +36,8 @@ public class DepartmentRequestDTO{
     @Positive
     private Integer managerRegistration;
     
-    @Positive
     private List<Integer> managerSupportRegistration;
 
-    @Positive
     private List<Integer> teamMembersRegistration;
     
 }
