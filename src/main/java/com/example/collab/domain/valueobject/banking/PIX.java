@@ -54,7 +54,7 @@ public class PIX {
         }
 
         // Valida telefone
-        if (key.matches("\\+?\\d{1,3}\\d{10,11}")) {
+        if (key.matches("\\(\\d{2}\\)\\s?\\d{4,5}-\\d{4}") || key.matches("\\+\\d{1,3}\\s?\\d{2}\\s?\\d{4,5}-\\d{4}")) {
 
             return new Phone(key).getNumber() != null; // Reutiliza validação de telefone
 
