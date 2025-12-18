@@ -25,6 +25,7 @@ class DepartmentMapperTest {
 
     @BeforeEach
     void setUp() {
+
         departmentMapper = Mappers.getMapper(DepartmentMapper.class);
 
         // Setup request DTO
@@ -46,11 +47,13 @@ class DepartmentMapperTest {
         department.setManagerRegistration(1001);
         department.setManagerSupportRegistration(Arrays.asList(1002, 1003));
         department.setTeamMembersRegistration(Arrays.asList(2001, 2002, 2003));
+
     }
 
     @Test
     @DisplayName("Should map DepartmentRequestDTO to Department entity")
     void shouldMapRequestDTOToEntity() {
+
         // Act
         Department result = departmentMapper.toEntity(departmentRequestDTO);
 
@@ -65,11 +68,13 @@ class DepartmentMapperTest {
         assertEquals(3, result.getTeamMembersRegistration().size());
         assertTrue(result.getManagerSupportRegistration().contains(1002));
         assertTrue(result.getTeamMembersRegistration().contains(2001));
+
     }
 
     @Test
     @DisplayName("Should map Department entity to DepartmentResponseDTO")
     void shouldMapEntityToResponseDTO() {
+
         // Act
         DepartmentResponseDTO result = departmentMapper.toResponse(department);
 
@@ -82,11 +87,13 @@ class DepartmentMapperTest {
         assertEquals(1001, result.getManagerRegistration());
         assertEquals(2, result.getManagerSupportRegistration().size());
         assertEquals(3, result.getTeamMembersRegistration().size());
+
     }
 
     @Test
     @DisplayName("Should update existing Department entity from DepartmentRequestDTO")
     void shouldUpdateEntityFromRequestDTO() {
+        
         // Arrange
         Department existingDepartment = new Department();
         existingDepartment.setName("Old Name");
@@ -106,7 +113,6 @@ class DepartmentMapperTest {
 
         // Assert
         assertNotNull(existingDepartment);
-    //  assertEquals(1L, existingDepartment.getId()); // ID should not change
         assertEquals("Updated Engineering", existingDepartment.getName());
         assertEquals(102, existingDepartment.getNumber());
         assertEquals(LocalDate.of(2024, 6, 1), existingDepartment.getInitialDate());
@@ -114,11 +120,13 @@ class DepartmentMapperTest {
         assertEquals(2001, existingDepartment.getManagerRegistration());
         assertEquals(1, existingDepartment.getManagerSupportRegistration().size());
         assertEquals(2, existingDepartment.getTeamMembersRegistration().size());
+
     }
 
     @Test
     @DisplayName("Should handle null values in DepartmentRequestDTO")
     void shouldHandleNullValuesInRequestDTO() {
+
         // Arrange
         DepartmentRequestDTO nullDTO = new DepartmentRequestDTO();
         nullDTO.setName("Test Department");
@@ -135,31 +143,37 @@ class DepartmentMapperTest {
         assertNull(result.getInitialDate());
         assertNull(result.getEndDate());
         assertNull(result.getManagerRegistration());
+
     }
 
     @Test
     @DisplayName("Should handle null Department entity")
     void shouldHandleNullEntity() {
+
         // Act
         DepartmentResponseDTO result = departmentMapper.toResponse(null);
 
         // Assert
         assertNull(result);
+
     }
 
     @Test
     @DisplayName("Should handle null DepartmentRequestDTO")
     void shouldHandleNullRequestDTO() {
+
         // Act
         Department result = departmentMapper.toEntity(null);
 
         // Assert
         assertNull(result);
+
     }
 
     @Test
     @DisplayName("Should map empty lists correctly")
     void shouldMapEmptyListsCorrectly() {
+
         // Arrange
         DepartmentRequestDTO emptyListDTO = new DepartmentRequestDTO();
         emptyListDTO.setName("Empty Lists Department");
@@ -175,11 +189,13 @@ class DepartmentMapperTest {
         assertEquals("Empty Lists Department", result.getName());
         assertTrue(result.getManagerSupportRegistration().isEmpty());
         assertTrue(result.getTeamMembersRegistration().isEmpty());
+
     }
 
     @Test
     @DisplayName("Should preserve list order when mapping")
     void shouldPreserveListOrderWhenMapping() {
+
         // Arrange
         List<Integer> orderedSupport = Arrays.asList(5001, 5002, 5003);
         List<Integer> orderedMembers = Arrays.asList(6001, 6002, 6003, 6004);
@@ -196,11 +212,13 @@ class DepartmentMapperTest {
         assertEquals(5003, result.getManagerSupportRegistration().get(2));
         assertEquals(6001, result.getTeamMembersRegistration().get(0));
         assertEquals(6004, result.getTeamMembersRegistration().get(3));
+
     }
 
     @Test
     @DisplayName("Should map dates correctly")
     void shouldMapDatesCorrectly() {
+
         // Arrange
         LocalDate specificInitialDate = LocalDate.of(2023, 3, 15);
         LocalDate specificEndDate = LocalDate.of(2024, 9, 30);
@@ -214,20 +232,6 @@ class DepartmentMapperTest {
         // Assert
         assertEquals(specificInitialDate, result.getInitialDate());
         assertEquals(specificEndDate, result.getEndDate());
+
     }
-
-  /*   @Test
-    @DisplayName("Should not modify ID when updating entity")
-    void shouldNotModifyIdWhenUpdatingEntity() {
-        // Arrange
-        Long originalId = 999L;
-        Department existingDepartment = new Department();
-        existingDepartment.setName("Original Name");
-
-        // Act
-        departmentMapper.updateEntity(existingDepartment, departmentRequestDTO);
-
-        // Assert
-        assertEquals(originalId, existingDepartment.getId());
-    } */
 }
