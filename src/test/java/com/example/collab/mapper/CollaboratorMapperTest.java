@@ -175,7 +175,6 @@ class CollaboratorMapperTest {
 
         // Assert
         assertNotNull(existingCollaborator);
-     // assertEquals(1L, existingCollaborator.getId()); // ID should not change
         assertEquals(12345, existingCollaborator.getRegistration());
         assertEquals(6000.0, existingCollaborator.getSalary());
         assertEquals("Senior Engineer", existingCollaborator.getPosition());
@@ -365,6 +364,6 @@ class CollaboratorMapperTest {
         assertEquals(collaborator.getSalary(), result.getSalary());
         assertEquals(collaborator.getAddress(), result.getAddress());
         assertEquals(collaborator.getWorkload(), result.getWorkload());
-        
+
     }
 }
