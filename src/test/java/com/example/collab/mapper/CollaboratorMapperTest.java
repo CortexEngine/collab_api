@@ -23,6 +23,7 @@ class CollaboratorMapperTest {
 
     @BeforeEach
     void setUp() {
+
         collaboratorMapper = Mappers.getMapper(CollaboratorMapper.class);
 
         // Setup request DTO
@@ -81,11 +82,13 @@ class CollaboratorMapperTest {
         collaborator.setEducation("Bachelor's Degree");
         collaborator.setCourse("Computer Science");
         collaborator.setObservations("Excellent employee");
+
     }
 
     @Test
     @DisplayName("Should map CollaboratorRequestDTO to Collaborator entity")
     void shouldMapRequestDTOToEntity() {
+
         // Act
         Collaborator result = collaboratorMapper.toEntity(collaboratorRequestDTO);
 
@@ -104,11 +107,13 @@ class CollaboratorMapperTest {
         assertEquals("40h", result.getWorkload());
         assertFalse(result.isManager());
         assertFalse(result.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should map Collaborator entity to CollaboratorResponseDTO")
     void shouldMapEntityToResponseDTO() {
+
         // Act
         CollaboratorResponseDTO result = collaboratorMapper.toResponse(collaborator);
 
@@ -127,11 +132,13 @@ class CollaboratorMapperTest {
         assertEquals("40h", result.getWorkload());
         assertFalse(result.isManager());
         assertFalse(result.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should update existing Collaborator entity from CollaboratorRequestDTO")
     void shouldUpdateEntityFromRequestDTO() {
+
         // Arrange
         Collaborator existingCollaborator = new Collaborator();
         existingCollaborator.setName("Old Name");
@@ -174,11 +181,13 @@ class CollaboratorMapperTest {
         assertEquals("Senior Engineer", existingCollaborator.getPosition());
         assertTrue(existingCollaborator.isManager());
         assertFalse(existingCollaborator.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should handle null values in CollaboratorRequestDTO")
     void shouldHandleNullValuesInRequestDTO() {
+
         // Arrange
         CollaboratorRequestDTO nullDTO = new CollaboratorRequestDTO();
         nullDTO.setName("Test Collaborator");
@@ -195,31 +204,37 @@ class CollaboratorMapperTest {
         assertEquals(54321, result.getRegistration());
         assertFalse(result.isManager());
         assertFalse(result.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should handle null Collaborator entity")
     void shouldHandleNullEntity() {
+
         // Act
         CollaboratorResponseDTO result = collaboratorMapper.toResponse(null);
 
         // Assert
         assertNull(result);
+
     }
 
     @Test
     @DisplayName("Should handle null CollaboratorRequestDTO")
     void shouldHandleNullRequestDTO() {
+
         // Act
         Collaborator result = collaboratorMapper.toEntity(null);
 
         // Assert
         assertNull(result);
+
     }
 
     @Test
     @DisplayName("Should map manager flag correctly")
     void shouldMapManagerFlagCorrectly() {
+
         // Arrange
         collaboratorRequestDTO.setManager(true);
         collaboratorRequestDTO.setSupportManager(false);
@@ -230,11 +245,13 @@ class CollaboratorMapperTest {
         // Assert
         assertTrue(result.isManager());
         assertFalse(result.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should map support manager flag correctly")
     void shouldMapSupportManagerFlagCorrectly() {
+
         // Arrange
         collaboratorRequestDTO.setManager(false);
         collaboratorRequestDTO.setSupportManager(true);
@@ -245,11 +262,13 @@ class CollaboratorMapperTest {
         // Assert
         assertFalse(result.isManager());
         assertTrue(result.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should map both manager flags as true")
     void shouldMapBothManagerFlagsAsTrue() {
+
         // Arrange
         collaboratorRequestDTO.setManager(true);
         collaboratorRequestDTO.setSupportManager(true);
@@ -260,11 +279,13 @@ class CollaboratorMapperTest {
         // Assert
         assertTrue(result.isManager());
         assertTrue(result.isSupportManager());
+
     }
 
     @Test
     @DisplayName("Should map dates correctly")
     void shouldMapDatesCorrectly() {
+
         // Arrange
         LocalDate specificBirthDate = LocalDate.of(1985, 3, 20);
         LocalDate specificAdmissionDate = LocalDate.of(2020, 6, 15);
@@ -278,26 +299,13 @@ class CollaboratorMapperTest {
         // Assert
         assertEquals(specificBirthDate, result.getBirthDate());
         assertEquals(specificAdmissionDate, result.getAdmissionDate());
+
     }
-
-    /*@Test
-    @DisplayName("Should not modify ID when updating entity")
-    void shouldNotModifyIdWhenUpdatingEntity() {
-        // Arrange
-        Long originalId = 999L;
-        Collaborator existingCollaborator = new Collaborator();
-        existingCollaborator.setName("Original Name");
-
-        // Act
-        collaboratorMapper.updateEntity(existingCollaborator, collaboratorRequestDTO);
-
-        // Assert
-        assertEquals(originalId, existingCollaborator.getId());
-    } */
 
     @Test
     @DisplayName("Should map personal information correctly")
     void shouldMapPersonalInformationCorrectly() {
+
         // Act
         Collaborator result = collaboratorMapper.toEntity(collaboratorRequestDTO);
 
@@ -306,11 +314,13 @@ class CollaboratorMapperTest {
         assertEquals(LocalDate.of(1990, 5, 15), result.getBirthDate());
         assertEquals("Single", result.getMaritalStatus());
         assertEquals("Brazilian", result.getNationality());
+
     }
 
     @Test
     @DisplayName("Should map professional information correctly")
     void shouldMapProfessionalInformationCorrectly() {
+
         // Act
         Collaborator result = collaboratorMapper.toEntity(collaboratorRequestDTO);
 
@@ -321,11 +331,13 @@ class CollaboratorMapperTest {
         assertEquals(5000.0, result.getSalary());
         assertEquals(12345, result.getRegistration());
         assertEquals("40h", result.getWorkload());
+
     }
 
     @Test
     @DisplayName("Should map additional information correctly")
     void shouldMapAdditionalInformationCorrectly() {
+
         // Act
         Collaborator result = collaboratorMapper.toEntity(collaboratorRequestDTO);
 
@@ -335,11 +347,13 @@ class CollaboratorMapperTest {
         assertEquals("Bachelor's Degree", result.getEducation());
         assertEquals("Computer Science", result.getCourse());
         assertEquals("Excellent employee", result.getObservations());
+
     }
 
     @Test
     @DisplayName("Should preserve all field values when mapping to response")
     void shouldPreserveAllFieldValuesWhenMappingToResponse() {
+
         // Act
         CollaboratorResponseDTO result = collaboratorMapper.toResponse(collaborator);
 
@@ -351,5 +365,6 @@ class CollaboratorMapperTest {
         assertEquals(collaborator.getSalary(), result.getSalary());
         assertEquals(collaborator.getAddress(), result.getAddress());
         assertEquals(collaborator.getWorkload(), result.getWorkload());
+        
     }
 }
