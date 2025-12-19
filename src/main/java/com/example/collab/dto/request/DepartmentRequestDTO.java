@@ -23,6 +23,7 @@ public class DepartmentRequestDTO{
     private String name;
 
     @NotNull
+    @Positive
     private Integer number;
 
     @PastOrPresent
