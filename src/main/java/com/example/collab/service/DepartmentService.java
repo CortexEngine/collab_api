@@ -125,7 +125,7 @@ public class DepartmentService {
 
     public List<DepartmentResponseDTO> getDepartmentsByTeamMemberRegistration(List<Integer> teamMemberRegistration){
 
-        List<Department> departments = departmentRepository.findByTeamMembersRegistrationContains(teamMemberRegistration);
+        List<Department> departments = departmentRepository.findByTeamMembersRegistrationIn(teamMemberRegistration);
 
         if(departments.isEmpty()){
 
