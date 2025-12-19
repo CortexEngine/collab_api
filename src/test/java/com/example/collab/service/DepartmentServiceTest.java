@@ -278,7 +278,7 @@ class DepartmentServiceTest {
         // Arrange
         List<Integer> registrations = Arrays.asList(2001, 2002);
         List<Department> departments = Arrays.asList(department);
-        when(departmentRepository.findByTeamMembersRegistrationContains(registrations)).thenReturn(departments);
+        when(departmentRepository.findByTeamMembersRegistrationIn(registrations)).thenReturn(departments);
         when(departmentMapper.toResponse(any(Department.class))).thenReturn(departmentResponseDTO);
 
         // Act
@@ -287,7 +287,7 @@ class DepartmentServiceTest {
         // Assert
         assertNotNull(result);
         assertEquals(1, result.size());
-        verify(departmentRepository).findByTeamMembersRegistrationContains(registrations);
+        verify(departmentRepository).findByTeamMembersRegistrationIn(registrations);
 
     }
 
