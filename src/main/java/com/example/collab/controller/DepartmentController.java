@@ -50,7 +50,6 @@ public class DepartmentController {
         @PathVariable
         @NotNull(message = "Department number must not be null")
         @Positive(message = "Department number must be a positive integer")
-        @NotBlank(message = "Department number must not be blank")
         Integer number) {
         
             DepartmentResponseDTO response = departmentService.getDepartmentByNumber(number);
@@ -79,7 +78,6 @@ public class DepartmentController {
         @PathVariable
         @NotNull(message = "Manager registration must not be null")
         @Positive(message = "Manager registration must be a positive integer")
-        @NotBlank(message = "Manager registration must not be blank")
         Integer registration) {
 
             List<DepartmentResponseDTO> response = departmentService.getDepartmentsByManagerRegistration(registration);
@@ -93,7 +91,6 @@ public class DepartmentController {
         @PathVariable
         @NotNull(message = "Support manager registration must not be null")
         @Positive(message = "Support manager registration must be a positive integer")
-        @NotBlank(message = "Support manager registration must not be blank")
         Integer registration) {
 
             List<DepartmentResponseDTO> response = departmentService.getDepartmentsBySupportManagerRegistration(registration);
@@ -104,10 +101,8 @@ public class DepartmentController {
     
     @GetMapping("/team_member")
     public ResponseEntity<List<DepartmentResponseDTO>> getDepartmentsByTeamMember(
-        @ResquestParam
+        @RequestParam
         @NotNull(message = "Team member registration must not be null")
-        @Positive(message = "Team member registration must be a positive integer")
-        @NotBlank(message = "Team member registration must not be blank")
         @Size(min = 1, message = "At least one team member registration must be provided")
         List<Integer> registrations) {
 
@@ -122,9 +117,6 @@ public class DepartmentController {
         @PathVariable
         @NotNull(message = "Department number must not be null")
         @Positive(message = "Department number must be a positive integer")
-        @NotBlank(message = "Department number must not be blank")
-        @Size(min = 1, message = "Department number must have at least 1 number")
-        @Size(max = 64, message = "Department number must have at most 64 numbers")
         Integer number, 
         @RequestBody @Valid DepartmentRequestDTO body) {
 
@@ -137,11 +129,6 @@ public class DepartmentController {
     @DeleteMapping("/{number}")
     public ResponseEntity<Integer> deleteDepartment(
         @PathVariable
-        @NotNull(message = "Department number must not be null")
-        @Positive(message = "Department number must be a positive integer")
-        @NotBlank(message = "Department number must not be blank")
-        @Size(min = 1, message = "Department number must have at least 1 number")
-        @Size(max = 64, message = "Department number must have at most 64 numbers")
         Integer number) {
 
         Integer response = departmentService.deleteDepartmentByNumber(number);

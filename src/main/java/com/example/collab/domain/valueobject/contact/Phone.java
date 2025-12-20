@@ -29,21 +29,26 @@ public class Phone {
 
     private boolean isValidPhone(String number) {
 
-        // Valida formato nacional: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
-        if (number.matches("\\(\\d{2}\\) \\d{4,5}-\\d{4}")) {
-
+        // Formato nacional com 9 dígitos (celular): (XX) 9XXXX-XXXX
+        if (number.matches("\\(\\d{2}\\)\\s?9\\d{4}-\\d{4}")) {
             return true;
-
         }
 
-        // Valida formato internacional: +55 XX XXXXX-XXXX
-        if (number.matches("\\+\\d{1,3} \\d{2} \\d{4,5}-\\d{4}")) {
-
+        // Formato nacional com 8 dígitos (fixo): (XX) XXXX-XXXX
+        if (number.matches("\\(\\d{2}\\)\\s?[2-5]\\d{3}-\\d{4}")) {
             return true;
+        }
 
+        // Formato internacional com 9 dígitos: +55 XX 9XXXX-XXXX
+        if (number.matches("\\+\\d{1,3}\\s?\\d{2}\\s?9\\d{4}-\\d{4}")) {
+            return true;
+        }
+
+        // Formato internacional com 8 dígitos: +55 XX XXXX-XXXX
+        if (number.matches("\\+\\d{1,3}\\s?\\d{2}\\s?[2-5]\\d{3}-\\d{4}")) {
+            return true;
         }
 
         return false;
-
     }
 }

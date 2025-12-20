@@ -4,13 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import lombok.Data;
 
@@ -47,7 +41,6 @@ public class CollaboratorRequestDTO {
     @Size(max = 120)
     private String position;
 
-    @Size(max = 120)
     private Integer department;
 
     @NotNull
@@ -56,7 +49,7 @@ public class CollaboratorRequestDTO {
     @NotNull
     private boolean supportManager;
 
-    @PastOrPresent
+    @FutureOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate admissionDate;
 
