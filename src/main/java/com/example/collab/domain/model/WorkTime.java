@@ -1,6 +1,5 @@
 package com.example.collab.domain.model;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 import jakarta.persistence.*;
@@ -21,11 +20,7 @@ public class WorkTime {
 
   @Getter
   @Setter
-  private LocalDate startDate;
-
-  @Getter
-  @Setter
-  private LocalDate endDate;
+  private boolean isActive;
 
   @Getter
   private LocalTime initialTime;
