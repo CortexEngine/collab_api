@@ -24,5 +24,9 @@ public class WorkSchedule {
   @Setter
   private Integer restDaysPerWeek;
 
+  @Getter
+  @Setter
+  private boolean isActive;
+
 }
 
