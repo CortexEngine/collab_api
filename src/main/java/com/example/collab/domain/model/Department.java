@@ -45,13 +45,11 @@ public class Department {
 
     @Getter
     @Setter
-    @Audited
     @ElementCollection
     private List<Integer> managerSupportRegistration;
 
     @Getter
     @Setter
-    @Audited
     @ElementCollection
     private List<Integer> teamMembersRegistration;
 
