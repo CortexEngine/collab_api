@@ -2,6 +2,8 @@ package com.example.collab.domain.model;
 
 import java.time.LocalDate;
 
+import org.hibernate.envers.Audited;
+
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Audited
 @AllArgsConstructor
 @NoArgsConstructor
 public class Collaborator {
@@ -88,7 +91,10 @@ public class Collaborator {
 
     @Getter
     @Setter
-    private String workload;
+    @ManyToOne
+    @ElementCollection
+    @JoinColumn(name = "work_schedule_id", referencedColumnName = "id")
+    private WorkSchedule workSchedule;
 
     @Getter
     @Setter
