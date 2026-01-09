@@ -7,6 +7,7 @@ import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
 import com.example.collab.domain.model.Collaborator;
 import com.example.collab.domain.model.Department;
+import com.example.collab.domain.model.WorkSchedule;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 
@@ -20,7 +21,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "contractType", source = "contractType")
     @Mapping(target = "salary", source = "salary")
     @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workload", source = "workload")
+    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
     @Mapping(target = "emergencyContact", source = "emergencyContact")
     @Mapping(target = "education", source = "education")
     @Mapping(target = "course", source = "course")
@@ -52,7 +53,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "contractType", source = "contractType")
     @Mapping(target = "salary", source = "salary")
     @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workload", source = "workload")
+    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
     @Mapping(target = "emergencyContact", source = "emergencyContact")
     @Mapping(target = "education", source = "education")
     @Mapping(target = "course", source = "course")
@@ -85,7 +86,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "contractType", source = "contractType")
     @Mapping(target = "salary", source = "salary")
     @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workload", source = "workload")
+    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "fromWorkSchedule")
     @Mapping(target = "emergencyContact", source = "emergencyContact")
     @Mapping(target = "education", source = "education")
     @Mapping(target = "course", source = "course")
@@ -216,6 +217,13 @@ public interface CollaboratorMapper {
 
     }
 
+    @Named("toWorkSchedule")
+    default WorkSchedule toWorkSchedule(Long value) {
+
+        return null;
+
+    }
+
     // pega os ValueObject's e transforma em String
     @Named("fromEmail")
     default String fromEmail(Email email) {
@@ -320,6 +328,12 @@ public interface CollaboratorMapper {
 
         return department != null ? department.getNumber() : null;
 
+    }
+
+    @Named("fromWorkSchedule")
+    default Long fromWorkSchedule(WorkSchedule workSchedule) {
+
+        return workSchedule != null ? workSchedule.getId() : null;
     }
 
 }
