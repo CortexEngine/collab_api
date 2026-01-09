@@ -63,7 +63,7 @@ public class CollaboratorRequestDTO {
     private Integer registration;
 
     @Size(max = 20)
-    private String workload;
+    private Integer workSchedule;
 
     // Bancárias
     @NotNull
