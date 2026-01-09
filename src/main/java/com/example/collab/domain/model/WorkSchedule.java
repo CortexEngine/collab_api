@@ -1,9 +1,12 @@
 package com.example.collab.domain.model;
 
+import org.hibernate.envers.Audited;
+
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Audited
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkSchedule {
