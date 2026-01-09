@@ -9,6 +9,7 @@ import lombok.*;
 public class WorkSchedule {
 
   @Id
+  @Getter
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
