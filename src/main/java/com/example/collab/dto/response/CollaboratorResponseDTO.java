@@ -38,7 +38,7 @@ public class CollaboratorResponseDTO {
     private String contractType;
     private Double salary; 
     private Integer registration;
-    private String workload;
+    private Integer workSchedule;
 
     // Bancárias 
     private String bank;
