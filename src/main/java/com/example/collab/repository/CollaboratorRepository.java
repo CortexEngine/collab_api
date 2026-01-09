@@ -17,8 +17,6 @@ public interface CollaboratorRepository extends JpaRepository<Collaborator, Long
 
     List<Collaborator> findByContractType(String contractType);
 
-    Optional<Collaborator> findByWorkload(String workload);
-
     Optional<Collaborator> findByCPF(CPF CPF);
 
     Optional<Collaborator> findByRG(RG RG);
