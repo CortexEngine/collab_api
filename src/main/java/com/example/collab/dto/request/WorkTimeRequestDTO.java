@@ -2,6 +2,8 @@ package com.example.collab.dto.request;
 
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,18 +19,22 @@ public class WorkTimeRequestDTO {
 
   @NotBlank
   @NotNull
+  @JsonFormat(pattern="HH:mm:ss")
   private LocalTime initialTime;
 
   @NotBlank
   @NotNull
+  @JsonFormat(pattern="HH:mm:ss")
   private LocalTime endTime;
 
   @NotBlank
   @NotNull
+  @JsonFormat(pattern="HH:mm:ss")
   private LocalTime initialBreakTime;
 
   @NotBlank
   @NotNull
+  @JsonFormat(pattern="HH:mm:ss")
   private LocalTime endBreakTime;
 
   @NotBlank
