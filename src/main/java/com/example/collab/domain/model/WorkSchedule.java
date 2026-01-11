@@ -21,7 +21,7 @@ public class WorkSchedule {
 
   private Integer restDaysPerWeek;
 
-  private boolean isActive;
+  private Boolean isActive;
 
   public WorkSchedule(Long id) {
 

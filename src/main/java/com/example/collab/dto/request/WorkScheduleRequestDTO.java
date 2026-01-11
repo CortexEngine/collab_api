@@ -21,6 +21,6 @@ public record WorkScheduleRequestDTO(
   Integer restDaysPerWeek,
 
   @NotNull
-  boolean isActive
+  Boolean isActive
 
 ) {};
