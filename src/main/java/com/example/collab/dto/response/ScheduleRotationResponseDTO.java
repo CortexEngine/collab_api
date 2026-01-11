@@ -6,6 +6,8 @@ public record ScheduleRotationResponseDTO (
 
   Integer workTime,
 
-  Integer dayOfWeek
+  Integer dayIndex,
+
+  Boolean workday
 
 ) {};
