@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.*;
 
-
 public record CollaboratorRequestDTO(
 
     @NotBlank
