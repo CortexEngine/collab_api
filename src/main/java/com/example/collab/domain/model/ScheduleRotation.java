@@ -22,7 +22,7 @@ public class ScheduleRotation {
 
   private Integer dayIndex;
 
-  private boolean workday;
+  private Boolean workday;
 
 }
 

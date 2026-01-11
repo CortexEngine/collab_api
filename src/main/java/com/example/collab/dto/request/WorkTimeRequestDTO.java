@@ -13,7 +13,7 @@ public record WorkTimeRequestDTO(
   String description,
 
   @NotNull
-  boolean isActive,
+  Boolean isActive,
 
   @NotNull
   @JsonFormat(pattern="HH:mm:ss")
@@ -32,10 +32,9 @@ public record WorkTimeRequestDTO(
   LocalTime endBreakTime,
 
   @NotNull
-  boolean requiresPunch,
+  Boolean requiresPunch,
 
   @NotNull
-  boolean autoGeneratePunches
-
+  Boolean autoGeneratePunches
 
 ) {};

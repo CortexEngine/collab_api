@@ -16,7 +16,7 @@ public class WorkTime {
 
   private String description;
 
-  private boolean isActive;
+  private Boolean isActive;
 
   @Setter(AccessLevel.NONE)
   private LocalTime initialTime;
@@ -28,9 +28,9 @@ public class WorkTime {
 
   private LocalTime endBreakTime;
 
-  private boolean requiresPunch;
+  private Boolean requiresPunch;
 
-  private boolean autoGeneratePunches;
+  private Boolean autoGeneratePunches;
 
   public WorkTime(Long id) {
 

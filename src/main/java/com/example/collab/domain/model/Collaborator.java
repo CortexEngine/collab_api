@@ -54,9 +54,9 @@ public class Collaborator {
     @JoinColumn(name = "work_schedule_id", referencedColumnName = "id")
     private WorkSchedule workSchedule;
 
-    private boolean manager;
+    private Boolean manager;
 
-    private boolean supportManager;
+    private Boolean supportManager;
 
     private Bank bank;
 

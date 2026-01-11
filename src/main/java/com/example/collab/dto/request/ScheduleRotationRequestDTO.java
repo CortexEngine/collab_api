@@ -21,6 +21,6 @@ public record ScheduleRotationRequestDTO(
   Integer dayIndex,
 
   @NotNull
-  boolean workday
+  Boolean workday
 
 ) {};

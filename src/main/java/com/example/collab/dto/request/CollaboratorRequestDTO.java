@@ -38,10 +38,10 @@ public record CollaboratorRequestDTO(
     Integer department,
 
     @NotNull
-    boolean manager,
+    Boolean manager,
     
     @NotNull
-    boolean supportManager,
+    Boolean supportManager,
 
     @FutureOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")
