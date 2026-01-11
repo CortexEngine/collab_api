@@ -6,42 +6,30 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class WorkTime {
 
   @Id
+  @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Getter
-  @Setter
   private String description;
 
-  @Getter
-  @Setter
   private boolean isActive;
 
-  @Getter
+  @Setter(AccessLevel.NONE)
   private LocalTime initialTime;
 
-  @Getter
+  @Setter(AccessLevel.NONE)
   private LocalTime endTime;
 
-  @Getter
-  @Setter
   private LocalTime initialBreakTime;
 
-  @Getter
-  @Setter
   private LocalTime endBreakTime;
 
-  @Getter
-  @Setter
   private boolean requiresPunch;
 
-  @Getter
-  @Setter
   private boolean autoGeneratePunches;
 
 }

@@ -7,29 +7,20 @@ import lombok.*;
 
 @Entity
 @Audited
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class WorkSchedule {
 
   @Id
-  @Getter
+  @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Getter
-  @Setter
   private String description;
 
-  @Getter
-  @Setter
   private Integer workDaysPerWeek;
 
-  @Getter
-  @Setter
   private Integer restDaysPerWeek;
 
-  @Getter
-  @Setter
   private boolean isActive;
 
 }

@@ -8,6 +8,7 @@ import lombok.*;
 public class ScheduleRotation {
 
   @Id
+  @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
