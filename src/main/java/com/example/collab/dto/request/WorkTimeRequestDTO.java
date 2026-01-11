@@ -6,46 +6,43 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
-@Data
-public class WorkTimeRequestDTO {
+public record WorkTimeRequestDTO(
 
   @NotBlank
   @NotNull
-  private String description;
+  String description,
 
   @NotNull
   @NotBlank
-  private boolean isActive;
+  boolean isActive,
 
   @NotBlank
   @NotNull
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime initialTime;
+  LocalTime initialTime,
 
   @NotBlank
   @NotNull
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime endTime;
+  LocalTime endTime,
 
   @NotBlank
   @NotNull
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime initialBreakTime;
+  LocalTime initialBreakTime,
 
   @NotBlank
   @NotNull
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime endBreakTime;
+  LocalTime endBreakTime,
 
   @NotBlank
   @NotNull
-  private boolean requiresPunch;
+  boolean requiresPunch,
 
   @NotBlank
   @NotNull
-  private boolean autoGeneratePunches;
+  boolean autoGeneratePunches
 
 
-}
+) {};

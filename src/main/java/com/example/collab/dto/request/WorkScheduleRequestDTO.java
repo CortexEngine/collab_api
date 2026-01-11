@@ -4,29 +4,26 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
-@Data
-public class WorkScheduleRequestDTO {
+public record WorkScheduleRequestDTO(
 
   @NotBlank
   @NotNull
-  private String description;
+  String description,
 
   @NotNull
   @NotBlank
   @Min(1)
   @Max(7)
-  private Integer workDaysPerWeek;
+  Integer workDaysPerWeek,
 
   @NotNull
   @NotBlank
   @Min(1)
   @Max(7)
-  private Integer restDaysPerWeek;
+  Integer restDaysPerWeek,
 
   @NotNull
   @NotBlank
-  private boolean isActive;
+  boolean isActive
 
-}
+) {};
