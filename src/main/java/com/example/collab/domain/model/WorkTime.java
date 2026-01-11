@@ -32,5 +32,11 @@ public class WorkTime {
 
   private boolean autoGeneratePunches;
 
+  public WorkTime(Long id) {
+
+    this.id = id;
+    
+  }
+
 }
 
