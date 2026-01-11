@@ -1,16 +1,13 @@
 package com.example.collab.dto.response;
 
-import lombok.Data;
+public record WorkScheduleResponseDTO (
 
-@Data
-public class WorkScheduleResponseDTO {
+  String description,
 
-  private String description;
+  Integer workDaysPerWeek,
 
-  private Integer workDaysPerWeek;
+  Integer restDaysPerWeek,
 
-  private Integer restDaysPerWeek;
+  Boolean isActive
 
-  private boolean isActive;
-
-}
+) {};

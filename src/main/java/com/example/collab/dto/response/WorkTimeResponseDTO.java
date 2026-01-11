@@ -4,29 +4,26 @@ import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
+public record WorkTimeResponseDTO (
 
-@Data
-public class WorkTimeResponseDTO {
+  String description,
 
-  private String description;
-
-  private boolean isActive;
+  Boolean isActive,
 
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime initialTime;
+  LocalTime initialTime,
 
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime endTime;
+  LocalTime endTime,
 
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime initialBreakTime;
+  LocalTime initialBreakTime,
 
   @JsonFormat(pattern="HH:mm:ss")
-  private LocalTime endBreakTime;
+  LocalTime endBreakTime,
 
-  private boolean requiresPunch;
+  boolean requiresPunch,
 
-  private boolean autoGeneratePunches;
+  boolean autoGeneratePunches
 
-}
+) {};
