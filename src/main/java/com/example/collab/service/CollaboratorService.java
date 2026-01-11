@@ -40,20 +40,20 @@ public class CollaboratorService {
     public CollaboratorResponseDTO createCollaborator(CollaboratorRequestDTO req) {
 
         collaboratorValidator.validateNewCollaboratorDocuments(
-                req.getCPF(),
-                req.getRG(),
-                req.getCNH(),
-                req.getPIS(),
-                req.getWorkWallet(),
-                req.getVoterRegistration());
+                req.CPF(),
+                req.RG(),
+                req.CNH(),
+                req.PIS(),
+                req.workWallet(),
+                req.voterRegistration());
 
         collaboratorValidator.validateNewCollaboratorBank(
-                req.getAccount(),
-                req.getPix());
+                req.account(),
+                req.pix());
 
-        collaboratorValidator.validateNewCollaboratorData(req.getRegistration());
+        collaboratorValidator.validateNewCollaboratorData(req.registration());
 
-        collaboratorValidator.validateCollaboratorManager(req.getRegistration());
+        collaboratorValidator.validateCollaboratorManager(req.registration());
 
         Collaborator collaborator = collaboratorMapper.toEntity(req);
 
@@ -182,9 +182,9 @@ public class CollaboratorService {
         Collaborator existingCollaborator = collaboratorRepository.findByRegistration(registration).orElseThrow(
                 () -> new BadRequestException("Collaborator not found with registration: " + registration));
         
-        collaboratorValidator.validateNewCollaboratorData(req.getRegistration());
+        collaboratorValidator.validateNewCollaboratorData(req.registration());
 
-        collaboratorValidator.validateCollaboratorManager(req.getRegistration());
+        collaboratorValidator.validateCollaboratorManager(req.registration());
 
         collaboratorMapper.updateEntity(existingCollaborator, req);
 
