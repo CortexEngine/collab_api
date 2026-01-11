@@ -18,6 +18,9 @@ public record ScheduleRotationRequestDTO(
   @NotNull
   @Min(1)
   @Max(7)
-  Integer dayOfWeek
+  Integer dayIndex,
+
+  @NotNull
+  boolean workday
 
 ) {};
