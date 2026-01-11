@@ -11,19 +11,16 @@ public record WorkScheduleRequestDTO(
   String description,
 
   @NotNull
-  @NotBlank
   @Min(1)
   @Max(7)
   Integer workDaysPerWeek,
 
   @NotNull
-  @NotBlank
   @Min(1)
   @Max(7)
   Integer restDaysPerWeek,
 
   @NotNull
-  @NotBlank
   boolean isActive
 
 ) {};
