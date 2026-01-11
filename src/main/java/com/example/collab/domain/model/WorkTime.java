@@ -18,10 +18,8 @@ public class WorkTime {
 
   private Boolean isActive;
 
-  @Setter(AccessLevel.NONE)
   private LocalTime initialTime;
 
-  @Setter(AccessLevel.NONE)
   private LocalTime endTime;
 
   private LocalTime initialBreakTime;
