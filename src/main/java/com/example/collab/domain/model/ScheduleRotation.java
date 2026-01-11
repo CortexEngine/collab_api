@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class ScheduleRotation {
 
   @Id
@@ -20,9 +19,9 @@ public class ScheduleRotation {
   @JoinColumn(name = "work_time_id")
   private WorkTime workTime;
 
-  @Getter
-  @Setter
-  private Integer dayOfWeek;
+  private Integer dayIndex;
+
+  private boolean workday;
 
 }
 
