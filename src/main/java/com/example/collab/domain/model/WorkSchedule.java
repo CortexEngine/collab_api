@@ -23,5 +23,11 @@ public class WorkSchedule {
 
   private boolean isActive;
 
+  public WorkSchedule(Long id) {
+
+    this.id = id;
+    
+  }
+
 }
 
