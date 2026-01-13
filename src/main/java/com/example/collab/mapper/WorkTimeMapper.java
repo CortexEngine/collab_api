@@ -9,6 +9,7 @@ import com.example.collab.dto.response.WorkTimeResponseDTO;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface WorkTimeMapper {
 
+  @Mapping(target = "id", ignore = true)
   @Mapping(target = "description", source = "description")
   @Mapping(target = "isActive", source = "isActive")
   @Mapping(target = "initialTime", source = "initialTime")
