@@ -9,9 +9,9 @@ import com.example.collab.domain.model.WorkTime;
 
 public interface WorkTimeRepository extends JpaRepository<WorkTime, Long> {
 
-  Optional<WorkTime> findByStartTimeAndEndTime(LocalTime startTime, LocalTime endTime);
+  Optional<WorkTime> findByInitialTimeAndEndTime(LocalTime initialTime, LocalTime endTime);
 
-  Optional<WorkTime> findByStartTime(LocalTime startTime);
+  Optional<WorkTime> findByInitialTime(LocalTime intialTime);
 
   Optional<WorkTime> findByEndTime(LocalTime endTime);
 
