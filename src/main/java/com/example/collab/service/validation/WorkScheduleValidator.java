@@ -35,7 +35,15 @@ public class WorkScheduleValidator {
 
   }
 
-  public void validateManyDaysPerWeek(Integer workDaysPerWeek, Integer restDaysPerWeek) {}
+  public void validateManyDaysPerWeek(Integer workDaysPerWeek, Integer restDaysPerWeek) {
+
+    if (workDaysPerWeek + restDaysPerWeek > 7) {
+
+      throw new IllegalArgumentException("The sum of work days and rest days per week cannot exceed 7.");
+
+    }
+
+  }
 
   public void validateIsActiveWorkSchedule(Long id) {}
 
