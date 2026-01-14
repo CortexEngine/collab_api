@@ -15,7 +15,15 @@ public class WorkScheduleValidator {
 
   }
 
-  public void validateManyDaysPerWeek(Integer workDaysPerWeek) {}
+  public void validateManyDaysPerWeek(Integer workDaysPerWeek) {
+
+    if (workDaysPerWeek < 1 || workDaysPerWeek > 7) {
+
+      throw new IllegalArgumentException("Work days per week must be between 1 and 7.");
+
+    }
+
+  }
 
   public void validateManyRestDaysPerWeek(Integer restDaysPerWeek) {}
 
