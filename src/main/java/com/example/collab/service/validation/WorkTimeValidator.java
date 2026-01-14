@@ -27,6 +27,8 @@ public class WorkTimeValidator {
 
   public void validateInitialAndEndBreakTimeLimit(LocalTime initialBreakTime, LocalTime endBreakTime) {}
 
-  public void validadeIsActiveWorkTime(Long id) {}
+  public void validateIsActiveWorkTime(Long id) {}
+
+  public void validateRequireAndAutoPunchSameTime(Boolean requiresPunch, Boolean autoGeneratePunches) {}
 
 }
