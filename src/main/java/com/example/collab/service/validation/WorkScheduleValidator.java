@@ -55,4 +55,14 @@ public class WorkScheduleValidator {
 
   }
 
+  public void validateDescriptionExists(String description) {
+
+    if (workScheduleRepository.findByDescription(description).isPresent()) {
+
+      throw new IllegalArgumentException("A work schedule with the same description already exists.");
+
+    }
+
+  }
+
 }
