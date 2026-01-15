@@ -10,7 +10,7 @@ public interface WorkScheduleRepository extends JpaRepository<WorkSchedule, Long
 
   Optional<WorkSchedule> findByDescription(String description);
 
-  Optional<WorkSchedule> findByIsActive(Boolean isActive);
+  Optional<WorkSchedule> findByIdAndIsActive(Long id, Boolean isActive);
 
   Optional<WorkSchedule> findByWorkDaysPerWeekAndRestDaysPerWeek(Integer workDays, Integer restDays);
 
