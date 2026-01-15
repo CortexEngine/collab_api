@@ -45,6 +45,14 @@ public class WorkScheduleValidator {
 
   }
 
-  public void validateIsActiveWorkSchedule(Long id) {}
+  public void validateIsActiveWorkSchedule(Long id) {
+
+    if (workScheduleRepository.findByIdAndIsActive(id, true).isEmpty()) {
+
+      throw new IllegalArgumentException("The work schedule is not active or does not exist.");
+      
+    }
+
+  }
 
 }
