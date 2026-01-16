@@ -36,12 +36,24 @@ public class WorkTimeValidator {
         throw new IllegalArgumentException("End time must be before initial time if overnight.");
 
       }
-      
+
     }
 
   }
 
-  public void validateSameWorkTimes(LocalTime initialTime, LocalTime endTime, LocalTime initialBreakTime, LocalTime endBreakTime) {}
+  public void validateSameWorkTimes(LocalTime initialTime, LocalTime endTime, LocalTime initialBreakTime, LocalTime endBreakTime) {
+
+    if (workTimeRepository.findByInitialTimeAndEndTime(initialTime, endTime).isPresent()) {
+
+      if (workTimeRepository.findByInitialBreakTimeAndEndBreakTime(initialBreakTime, endBreakTime).isPresent()) {
+
+        throw new IllegalArgumentException("A work time with the same work and break times already exists.");
+        
+      }
+      
+    }
+
+  }
 
   public void validateInitialandEndWorkTimeLimit (LocalTime initialTime, LocalTime endTime){}
 
