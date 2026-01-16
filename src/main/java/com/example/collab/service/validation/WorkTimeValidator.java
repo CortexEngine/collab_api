@@ -1,5 +1,6 @@
 package com.example.collab.service.validation;
 
+import java.time.Duration;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +49,34 @@ public class WorkTimeValidator {
       if (workTimeRepository.findByInitialBreakTimeAndEndBreakTime(initialBreakTime, endBreakTime).isPresent()) {
 
         throw new IllegalArgumentException("A work time with the same work and break times already exists.");
-        
+
       }
       
     }
 
   }
 
-  public void validateInitialandEndWorkTimeLimit (LocalTime initialTime, LocalTime endTime){}
+  public void validateInitialandEndWorkTimeLimit (LocalTime initialTime, LocalTime endTime, Boolean isOvernight) {
+
+    Long totalHors;
+
+    if (isOvernight != null && Boolean.TRUE.equals(isOvernight)) {
+
+      totalHors = 24 - Duration.between(initialTime, endTime).toHours();
+
+    } else {
+
+      totalHors = Duration.between(initialTime, endTime).toHours();
+      
+    }
+
+    if(totalHors < 1 || totalHors > 13){
+
+      throw new IllegalArgumentException("Total work time must be between 1 and 13 hours.");
+
+    }
+    
+  }
 
   public void validateInitialAndEndBreakTimeLimit(LocalTime initialBreakTime, LocalTime endBreakTime) {}
 
