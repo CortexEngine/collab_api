@@ -27,7 +27,8 @@ public class WorkTimeValidator {
 
         throw new IllegalArgumentException("End time cannot be before initial time if not overnight.");
 
-      }
+      } 
+
     } else {
 
       if (isOvernight != null && Boolean.TRUE.equals(isOvernight)) {
@@ -35,6 +36,7 @@ public class WorkTimeValidator {
         throw new IllegalArgumentException("End time must be before initial time if overnight.");
 
       }
+      
     }
 
   }
