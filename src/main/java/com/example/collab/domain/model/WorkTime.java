@@ -22,6 +22,8 @@ public class WorkTime {
 
   private LocalTime endTime;
 
+  private Boolean isOvernight;
+
   private LocalTime initialBreakTime;
 
   private LocalTime endBreakTime;
