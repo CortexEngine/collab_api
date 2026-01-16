@@ -19,7 +19,25 @@ public class WorkTimeValidator {
 
   }
 
-  public void validateTimeEndBeforeIntialTime(LocalTime initialTime, LocalTime endTime){}
+  public void validateTimeEndBeforeIntialTime(LocalTime initialTime, LocalTime endTime, Boolean isOvernight) {
+
+    if (endTime.isBefore(initialTime)) {
+      
+      if (isOvernight == null || Boolean.FALSE.equals(isOvernight)) {
+
+        throw new IllegalArgumentException("End time cannot be before initial time if not overnight.");
+
+      }
+    } else {
+
+      if (isOvernight != null && Boolean.TRUE.equals(isOvernight)) {
+
+        throw new IllegalArgumentException("End time must be before initial time if overnight.");
+
+      }
+    }
+
+  }
 
   public void validateSameWorkTimes(LocalTime initialTime, LocalTime endTime, LocalTime initialBreakTime, LocalTime endBreakTime) {}
 
