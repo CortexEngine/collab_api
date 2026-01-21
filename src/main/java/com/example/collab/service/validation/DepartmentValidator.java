@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.collab.repository.CollaboratorRepository;
-import com.example.collab.repository.DepartmentRepository;
+import com.example.collab.repository.*;
 import com.example.collab.exception.business.*;
 import com.example.collab.exception.domain.*;
 
