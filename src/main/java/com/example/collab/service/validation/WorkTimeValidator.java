@@ -100,7 +100,15 @@ public class WorkTimeValidator {
 
   }
 
-  public void validateIsActiveWorkTime(Long id) {}
+  public void validateIsActiveWorkTime(Long id) {
+
+    if (workTimeRepository.findByIdAndIsActive(id ,true).isPresent()) {
+
+      throw new IllegalArgumentException("There is already an active work time.");
+
+    }
+    
+  }
 
   public void validateRequireAndAutoPunchSameTime(Boolean requiresPunch, Boolean autoGeneratePunches) {}
 
