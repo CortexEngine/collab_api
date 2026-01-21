@@ -107,9 +107,17 @@ public class WorkTimeValidator {
       throw new IllegalArgumentException("There is already an active work time.");
 
     }
-    
+
   }
 
-  public void validateRequireAndAutoPunchSameTime(Boolean requiresPunch, Boolean autoGeneratePunches) {}
+  public void validateRequireAndAutoPunchSameTime(Boolean requiresPunch, Boolean autoGeneratePunches) {
+
+    if(Boolean.TRUE.equals(requiresPunch) && Boolean.TRUE.equals(autoGeneratePunches)) {
+
+      throw new IllegalArgumentException("A work time cannot require punches and auto-generate punches at the same time.");
+
+    }
+
+  }
 
 }
