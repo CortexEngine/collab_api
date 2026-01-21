@@ -78,7 +78,27 @@ public class WorkTimeValidator {
     
   }
 
-  public void validateInitialAndEndBreakTimeLimit(LocalTime initialBreakTime, LocalTime endBreakTime) {}
+  public void validateInitialAndEndBreakTimeLimit(LocalTime initialBreakTime, LocalTime endBreakTime, Boolean isOvernight) {
+
+    Long totalBreakHours;
+
+    if (isOvernight != null && Boolean.TRUE.equals(isOvernight)) {
+
+      totalBreakHours = 1440 - Duration.between(endBreakTime, initialBreakTime).toMinutes();
+
+    } else {
+
+      totalBreakHours = Duration.between(initialBreakTime, endBreakTime).toHours();
+      
+    }
+
+    if(totalBreakHours < 0 || totalBreakHours > 160){
+
+      throw new IllegalArgumentException("Total break time must be between 0 and 2,5 hours.");
+
+    }
+
+  }
 
   public void validateIsActiveWorkTime(Long id) {}
 
