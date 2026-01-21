@@ -21,7 +21,7 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Long> {
 
   Optional<WorkTime> findByEndBreakTime(LocalTime endBreakTime);
 
-  Optional<WorkTime> findByIsActive(Boolean isActive);
+  Optional<WorkTime> findByIdAndIsActive(Long id,Boolean isActive);
 
   Optional<WorkTime> findByDescription(String description);
 
