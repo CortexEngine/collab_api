@@ -40,4 +40,14 @@ public class ScheduleRotationValidator {
 
   }
 
+  public void validateDayIndexRange(Integer dayIndex) {
+
+    if (dayIndex == null || dayIndex < 1 || dayIndex > 7) {
+
+      throw new IllegalArgumentException("Day index must be between 1 and 7.");
+    
+    }
+
+  }
+
 }
