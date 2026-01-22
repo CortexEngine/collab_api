@@ -16,4 +16,6 @@ public interface ScheduleRotationRepository extends JpaRepository<ScheduleRotati
 
   Long countByworkScheduleIdAndWorkday(Long workScheduleId, Boolean workday);
 
+  Long countByWorkScheduleId(Long workScheduleId);
+
 }
