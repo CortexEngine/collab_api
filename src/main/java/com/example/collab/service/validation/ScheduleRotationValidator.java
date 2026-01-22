@@ -10,7 +10,7 @@ public class ScheduleRotationValidator {
   ScheduleRotationRespository scheduleRotationRespository;
 
   @Autowired
-  public ScheduleRotationValidator(ScheduleRotationRespository scheduleRotationRespository){
+  public ScheduleRotationValidator(ScheduleRotationRespository scheduleRotationRespository, WorkScheduleRespository workScheduleRespository) {
 
     this.scheduleRotationRespository = scheduleRotationRespository;
 

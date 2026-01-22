@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.collab.domain.model.ScheduleRotation;
 
-public interface ScheduleRotationRespository extends JpaRepository<ScheduleRotation, Long> {
+public interface ScheduleRotationRepository extends JpaRepository<ScheduleRotation, Long> {
 
   Optional<ScheduleRotation> findByWorkScheduleId(Long workScheduleId);
 
