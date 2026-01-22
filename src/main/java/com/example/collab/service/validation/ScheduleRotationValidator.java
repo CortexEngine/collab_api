@@ -50,4 +50,14 @@ public class ScheduleRotationValidator {
 
   }
 
+  public void validateDuplicateDayIndex(Long workScheduleId, Integer dayIndex) {
+
+    if (scheduleRotationRespository.findByWorkScheduleIdAndDayIndex(workScheduleId, dayIndex).isPresent()) {
+
+      throw new IllegalArgumentException("Day index " + dayIndex + " already exists for this work schedule.");
+
+    }
+
+  }
+
 }
