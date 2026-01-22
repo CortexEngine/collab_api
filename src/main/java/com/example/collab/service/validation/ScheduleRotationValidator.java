@@ -3,6 +3,7 @@ package com.example.collab.service.validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.collab.domain.model.WorkSchedule;
 import com.example.collab.repository.*;
 @Component
 public class ScheduleRotationValidator {
@@ -42,12 +43,18 @@ public class ScheduleRotationValidator {
 
   }
 
-  public void validateDayIndexRange(Integer dayIndex) {
+  public void validateTotalDaysMatchSchedule(Long workScheduleId) {
 
-    if (dayIndex == null || dayIndex < 1 || dayIndex > 7) {
-
-      throw new IllegalArgumentException("Day index must be between 1 and 7.");
+    WorkSchedule workSchedule = workScheduleRepository.findById(workScheduleId).orElseThrow(() -> new IllegalArgumentException("Work schedule not found"));
     
+    Integer expectedTotalDays = workSchedule.getWorkDaysPerWeek() + workSchedule.getRestDaysPerWeek();
+
+    Long actualTotalDays = scheduleRotationRepository.countByWorkScheduleId(workScheduleId);
+    
+    if (!actualTotalDays.equals(expectedTotalDays.longValue())) {
+
+      throw new IllegalArgumentException("Schedule requires " + expectedTotalDays + " days but has " + actualTotalDays + " rotations configured.");
+
     }
 
   }
