@@ -16,7 +16,7 @@ public class ScheduleRotationValidator {
 
   }
 
-  void validateMaxDayIndexPerSchedule(Long workScheduleId) {
+  public void validateMaxDayIndexPerSchedule(Long workScheduleId) {
 
     Long countWeekDays = scheduleRotationRespository.countByworkScheduleIdAndWorkday(workScheduleId, true);
 
@@ -28,7 +28,7 @@ public class ScheduleRotationValidator {
 
   }
 
-  void validateMinDayIndexPerSchedule(Long workScheduleId) {
+  public void validateMinDayIndexPerSchedule(Long workScheduleId) {
 
     Long countWeekDays = scheduleRotationRespository.countByworkScheduleIdAndWorkday(workScheduleId, false);
 
