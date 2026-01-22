@@ -27,4 +27,17 @@ public class ScheduleRotationValidator {
     }
 
   }
+
+  void validateMinDayIndexPerSchedule(Long workScheduleId) {
+
+    Long countWeekDays = scheduleRotationRespository.countByworkScheduleIdAndWorkday(workScheduleId, false);
+
+    if (countWeekDays <= 1 || countWeekDays >= 3) {
+
+      throw new IllegalArgumentException("A schedule must have at least 1 rest day per week.");
+    
+    }
+
+  }
+
 }
