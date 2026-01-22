@@ -3,16 +3,18 @@ package com.example.collab.service.validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.collab.repository.ScheduleRotationRepository;
+import com.example.collab.repository.*;
 @Component
 public class ScheduleRotationValidator {
 
   ScheduleRotationRepository scheduleRotationRepository;
+  WorkScheduleRepository workScheduleRepository;
 
   @Autowired
-  public ScheduleRotationValidator(ScheduleRotationRepository scheduleRotationRepository) {
+  public ScheduleRotationValidator(ScheduleRotationRepository scheduleRotationRepository, WorkScheduleRepository workScheduleRepository) {
 
     this.scheduleRotationRepository = scheduleRotationRepository;
+    this.workScheduleRepository = workScheduleRepository;
 
   }
 
