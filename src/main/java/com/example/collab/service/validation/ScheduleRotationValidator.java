@@ -34,7 +34,7 @@ public class ScheduleRotationValidator {
 
     if (countWeekDays <= 1 || countWeekDays >= 3) {
 
-      throw new IllegalArgumentException("A schedule must have at least 1 rest day per week.");
+      throw new IllegalArgumentException("A schedule must have at least 1 rest day per week or no more than 3 rest days per week.");
     
     }
 
