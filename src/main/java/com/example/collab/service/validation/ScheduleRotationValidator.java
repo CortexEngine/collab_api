@@ -16,4 +16,15 @@ public class ScheduleRotationValidator {
 
   }
 
+  void validateMaxDayIndexPerSchedule(Long workScheduleId) {
+
+    Long countWeekDays = scheduleRotationRespository.countByworkScheduleIdAndWorkday(workScheduleId, true);
+
+    if (countWeekDays >= 6) {
+
+      throw new IllegalArgumentException("A schedule cannot have more than 6 work days per week.");
+    
+    }
+
+  }
 }
