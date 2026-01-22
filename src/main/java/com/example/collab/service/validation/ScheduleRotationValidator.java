@@ -3,22 +3,22 @@ package com.example.collab.service.validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.collab.repository.ScheduleRotationRespository;
+import com.example.collab.repository.ScheduleRotationRepository;
 @Component
 public class ScheduleRotationValidator {
 
-  ScheduleRotationRespository scheduleRotationRespository;
+  ScheduleRotationRepository scheduleRotationRepository;
 
   @Autowired
-  public ScheduleRotationValidator(ScheduleRotationRespository scheduleRotationRespository, WorkScheduleRespository workScheduleRespository) {
+  public ScheduleRotationValidator(ScheduleRotationRepository scheduleRotationRepository) {
 
-    this.scheduleRotationRespository = scheduleRotationRespository;
+    this.scheduleRotationRepository = scheduleRotationRepository;
 
   }
 
   public void validateMaxDayIndexPerSchedule(Long workScheduleId) {
 
-    Long countWeekDays = scheduleRotationRespository.countByworkScheduleIdAndWorkday(workScheduleId, true);
+    Long countWeekDays = scheduleRotationRepository.countByworkScheduleIdAndWorkday(workScheduleId, true);
 
     if (countWeekDays >= 6) {
 
@@ -30,7 +30,7 @@ public class ScheduleRotationValidator {
 
   public void validateMinDayIndexPerSchedule(Long workScheduleId) {
 
-    Long countWeekDays = scheduleRotationRespository.countByworkScheduleIdAndWorkday(workScheduleId, false);
+    Long countWeekDays = scheduleRotationRepository.countByworkScheduleIdAndWorkday(workScheduleId, false);
 
     if (countWeekDays <= 1 || countWeekDays >= 3) {
 
@@ -52,7 +52,7 @@ public class ScheduleRotationValidator {
 
   public void validateDuplicateDayIndex(Long workScheduleId, Integer dayIndex) {
 
-    if (scheduleRotationRespository.findByWorkScheduleIdAndDayIndex(workScheduleId, dayIndex).isPresent()) {
+    if (scheduleRotationRepository.findByWorkScheduleIdAndDayIndex(workScheduleId, dayIndex).isPresent()) {
 
       throw new IllegalArgumentException("Day index " + dayIndex + " already exists for this work schedule.");
 
