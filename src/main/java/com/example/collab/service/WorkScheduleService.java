@@ -3,28 +3,27 @@ package com.example.collab.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.collab.mapper.WorkTimeMapper;
-import com.example.collab.repository.WorkTimeRepository;
-import com.example.collab.service.validation.WorkTimeValidator;
+import com.example.collab.mapper.WorkScheduleMapper;
+import com.example.collab.repository.WorkScheduleRepository;
+import com.example.collab.service.validation.WorkScheduleValidator;
 
 @Service
 public class WorkScheduleService {
 
-  private WorkTimeRepository workTimeRepository;
+  private WorkScheduleRepository workScheduleRepository;
 
-  private WorkTimeValidator workTimeValidator;
+  private WorkScheduleValidator workScheduleValidator;
 
-  private WorkTimeMapper workTimeMapper;
+  private WorkScheduleMapper workScheduleMapper;
 
   @Autowired
-  public WorkScheduleService(WorkTimeRepository workTimeRepository, WorkTimeValidator workTimeValidator, WorkTimeMapper workTimeMapper) {
+  public WorkScheduleService(WorkScheduleRepository workScheduleRepository, WorkScheduleValidator workScheduleValidator, WorkScheduleMapper workScheduleMapper) {
 
-    this.workTimeRepository = workTimeRepository;
+    this.workScheduleRepository = workScheduleRepository;
 
-    this.workTimeValidator = workTimeValidator;
+    this.workScheduleValidator = workScheduleValidator;
 
-    this.workTimeMapper = workTimeMapper;
-
+    this.workScheduleMapper = workScheduleMapper;
   }
 
 }
