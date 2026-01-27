@@ -16,14 +16,16 @@ public record WorkTimeResponseDTO (
   @JsonFormat(pattern="HH:mm:ss")
   LocalTime endTime,
 
+  Boolean isOvernight,
+
   @JsonFormat(pattern="HH:mm:ss")
   LocalTime initialBreakTime,
 
   @JsonFormat(pattern="HH:mm:ss")
   LocalTime endBreakTime,
 
-  boolean requiresPunch,
+  Boolean requiresPunch,
 
-  boolean autoGeneratePunches
+  Boolean autoGeneratePunches
 
 ) {};
