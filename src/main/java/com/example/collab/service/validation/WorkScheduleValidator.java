@@ -15,7 +15,7 @@ public class WorkScheduleValidator {
 
   }
 
-  public void validateManyDaysPerWeek(Integer workDaysPerWeek) {
+  public void validateManyWorkDaysPerWeek(Integer workDaysPerWeek) {
 
     if (workDaysPerWeek < 1 || workDaysPerWeek > 7) {
 
