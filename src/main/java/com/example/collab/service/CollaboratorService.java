@@ -20,12 +20,12 @@ import com.example.collab.service.validation.CollaboratorValidator;
 @Service
 public class CollaboratorService {
 
-    private CollaboratorRepository collaboratorRepository;
+    private final CollaboratorRepository collaboratorRepository;
 
-    private CollaboratorValidator collaboratorValidator;
+    private final CollaboratorValidator collaboratorValidator;
 
-    private CollaboratorMapper collaboratorMapper;
-
+    private final CollaboratorMapper collaboratorMapper;
+    
     @Autowired
     public CollaboratorService(CollaboratorRepository collaboratorRepository, CollaboratorValidator collaboratorValidator, CollaboratorMapper collaboratorMapper){
         

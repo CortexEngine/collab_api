@@ -17,12 +17,12 @@ import java.util.List;
 @Service
 public class DepartmentService {
 
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
-    private DepartmentValidator departmentValidator;
+    private final DepartmentValidator departmentValidator;
 
-    private DepartmentMapper departmentMapper;
-
+    private final DepartmentMapper departmentMapper;
+    
     @Autowired
     public DepartmentService(DepartmentRepository departmentRepository, DepartmentValidator departmentValidator, DepartmentMapper departmentMapper){
 
