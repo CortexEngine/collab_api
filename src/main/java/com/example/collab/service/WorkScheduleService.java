@@ -1,5 +1,8 @@
 package com.example.collab.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +57,14 @@ public class WorkScheduleService {
     WorkSchedule workSchedule = workScheduleRepository.findByIdAndIsActive(id, true).get();
 
     return workScheduleMapper.toResponse(workSchedule);
+
+  }
+
+  public List<WorkScheduleResponseDTO> getAllWorkSchedule(){
+
+    List<WorkSchedule> workSchedules = workScheduleRepository.findAll();
+
+    return workSchedules.stream().map(workSchedule -> workScheduleMapper.toResponse(workSchedule)).collect(Collectors.toList());
 
   }
 
