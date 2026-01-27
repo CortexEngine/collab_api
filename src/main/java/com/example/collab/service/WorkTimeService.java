@@ -10,12 +10,12 @@ import com.example.collab.service.validation.WorkTimeValidator;
 @Service
 public class WorkTimeService {
 
-  private WorkTimeRepository workTimeRepository;
+  private final WorkTimeRepository workTimeRepository;
 
-  private WorkTimeValidator workTimeValidator;
+  private final WorkTimeValidator workTimeValidator;
 
-  private WorkTimeMapper workTimeMapper;
-
+  private final WorkTimeMapper workTimeMapper;
+  
   @Autowired
   public WorkTimeService(WorkTimeRepository workTimeRepository, WorkTimeValidator workTimeValidator, WorkTimeMapper workTimeMapper) {
 
