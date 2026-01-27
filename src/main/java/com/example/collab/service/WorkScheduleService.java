@@ -10,12 +10,12 @@ import com.example.collab.service.validation.WorkScheduleValidator;
 @Service
 public class WorkScheduleService {
 
-  private WorkScheduleRepository workScheduleRepository;
+  private final WorkScheduleRepository workScheduleRepository;
 
-  private WorkScheduleValidator workScheduleValidator;
+  private final WorkScheduleValidator workScheduleValidator;
 
-  private WorkScheduleMapper workScheduleMapper;
-
+  private final WorkScheduleMapper workScheduleMapper;
+  
   @Autowired
   public WorkScheduleService(WorkScheduleRepository workScheduleRepository, WorkScheduleValidator workScheduleValidator, WorkScheduleMapper workScheduleMapper) {
 
