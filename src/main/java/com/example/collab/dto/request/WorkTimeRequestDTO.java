@@ -24,6 +24,9 @@ public record WorkTimeRequestDTO(
   LocalTime endTime,
 
   @NotNull
+  Boolean isOvernight,
+
+  @NotNull
   @JsonFormat(pattern="HH:mm:ss")
   LocalTime initialBreakTime,
 
