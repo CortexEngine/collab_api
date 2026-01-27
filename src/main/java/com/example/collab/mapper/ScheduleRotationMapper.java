@@ -13,20 +13,12 @@ public interface ScheduleRotationMapper {
 
   @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
   @Mapping(target = "workTime", source = "workTime", qualifiedByName = "toWorkTime")
-  @Mapping(target = "dayIndex", source = "dayIndex")
-  @Mapping(target = "workday", source = "workday")
   ScheduleRotation toEntity (ScheduleRotationRequestDTO dto);
 
-  @Mapping(target = "workSchedule", source = "workSchedule")
-  @Mapping(target = "workTime", source = "workTime")
-  @Mapping(target = "dayIndex", source = "dayIndex")
-  @Mapping(target = "workday", source = "workday")
   void updateEntity (@MappingTarget ScheduleRotation scheduleRotation, ScheduleRotation dto);
   
   @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "fromWorkSchedule")
   @Mapping(target = "workTime", source = "workTime", qualifiedByName = "fromWorkTime")
-  @Mapping(target = "dayIndex", source = "dayIndex")
-  @Mapping(target = "workday", source = "workday")
   ScheduleRotationResponseDTO toResponse(ScheduleRotation scheduleRotation);
 
   @Named("toWorkSchedule")

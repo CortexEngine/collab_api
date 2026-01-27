@@ -10,23 +10,10 @@ import com.example.collab.dto.response.WorkScheduleResponseDTO;
 public interface WorkScheduleMapper {
 
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "description", source = "description")
-  @Mapping(target = "workDaysPerWeek", source = "workDaysPerWeek")
-  @Mapping(target = "restDaysPerWeek", source = "restDaysPerWeek")
-  @Mapping(target = "isActive", source = "isActive")
   WorkSchedule toEntity (WorkScheduleRequestDTO dto);
 
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "description", source = "description")
-  @Mapping(target = "workDaysPerWeek", source = "workDaysPerWeek")
-  @Mapping(target = "restDaysPerWeek", source = "restDaysPerWeek")
-  @Mapping(target = "isActive", source = "isActive")
   void updateEntity (@MappingTarget WorkSchedule workSchedule, WorkSchedule dto);
 
-  @Mapping(target = "description", source = "description")
-  @Mapping(target = "workDaysPerWeek", source = "workDaysPerWeek")
-  @Mapping(target = "restDaysPerWeek", source = "restDaysPerWeek")
-  @Mapping(target = "isActive", source = "isActive")
   WorkScheduleResponseDTO toResponse(WorkSchedule workSchedule);
   
 }
