@@ -3,6 +3,7 @@ package com.example.collab.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.collab.domain.model.WorkSchedule;
 import com.example.collab.dto.request.WorkScheduleRequestDTO;
 import com.example.collab.dto.response.WorkScheduleResponseDTO;
 import com.example.collab.mapper.WorkScheduleMapper;
@@ -36,11 +37,24 @@ public class WorkScheduleService {
 
     workScheduleValidator.validateManyDaysPerWeek(req.workDaysPerWeek(), req.restDaysPerWeek());
 
-    var workSchedule = workScheduleMapper.toEntity(req);
+    workScheduleValidator.validateDescriptionExists(req.description());
 
-    var savedWorkSchedule = workScheduleRepository.save(workSchedule);
+    WorkSchedule workSchedule = workScheduleMapper.toEntity(req);
+
+    WorkSchedule savedWorkSchedule = workScheduleRepository.save(workSchedule);
 
     return workScheduleMapper.toResponse(savedWorkSchedule);
+
+  }
+
+  public WorkScheduleResponseDTO getActiveWorkScheduleById(Long id) {
+
+    workScheduleValidator.validateIsActiveWorkSchedule(id);
+
+    WorkSchedule workSchedule = workScheduleRepository.findByIdAndIsActive(id, true).get();
+
+    return workScheduleMapper.toResponse(workSchedule);
+
   }
 
 }
