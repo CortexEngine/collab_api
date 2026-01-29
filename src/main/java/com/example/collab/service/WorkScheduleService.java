@@ -68,4 +68,14 @@ public class WorkScheduleService {
 
   }
 
+  public WorkScheduleResponseDTO getWorkScheduleByDescription(String description) {
+
+    workScheduleValidator.validateDescriptionExists(description);
+
+    WorkSchedule workSchedule = workScheduleRepository.findByDescription(description).get();
+
+    return workScheduleMapper.toResponse(workSchedule);
+
+  }
+
 }
