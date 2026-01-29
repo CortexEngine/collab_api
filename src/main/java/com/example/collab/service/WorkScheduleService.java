@@ -78,4 +78,12 @@ public class WorkScheduleService {
 
   }
 
+  public List<WorkScheduleResponseDTO> getAllActiveWorkSchedule(){
+
+    List<WorkSchedule> activeWorkSchedules = workScheduleRepository.findByIsActive(true);
+
+    return activeWorkSchedules.stream().map(workSchedule -> workScheduleMapper.toResponse(workSchedule)).collect(Collectors.toList());
+
+  }
+
 }
