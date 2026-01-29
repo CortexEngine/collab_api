@@ -86,4 +86,11 @@ public class WorkScheduleService {
 
   }
 
+  public List<WorkScheduleResponseDTO> getAllInactiveWorkSchedule(){
+
+    List<WorkSchedule> inactiveWorkSchedules = workScheduleRepository.findByIsActive(false);
+
+    return inactiveWorkSchedules.stream().map(workSchedule -> workScheduleMapper.toResponse(workSchedule)).collect(Collectors.toList());
+  }
+
 }
