@@ -120,4 +120,30 @@ public class WorkScheduleService {
 
   }
 
+  public WorkScheduleResponseDTO updateWorkSchedule(Long id, WorkScheduleRequestDTO req) {
+
+    workScheduleValidator.validateIsActiveWorkSchedule(id);
+
+    workScheduleValidator.validateManyWorkDaysPerWeek(req.workDaysPerWeek());
+
+    workScheduleValidator.validateManyRestDaysPerWeek(req.restDaysPerWeek());
+
+    workScheduleValidator.validateManyDaysPerWeek(req.workDaysPerWeek(), req.restDaysPerWeek());
+
+    WorkSchedule existingWorkSchedule = workScheduleRepository.findByIdAndIsActive(id, true).get();
+
+    existingWorkSchedule.setDescription(req.description());
+
+    existingWorkSchedule.setWorkDaysPerWeek(req.workDaysPerWeek());
+
+    existingWorkSchedule.setRestDaysPerWeek(req.restDaysPerWeek());
+
+    existingWorkSchedule.setIsActive(req.isActive());
+
+    WorkSchedule updatedWorkSchedule = workScheduleRepository.save(existingWorkSchedule);
+
+    return workScheduleMapper.toResponse(updatedWorkSchedule);
+
+  }
+
 }
