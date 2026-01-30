@@ -108,4 +108,16 @@ public class WorkScheduleService {
 
   }
 
+  public WorkScheduleResponseDTO activateWorkSchedule(Long id) {
+
+    WorkSchedule workSchedule = workScheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("The work schedule does not exist."));
+
+    workSchedule.setIsActive(true);
+
+    WorkSchedule updatedWorkSchedule = workScheduleRepository.save(workSchedule);
+
+    return workScheduleMapper.toResponse(updatedWorkSchedule);
+
+  }
+
 }
