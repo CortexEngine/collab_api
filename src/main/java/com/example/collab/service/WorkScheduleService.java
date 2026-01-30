@@ -91,6 +91,21 @@ public class WorkScheduleService {
     List<WorkSchedule> inactiveWorkSchedules = workScheduleRepository.findByIsActive(false);
 
     return inactiveWorkSchedules.stream().map(workSchedule -> workScheduleMapper.toResponse(workSchedule)).collect(Collectors.toList());
+
+  }
+
+  public WorkScheduleResponseDTO deactivateWorkSchedule(Long id) {
+
+    workScheduleValidator.validateIsActiveWorkSchedule(id);
+
+    WorkSchedule workSchedule = workScheduleRepository.findByIdAndIsActive(id, true).get();
+
+    workSchedule.setIsActive(false);
+
+    WorkSchedule updatedWorkSchedule = workScheduleRepository.save(workSchedule);
+
+    return workScheduleMapper.toResponse(updatedWorkSchedule);
+
   }
 
 }
