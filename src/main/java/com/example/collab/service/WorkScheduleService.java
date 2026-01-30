@@ -146,4 +146,18 @@ public class WorkScheduleService {
 
   }
 
+  public void deleteWorkSchedule(Long id) {
+
+    WorkSchedule workSchedule = workScheduleRepository.findById(id).get();
+
+    if (workSchedule.getIsActive()) {
+
+      throw new IllegalArgumentException("It's not possible to delete the work schedule. Disable it or verify that the number is correct.");
+
+    }
+
+    workScheduleRepository.deleteById(id);
+
+  }
+
 }
