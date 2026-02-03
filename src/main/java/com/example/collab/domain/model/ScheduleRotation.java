@@ -1,5 +1,7 @@
 package com.example.collab.domain.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,9 +22,9 @@ public class ScheduleRotation {
   @JoinColumn(name = "work_time_id")
   private WorkTime workTime;
 
-  private Integer dayIndex;
+  private List<Integer> dayIndexs;
 
-  private Boolean workday;
+  private List<Boolean> workdays;
 
 }
 
