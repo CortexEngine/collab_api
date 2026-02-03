@@ -13,9 +13,11 @@ public interface ScheduleRotationMapper {
 
   @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
   @Mapping(target = "workTime", source = "workTime", qualifiedByName = "toWorkTime")
-  ScheduleRotation toEntity (ScheduleRotationRequestDTO dto);
+  ScheduleRotation toEntity(ScheduleRotationRequestDTO dto);
 
-  void updateEntity (@MappingTarget ScheduleRotation scheduleRotation, ScheduleRotation dto);
+  @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
+  @Mapping(target = "workTime", source = "workTime", qualifiedByName = "toWorkTime")
+  void updateEntity(@MappingTarget ScheduleRotation scheduleRotation, ScheduleRotationRequestDTO dto);
   
   @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "fromWorkSchedule")
   @Mapping(target = "workTime", source = "workTime", qualifiedByName = "fromWorkTime")
@@ -29,21 +31,21 @@ public interface ScheduleRotationMapper {
   }
 
   @Named("fromWorkSchedule")
-  default Long fromWorkSchedule (WorkSchedule workSchedule){
+  default Long fromWorkSchedule(WorkSchedule workSchedule){
 
     return workSchedule != null ? workSchedule.getId() : null;
 
   }
 
   @Named("toWorkTime")
-  default WorkTime toWorkTime (Long value){
+  default WorkTime toWorkTime(Long value){
 
     return value != null ? new WorkTime(value) : null;
 
   }
 
   @Named("fromWorkTime")
-  default Long fromWorkTime (WorkTime workTime){
+  default Long fromWorkTime(WorkTime workTime){
 
     return workTime != null ? workTime.getId() : null;
 
