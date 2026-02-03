@@ -73,4 +73,26 @@ public class ScheduleRotationService {
 
   }
 
+  public ScheduleRotationResponseDTO updateScheduleRotation(Long id, ScheduleRotationRequestDTO req) {
+
+    var existingScheduleRotation = scheduleRotationRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule rotation not found"));
+
+    scheduleRotationValidator.validateDayIndexesAndWorkdaysSize(req.dayIndexs(), req.workdays());
+
+    scheduleRotationValidator.validateMaxDayIndexPerSchedule(req.workSchedule(), req.workdays());
+
+    scheduleRotationValidator.validateMinDayIndexPerSchedule(req.workSchedule(), req.workdays());
+
+    scheduleRotationValidator.validateTotalDaysMatchSchedule(req.workSchedule(), req.dayIndexs());
+
+    scheduleRotationValidator.validateDuplicateDayIndex(req.workSchedule(), req.dayIndexs());
+
+    scheduleRotationMapper.updateEntity(existingScheduleRotation, req);
+
+    var savedScheduleRotation = scheduleRotationRepository.save(existingScheduleRotation);
+
+    return scheduleRotationMapper.toResponse(savedScheduleRotation);
+
+  }
+
 }
