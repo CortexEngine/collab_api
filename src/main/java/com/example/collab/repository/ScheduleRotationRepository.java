@@ -12,7 +12,7 @@ public interface ScheduleRotationRepository extends JpaRepository<ScheduleRotati
 
   Optional<ScheduleRotation> findByWorkScheduleIdAndWorkTimeId(Long workScheduleId, Long workTimeId);
 
-  Optional<ScheduleRotation> findByWorkScheduleIdAndDayIndex(Long workScheduleId, Integer dayIndex);
+  Optional<ScheduleRotation> findByWorkScheduleIdAndDayIndexs(Long workScheduleId, Integer dayIndexs);
 
   Long countByworkScheduleIdAndWorkday(Long workScheduleId, Boolean workday);
 
