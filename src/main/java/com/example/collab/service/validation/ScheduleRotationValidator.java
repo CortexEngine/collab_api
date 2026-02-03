@@ -25,11 +25,19 @@ public class ScheduleRotationValidator {
 
   public void validateMaxDayIndexPerSchedule(Long workScheduleId, List<Boolean> workdays) {
 
-    Long countWeekDays = scheduleRotationRepository.countByworkScheduleIdAndWorkday(workScheduleId, true);
+    Long existingWorkDays = scheduleRotationRepository.countByworkScheduleIdAndWorkday(workScheduleId, true);
 
-    long newWeekDays = workdays == null ? 0 : workdays.stream().filter(Boolean.TRUE::equals).count();
+    Long newWorkDaysCount = 0L;
 
-    if (countWeekDays + newWeekDays > 6) {
+    if (workdays != null) {
+
+      newWorkDaysCount = workdays.stream().filter(workday -> Boolean.TRUE.equals(workday)).count();
+
+    }
+
+    Long totalWorkDays = existingWorkDays + newWorkDaysCount;
+
+    if (totalWorkDays > 6) {
 
       throw new IllegalArgumentException("A schedule cannot have more than 6 work days per week.");
 
@@ -39,16 +47,26 @@ public class ScheduleRotationValidator {
 
   public void validateMinDayIndexPerSchedule(Long workScheduleId, List<Boolean> workdays) {
 
-    Long countWeekDays = scheduleRotationRepository.countByworkScheduleIdAndWorkday(workScheduleId, false);
+    Long existingRestDays = scheduleRotationRepository.countByworkScheduleIdAndWorkday(workScheduleId, false);
 
-    long newRestDays = workdays == null ? 0 : workdays.stream().filter(Boolean.FALSE::equals).count();
+    Long newRestDaysCount = 0L;
 
-    long totalRestDays = countWeekDays + newRestDays;
+    if (workdays != null) {
 
-    if (totalRestDays <= 1 || totalRestDays >= 3) {
+      newRestDaysCount = workdays.stream().filter(workday -> Boolean.FALSE.equals(workday)).count();
+
+    }
+
+    Long totalRestDays = existingRestDays + newRestDaysCount;
+
+    Boolean hasInsufficientRestDays = totalRestDays < 1;
+
+    Boolean hasExcessiveRestDays = totalRestDays > 3;
+
+    if (hasInsufficientRestDays || hasExcessiveRestDays) {
 
       throw new IllegalArgumentException("A schedule must have at least 1 rest day per week or no more than 3 rest days per week.");
-
+      
     }
 
   }
@@ -59,13 +77,23 @@ public class ScheduleRotationValidator {
 
     Integer expectedTotalDays = workSchedule.getWorkDaysPerWeek() + workSchedule.getRestDaysPerWeek();
 
-    Long actualTotalDays = scheduleRotationRepository.countByWorkScheduleId(workScheduleId);
+    Long existingRotationsCount = scheduleRotationRepository.countByWorkScheduleId(workScheduleId);
 
-    long newTotalDays = dayIndexs == null ? 0 : dayIndexs.size();
+    Long newRotationsCount = 0L;
 
-    if (!Long.valueOf(actualTotalDays + newTotalDays).equals(expectedTotalDays.longValue())) {
+    if (dayIndexs != null) {
 
-      throw new IllegalArgumentException("Schedule requires " + expectedTotalDays + " days but has " + (actualTotalDays + newTotalDays) + " rotations configured.");
+      newRotationsCount = Long.valueOf(dayIndexs.size());
+
+    }
+
+    Long totalRotationsCount = existingRotationsCount + newRotationsCount;
+
+    boolean daysMismatch = totalRotationsCount != expectedTotalDays.longValue();
+
+    if (daysMismatch) {
+
+      throw new IllegalArgumentException("Schedule requires " + expectedTotalDays + " days but has " + totalRotationsCount + " rotations configured.");
 
     }
 
@@ -74,7 +102,9 @@ public class ScheduleRotationValidator {
   public void validateDuplicateDayIndex(Long workScheduleId, List<Integer> dayIndexs) {
 
     if (dayIndexs == null || dayIndexs.isEmpty()) {
+
       return;
+
     }
 
     Set<Integer> seen = new HashSet<>();
@@ -82,11 +112,15 @@ public class ScheduleRotationValidator {
     for (Integer dayIndex : dayIndexs) {
 
       if (!seen.add(dayIndex)) {
+
         throw new IllegalArgumentException("Day index " + dayIndex + " is duplicated in request.");
+
       }
 
-      if (scheduleRotationRepository.findByWorkScheduleIdAndDayIndex(workScheduleId, dayIndex).isPresent()) {
+      if (scheduleRotationRepository.findByWorkScheduleIdAndDayIndexs(workScheduleId, dayIndex).isPresent()) {
+
         throw new IllegalArgumentException("Day index " + dayIndex + " already exists for this work schedule.");
+
       }
 
     }
@@ -96,11 +130,15 @@ public class ScheduleRotationValidator {
   public void validateDayIndexesAndWorkdaysSize(List<Integer> dayIndexs, List<Boolean> workdays) {
 
     if (dayIndexs == null || workdays == null) {
+
       return;
+
     }
 
     if (dayIndexs.size() != workdays.size()) {
+
       throw new IllegalArgumentException("Day indexes and workdays must have the same size.");
+      
     }
 
   }
