@@ -49,4 +49,12 @@ public class ScheduleRotationService {
 
   }
 
+  public ScheduleRotationResponseDTO getScheduleRotationByWorkScheduleId(Long id) {
+
+    var scheduleRotation = scheduleRotationRepository.findByWorkScheduleId(id).orElseThrow(() -> new IllegalArgumentException("Schedule rotation not found"));
+
+    return scheduleRotationMapper.toResponse(scheduleRotation);
+
+  }
+
 }
