@@ -1,13 +1,15 @@
 package com.example.collab.dto.response;
 
+import java.util.List;
+
 public record ScheduleRotationResponseDTO (
 
   Integer workSchedule,
 
   Integer workTime,
 
-  Integer dayIndex,
+  List<Integer> dayIndexs,
 
-  Boolean workday
+  List<Boolean> workdays
 
 ) {};
