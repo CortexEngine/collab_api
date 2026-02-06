@@ -95,4 +95,12 @@ public class ScheduleRotationService {
 
   }
 
+  public void deleteScheduleRotation(Long workScheduleId) {
+
+    var existingScheduleRotation = scheduleRotationRepository.findByWorkScheduleId(workScheduleId).orElseThrow(() -> new IllegalArgumentException("Schedule rotation not found"));
+
+    scheduleRotationRepository.delete(existingScheduleRotation);
+
+  }
+
 }
