@@ -19,7 +19,7 @@ public class WorkTimeValidator {
 
   }
 
-  public void validateTimeEndBeforeIntialTime(LocalTime initialTime, LocalTime endTime, Boolean isOvernight) {
+  public void validateTimeEndBeforeInitialTime(LocalTime initialTime, LocalTime endTime, Boolean isOvernight) {
 
     if (endTime.isBefore(initialTime)) {
       
@@ -55,7 +55,7 @@ public class WorkTimeValidator {
 
   }
 
-  public void validateInitialandEndWorkTimeLimit (LocalTime initialTime, LocalTime endTime, Boolean isOvernight) {
+  public void validateInitialAndEndWorkTimeLimit(LocalTime initialTime, LocalTime endTime, Boolean isOvernight) {
 
     Long totalHors;
 
