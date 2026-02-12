@@ -122,15 +122,15 @@ public class WorkScheduleService {
 
   public WorkScheduleResponseDTO updateWorkSchedule(Long id, WorkScheduleRequestDTO req) {
 
-    workScheduleValidator.validateIsActiveWorkSchedule(id);
+    WorkSchedule existingWorkSchedule = workScheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Work schedule with id " + id + " not found."));
+
+    workScheduleValidator.validateIsActiveWorkSchedule(id); // ------ ajustar esse ponto da logica validator// 
 
     workScheduleValidator.validateManyWorkDaysPerWeek(req.workDaysPerWeek());
 
     workScheduleValidator.validateManyRestDaysPerWeek(req.restDaysPerWeek());
 
     workScheduleValidator.validateManyDaysPerWeek(req.workDaysPerWeek(), req.restDaysPerWeek());
-
-    WorkSchedule existingWorkSchedule = workScheduleRepository.findByIdAndIsActive(id, true).get();
 
     existingWorkSchedule.setDescription(req.description());
 
