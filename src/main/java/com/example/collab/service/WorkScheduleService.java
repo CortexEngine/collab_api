@@ -124,7 +124,7 @@ public class WorkScheduleService {
 
     WorkSchedule existingWorkSchedule = workScheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Work schedule with id " + id + " not found."));
 
-    workScheduleValidator.validateIsActiveWorkSchedule(id); // ------ ajustar esse ponto da logica validator// 
+    workScheduleValidator.validateIsActiveWorkSchedule(id); 
 
     workScheduleValidator.validateManyWorkDaysPerWeek(req.workDaysPerWeek());
 
