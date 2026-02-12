@@ -77,4 +77,44 @@ public class WorkTimeService {
   
   }
 
+  public WorkTimeResponseDTO updateWorkTime(Long id, WorkTimeRequestDTO req) {
+
+    WorkTime existingWorkTime = workTimeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Work time with id " + id + " not found."));
+
+    workTimeValidator.validateTimeEndBeforeInitialTime(req.initialTime(), req.endTime(), req.isOvernight());
+
+    workTimeValidator.validateSameWorkTimes(req.initialTime(), req.endTime(), req.initialBreakTime(), req.endBreakTime());
+
+    workTimeValidator.validateInitialAndEndWorkTimeLimit(req.initialTime(), req.endTime(), req.isOvernight());
+
+    workTimeValidator.validateInitialAndEndBreakTimeLimit(req.initialBreakTime(), req.endBreakTime(), req.isOvernight());
+
+    workTimeValidator.validateRequireAndAutoPunchSameTime(req.requiresPunch(), req.autoGeneratePunches());
+
+    workTimeValidator.validateIsActiveWorkTime(id);
+
+    existingWorkTime.setDescription(req.description());
+
+    existingWorkTime.setInitialTime(req.initialTime());
+
+    existingWorkTime.setEndTime(req.endTime());
+    
+    existingWorkTime.setInitialBreakTime(req.initialBreakTime());
+    
+    existingWorkTime.setEndBreakTime(req.endBreakTime());
+    
+    existingWorkTime.setIsOvernight(req.isOvernight());
+    
+    existingWorkTime.setRequiresPunch(req.requiresPunch());
+    
+    existingWorkTime.setAutoGeneratePunches(req.autoGeneratePunches());
+    
+    existingWorkTime.setIsActive(req.isActive());
+
+    WorkTime updatedWorkTime = workTimeRepository.save(existingWorkTime);
+
+    return workTimeMapper.toResponse(updatedWorkTime);
+    
+  }
+
 }
