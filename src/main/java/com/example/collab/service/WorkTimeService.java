@@ -50,4 +50,12 @@ public class WorkTimeService {
 
   }
 
+  public WorkTimeResponseDTO getWorkTimeById(Long id) {
+
+    WorkTime workTime = workTimeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Work time with id " + id + " not found."));
+
+    return workTimeMapper.toResponse(workTime);
+
+  }
+
 }
