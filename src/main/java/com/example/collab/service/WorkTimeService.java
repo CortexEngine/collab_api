@@ -1,5 +1,8 @@
 package com.example.collab.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +58,14 @@ public class WorkTimeService {
     WorkTime workTime = workTimeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Work time with id " + id + " not found."));
 
     return workTimeMapper.toResponse(workTime);
+
+  }
+
+  public List<WorkTimeResponseDTO> getAllWorkTimes() {
+
+    List<WorkTime> workTimes = workTimeRepository.findAll();
+
+    return workTimes.stream().map(workTime -> workTimeMapper.toResponse(workTime)).collect(Collectors.toList());
 
   }
 
