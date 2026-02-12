@@ -81,6 +81,8 @@ public class WorkTimeService {
 
     WorkTime existingWorkTime = workTimeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Work time with id " + id + " not found."));
 
+    workTimeValidator.validateIsActiveWorkTime(id);
+
     workTimeValidator.validateTimeEndBeforeInitialTime(req.initialTime(), req.endTime(), req.isOvernight());
 
     workTimeValidator.validateSameWorkTimes(req.initialTime(), req.endTime(), req.initialBreakTime(), req.endBreakTime());
@@ -90,8 +92,6 @@ public class WorkTimeService {
     workTimeValidator.validateInitialAndEndBreakTimeLimit(req.initialBreakTime(), req.endBreakTime(), req.isOvernight());
 
     workTimeValidator.validateRequireAndAutoPunchSameTime(req.requiresPunch(), req.autoGeneratePunches());
-
-    workTimeValidator.validateIsActiveWorkTime(id);
 
     existingWorkTime.setDescription(req.description());
 
