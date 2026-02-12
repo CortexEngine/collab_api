@@ -69,4 +69,12 @@ public class WorkTimeService {
 
   }
 
+  public List<WorkTimeResponseDTO> getActiveWorkTimes() {
+
+    List<WorkTime> workTimes = workTimeRepository.findByIsActive(true);
+
+    return workTimes.stream().map(workTime -> workTimeMapper.toResponse(workTime)).collect(Collectors.toList());
+  
+  }
+
 }
