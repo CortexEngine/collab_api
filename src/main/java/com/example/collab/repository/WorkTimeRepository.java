@@ -1,6 +1,7 @@
 package com.example.collab.repository;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,5 +25,7 @@ public interface WorkTimeRepository extends JpaRepository<WorkTime, Long> {
   Optional<WorkTime> findByIdAndIsActive(Long id,Boolean isActive);
 
   Optional<WorkTime> findByDescription(String description);
+
+  List<WorkTime> findByIsActive(boolean isActive);
 
 }
