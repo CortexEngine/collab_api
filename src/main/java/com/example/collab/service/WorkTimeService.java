@@ -117,4 +117,18 @@ public class WorkTimeService {
     
   }
 
+  public WorkTimeResponseDTO activateWorkTime(Long id) {
+
+    workTimeValidator.validateIsActiveWorkTime(id);
+
+    WorkTime workTime = workTimeRepository.findByIdAndIsActive(id, false).get();
+
+    workTime.setIsActive(true);
+
+    WorkTime updatedWorkTime = workTimeRepository.save(workTime);
+
+    return workTimeMapper.toResponse(updatedWorkTime);
+
+  }
+
 }
