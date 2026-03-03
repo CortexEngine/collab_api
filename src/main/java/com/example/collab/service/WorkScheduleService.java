@@ -86,7 +86,7 @@ public class WorkScheduleService {
 
   }
 
-  public List<WorkScheduleResponseDTO> getAllInactiveWorkSchedule(){
+  public List<WorkScheduleResponseDTO> getAllDeactivatedWorkSchedule(){
 
     List<WorkSchedule> inactiveWorkSchedules = workScheduleRepository.findByIsActive(false);
 
