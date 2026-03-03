@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.collab.dto.request.ScheduleRotationRequestDTO;
 import com.example.collab.dto.response.ScheduleRotationResponseDTO;
-import com.example.collab.exception.resource.NotFoundException;
+import com.example.collab.exception.resource.ScheduleRotationNotFoundException;
 import com.example.collab.service.ScheduleRotationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -197,7 +197,7 @@ public class ScheduleRotationControllerTest {
     @DisplayName("GET /schedule-rotations/work-schedule/{workScheduleId} - Should handle not found exception")
     void testGetByWorkScheduleId_NotFound() throws Exception {
         when(scheduleRotationService.getScheduleRotationByWorkScheduleId(999L))
-            .thenThrow(new NotFoundException("Schedule rotation not found"));
+            .thenThrow(new ScheduleRotationNotFoundException("Schedule rotation not found"));
 
         mockMvc.perform(get("/schedule-rotations/work-schedule/{workScheduleId}", 999)
             .contentType(MediaType.APPLICATION_JSON))

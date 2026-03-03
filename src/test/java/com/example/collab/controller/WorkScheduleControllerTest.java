@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.collab.dto.request.WorkScheduleRequestDTO;
 import com.example.collab.dto.response.WorkScheduleResponseDTO;
-import com.example.collab.exception.resource.NotFoundException;
+import com.example.collab.exception.resource.WorkScheduleNotFoundException;
 import com.example.collab.service.WorkScheduleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -265,7 +265,7 @@ public class WorkScheduleControllerTest {
     @DisplayName("GET /work-schedules/{id} - Should handle not found exception")
     void testGetWorkScheduleById_NotFound() throws Exception {
         when(workScheduleService.getActiveWorkScheduleById(999L))
-            .thenThrow(new NotFoundException("Work schedule not found"));
+            .thenThrow(new WorkScheduleNotFoundException("Work schedule not found"));
 
         mockMvc.perform(get("/work-schedules/{id}", 999)
             .contentType(MediaType.APPLICATION_JSON))

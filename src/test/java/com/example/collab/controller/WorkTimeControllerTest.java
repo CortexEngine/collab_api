@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.collab.dto.request.WorkTimeRequestDTO;
 import com.example.collab.dto.response.WorkTimeResponseDTO;
-import com.example.collab.exception.resource.NotFoundException;
+import com.example.collab.exception.resource.WorkTimeNotFoundException;
 import com.example.collab.service.WorkTimeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -294,7 +294,7 @@ public class WorkTimeControllerTest {
     @DisplayName("GET /work-time/{id} - Should handle not found exception")
     void testGetWorkTimeById_NotFound() throws Exception {
         when(workTimeService.getWorkTimeById(999L))
-            .thenThrow(new NotFoundException("Work time not found"));
+            .thenThrow(new WorkTimeNotFoundException("Work time not found"));
 
         mockMvc.perform(get("/work-time/{id}", 999)
             .contentType(MediaType.APPLICATION_JSON))
