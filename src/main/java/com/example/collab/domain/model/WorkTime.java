@@ -9,6 +9,16 @@ import lombok.*;
 @Data
 public class WorkTime {
 
+  public WorkTime() {
+
+  }
+
+  public WorkTime(Long id) {
+
+    this.id = id;
+    
+  }
+
   @Id
   @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +41,6 @@ public class WorkTime {
   private Boolean requiresPunch;
 
   private Boolean autoGeneratePunches;
-
-  public WorkTime(Long id) {
-
-    this.id = id;
-    
-  }
 
 }
 

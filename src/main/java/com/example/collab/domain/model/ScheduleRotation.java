@@ -9,6 +9,10 @@ import lombok.*;
 @Data
 public class ScheduleRotation {
 
+  public ScheduleRotation() {
+
+  }
+
   @Id
   @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +26,14 @@ public class ScheduleRotation {
   @JoinColumn(name = "work_time_id")
   private WorkTime workTime;
 
+  @ElementCollection
+  @CollectionTable(name = "schedule_rotation_day_indexes", joinColumns = @JoinColumn(name = "schedule_rotation_id"))
+  @Column(name = "day_index")
   private List<Integer> dayIndexs;
 
+  @ElementCollection
+  @CollectionTable(name = "schedule_rotation_workdays", joinColumns = @JoinColumn(name = "schedule_rotation_id"))
+  @Column(name = "workday")
   private List<Boolean> workdays;
 
 }

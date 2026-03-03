@@ -10,6 +10,16 @@ import lombok.*;
 @Data
 public class WorkSchedule {
 
+  public WorkSchedule() {
+
+  }
+
+  public WorkSchedule(Long id) {
+
+    this.id = id;
+    
+  }
+
   @Id
   @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +32,6 @@ public class WorkSchedule {
   private Integer restDaysPerWeek;
 
   private Boolean isActive;
-
-  public WorkSchedule(Long id) {
-
-    this.id = id;
-    
-  }
 
 }
 
