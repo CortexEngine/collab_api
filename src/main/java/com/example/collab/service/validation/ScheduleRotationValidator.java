@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.example.collab.domain.model.WorkSchedule;
 import com.example.collab.repository.*;
+import com.example.collab.exception.business.InvalidScheduleRotationException;
+import com.example.collab.exception.domain.DuplicatedScheduleRotationException;
 @Component
 public class ScheduleRotationValidator {
 
@@ -39,7 +41,7 @@ public class ScheduleRotationValidator {
 
     if (totalWorkDays > 6) {
 
-      throw new IllegalArgumentException("A schedule cannot have more than 6 work days per week.");
+      throw new InvalidScheduleRotationException("A schedule cannot have more than 6 work days per week.");
 
     }
 
@@ -65,7 +67,7 @@ public class ScheduleRotationValidator {
 
     if (hasInsufficientRestDays || hasExcessiveRestDays) {
 
-      throw new IllegalArgumentException("A schedule must have at least 1 rest day per week or no more than 3 rest days per week.");
+      throw new InvalidScheduleRotationException("A schedule must have at least 1 rest day per week or no more than 3 rest days per week.");
       
     }
 
@@ -73,7 +75,7 @@ public class ScheduleRotationValidator {
 
   public void validateTotalDaysMatchSchedule(Long workScheduleId, List<Integer> dayIndexs) {
 
-    WorkSchedule workSchedule = workScheduleRepository.findById(workScheduleId).orElseThrow(() -> new IllegalArgumentException("Work schedule not found"));
+    WorkSchedule workSchedule = workScheduleRepository.findById(workScheduleId).orElseThrow(() -> new InvalidScheduleRotationException("Work schedule not found"));
 
     Integer expectedTotalDays = workSchedule.getWorkDaysPerWeek() + workSchedule.getRestDaysPerWeek();
 
@@ -93,7 +95,7 @@ public class ScheduleRotationValidator {
 
     if (daysMismatch) {
 
-      throw new IllegalArgumentException("Schedule requires " + expectedTotalDays + " days but has " + totalRotationsCount + " rotations configured.");
+      throw new InvalidScheduleRotationException("Schedule requires " + expectedTotalDays + " days but has " + totalRotationsCount + " rotations configured.");
 
     }
 
@@ -113,13 +115,13 @@ public class ScheduleRotationValidator {
 
       if (!seen.add(dayIndex)) {
 
-        throw new IllegalArgumentException("Day index " + dayIndex + " is duplicated in request.");
+        throw new InvalidScheduleRotationException("Day index " + dayIndex + " is duplicated in request.");
 
       }
 
       if (scheduleRotationRepository.findByWorkScheduleIdAndDayIndexs(workScheduleId, dayIndex).isPresent()) {
 
-        throw new IllegalArgumentException("Day index " + dayIndex + " already exists for this work schedule.");
+        throw new DuplicatedScheduleRotationException("Day index " + dayIndex + " already exists for this work schedule.");
 
       }
 
@@ -137,7 +139,7 @@ public class ScheduleRotationValidator {
 
     if (dayIndexs.size() != workdays.size()) {
 
-      throw new IllegalArgumentException("Day indexes and workdays must have the same size.");
+      throw new InvalidScheduleRotationException("Day indexes and workdays must have the same size.");
       
     }
 

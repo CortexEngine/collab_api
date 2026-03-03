@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.collab.repository.WorkTimeRepository;
+import com.example.collab.exception.business.InvalidWorkTimeException;
+import com.example.collab.exception.domain.DuplicatedWorkTimeException;
 
 @Component
 public class WorkTimeValidator {
@@ -25,7 +27,7 @@ public class WorkTimeValidator {
       
       if (isOvernight == null || Boolean.FALSE.equals(isOvernight)) {
 
-        throw new IllegalArgumentException("End time cannot be before initial time if not overnight.");
+        throw new InvalidWorkTimeException("End time cannot be before initial time if not overnight.");
 
       } 
 
@@ -33,7 +35,7 @@ public class WorkTimeValidator {
 
       if (isOvernight != null && Boolean.TRUE.equals(isOvernight)) {
 
-        throw new IllegalArgumentException("End time must be before initial time if overnight.");
+        throw new InvalidWorkTimeException("End time must be before initial time if overnight.");
 
       }
 
@@ -47,7 +49,7 @@ public class WorkTimeValidator {
 
       if (workTimeRepository.findByInitialBreakTimeAndEndBreakTime(initialBreakTime, endBreakTime).isPresent()) {
 
-        throw new IllegalArgumentException("A work time with the same work and break times already exists.");
+        throw new DuplicatedWorkTimeException("A work time with the same work and break times already exists.");
 
       }
       
@@ -71,7 +73,7 @@ public class WorkTimeValidator {
 
     if(totalHors < 1 || totalHors > 13){
 
-      throw new IllegalArgumentException("Total work time must be between 1 and 13 hours.");
+      throw new InvalidWorkTimeException("Total work time must be between 1 and 13 hours.");
 
     }
     
@@ -93,7 +95,7 @@ public class WorkTimeValidator {
 
     if(totalBreakHours < 0 || totalBreakHours > 160){
 
-      throw new IllegalArgumentException("Total break time must be between 0 and 2,5 hours.");
+      throw new InvalidWorkTimeException("Total break time must be between 0 and 2,5 hours.");
 
     }
 
@@ -103,7 +105,7 @@ public class WorkTimeValidator {
 
     if (workTimeRepository.findByIdAndIsActive(id ,true).isPresent()) {
 
-      throw new IllegalArgumentException("There is already an active work time.");
+      throw new DuplicatedWorkTimeException("There is already an active work time.");
 
     }
 
@@ -113,7 +115,7 @@ public class WorkTimeValidator {
 
     if(Boolean.TRUE.equals(requiresPunch) && Boolean.TRUE.equals(autoGeneratePunches)) {
 
-      throw new IllegalArgumentException("A work time cannot require punches and auto-generate punches at the same time.");
+      throw new InvalidWorkTimeException("A work time cannot require punches and auto-generate punches at the same time.");
 
     }
 
