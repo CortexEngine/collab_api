@@ -7,25 +7,14 @@ import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
 import com.example.collab.domain.model.Collaborator;
 import com.example.collab.domain.model.Department;
+import com.example.collab.domain.model.WorkSchedule;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CollaboratorMapper {
 
-    // Pega os dados do DTO e cria uma nova entidade
-    @Mapping(target = "address", source = "address")
-    @Mapping(target = "position", source = "position")
-    @Mapping(target = "admissionDate", source = "admissionDate")
-    @Mapping(target = "contractType", source = "contractType")
-    @Mapping(target = "salary", source = "salary")
-    @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workload", source = "workload")
-    @Mapping(target = "emergencyContact", source = "emergencyContact")
-    @Mapping(target = "education", source = "education")
-    @Mapping(target = "course", source = "course")
-    @Mapping(target = "observations", source = "observations")
-    @Mapping(target = "reservistCertificate", source = "reservistCertificate")
+    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
     @Mapping(target = "email", source = "email", qualifiedByName = "toEmail")
     @Mapping(target = "phone", source = "phone", qualifiedByName = "toPhone")
     @Mapping(target = "bank", source = "bank", qualifiedByName = "toBank")
@@ -41,22 +30,10 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "toRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "toPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
-    @Mapping(target = "manager", source = "manager")
-    @Mapping(target = "supportManager", source = "supportManager")
     Collaborator toEntity(CollaboratorRequestDTO dto);
 
-    // Pega os novos dados e atualiza a entidade existente
-    @Mapping(target = "address", source = "address")
-    @Mapping(target = "position", source = "position")
-    @Mapping(target = "admissionDate", source = "admissionDate")
-    @Mapping(target = "contractType", source = "contractType")
-    @Mapping(target = "salary", source = "salary")
     @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workload", source = "workload")
-    @Mapping(target = "emergencyContact", source = "emergencyContact")
-    @Mapping(target = "education", source = "education")
-    @Mapping(target = "course", source = "course")
-    @Mapping(target = "observations", source = "observations")
+    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
     @Mapping(target = "reservistCertificate", source = "reservistCertificate")
     @Mapping(target = "email", source = "email", qualifiedByName = "toEmail")
     @Mapping(target = "phone", source = "phone", qualifiedByName = "toPhone")
@@ -73,24 +50,9 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "toRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "toPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
-    @Mapping(target = "manager", source = "manager")
-    @Mapping(target = "supportManager", source = "supportManager")
     void updateEntity(@MappingTarget Collaborator collaborator, CollaboratorRequestDTO dto);
 
-    // Pega a entidade e converte para o DTO de resposta
-    @Mapping(target = "name", source = "name")
-    @Mapping(target = "address", source = "address")
-    @Mapping(target = "position", source = "position")
-    @Mapping(target = "admissionDate", source = "admissionDate")
-    @Mapping(target = "contractType", source = "contractType")
-    @Mapping(target = "salary", source = "salary")
-    @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workload", source = "workload")
-    @Mapping(target = "emergencyContact", source = "emergencyContact")
-    @Mapping(target = "education", source = "education")
-    @Mapping(target = "course", source = "course")
-    @Mapping(target = "reservistCertificate", source = "reservistCertificate")
-    @Mapping(target = "observations", source = "observations")
+    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "fromWorkSchedule")
     @Mapping(target = "email", source = "email", qualifiedByName = "fromEmail")
     @Mapping(target = "phone", source = "phone", qualifiedByName = "fromPhone")
     @Mapping(target = "bank", source = "bank", qualifiedByName = "fromBank")
@@ -106,11 +68,8 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "fromRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "fromPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "fromDepartment")
-    @Mapping(target = "manager", source = "manager")
-    @Mapping(target = "supportManager", source = "supportManager")
     CollaboratorResponseDTO toResponse(Collaborator collaborator);
 
-    // Pega os dados e transforma em ValueObjects
     @Named("toEmail")
     default Email toEmail(String value) {
 
@@ -216,7 +175,13 @@ public interface CollaboratorMapper {
 
     }
 
-    // pega os ValueObject's e transforma em String
+    @Named("toWorkSchedule")
+    default WorkSchedule toWorkSchedule(Long value) {
+
+        return null;
+
+    }
+
     @Named("fromEmail")
     default String fromEmail(Email email) {
 
@@ -320,6 +285,12 @@ public interface CollaboratorMapper {
 
         return department != null ? department.getNumber() : null;
 
+    }
+
+    @Named("fromWorkSchedule")
+    default Long fromWorkSchedule(WorkSchedule workSchedule) {
+
+        return workSchedule != null ? workSchedule.getId() : null;
     }
 
 }
