@@ -97,7 +97,12 @@
 			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>${mapstruct.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
 			<version>6.6.4.Final</version>
 		</dependency>

@@ -6,14 +6,7 @@ import org.springframework.stereotype.Component;
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.domain.valueobject.document.*;
 import com.example.collab.exception.business.InvalidCollaboratorException;
-import com.example.collab.exception.domain.DuplicatedAccountException;
-import com.example.collab.exception.domain.DuplicatedCNHException;
-import com.example.collab.exception.domain.DuplicatedCPFException;
-import com.example.collab.exception.domain.DuplicatedPISException;
-import com.example.collab.exception.domain.DuplicatedPixException;
-import com.example.collab.exception.domain.DuplicatedRGException;
-import com.example.collab.exception.domain.DuplicatedVoteRegistrationException;
-import com.example.collab.exception.domain.DuplicatedWorkWalletException;
+import com.example.collab.exception.domain.*;
 import com.example.collab.repository.CollaboratorRepository;
 
 @Component
