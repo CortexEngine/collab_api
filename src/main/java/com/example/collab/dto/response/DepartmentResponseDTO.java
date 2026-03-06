@@ -5,24 +5,21 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
+public record DepartmentResponseDTO(
 
-@Data
-public class DepartmentResponseDTO{
+    String name,
 
-    private String name;
-
-    private Integer number;
+    Integer number,
+    @JsonFormat(pattern = "yyyy-MM-dd")
+     LocalDate initialDate,
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate initialDate;
+    LocalDate endDate,
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
+    Integer managerRegistration,
 
-    private Integer managerRegistration;
+    List<Integer> managerSupportRegistration,
 
-    private List<Integer> managerSupportRegistration;
-
-    private List<Integer> teamMembersRegistration;
-}
+    List<Integer> teamMembersRegistration
+    
+) {};

@@ -3,7 +3,6 @@ package com.example.collab.dto.request;
 import java.time.LocalDate;
 import java.util.List;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Future;
@@ -12,33 +11,29 @@ import jakarta.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-
-import lombok.Data;
-
-@Data
-public class DepartmentRequestDTO{
+public record DepartmentRequestDTO(
 
     @NotNull
     @NotBlank
-    private String name;
+    String name,
 
     @NotNull
     @Positive
-    private Integer number;
+    Integer number,
 
     @PastOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate initialDate;
+    LocalDate initialDate,
 
     @Future
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
+    LocalDate endDate,
 
     @Positive
-    private Integer managerRegistration;
+    Integer managerRegistration,
     
-    private List<Integer> managerSupportRegistration;
+    List<Integer> managerSupportRegistration,
 
-    private List<Integer> teamMembersRegistration;
+    List<Integer> teamMembersRegistration
     
-}
+) {};

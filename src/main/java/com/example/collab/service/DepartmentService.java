@@ -17,12 +17,12 @@ import java.util.List;
 @Service
 public class DepartmentService {
 
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
-    private DepartmentValidator departmentValidator;
+    private final DepartmentValidator departmentValidator;
 
-    private DepartmentMapper departmentMapper;
-
+    private final DepartmentMapper departmentMapper;
+    
     @Autowired
     public DepartmentService(DepartmentRepository departmentRepository, DepartmentValidator departmentValidator, DepartmentMapper departmentMapper){
 
@@ -36,19 +36,19 @@ public class DepartmentService {
 
     public DepartmentResponseDTO createDepartment(DepartmentRequestDTO req){
 
-        departmentValidator.validateDepartmentName(req.getName());
+        departmentValidator.validateDepartmentName(req.name());
 
-        departmentValidator.validateDepartmentNumber(req.getNumber());
+        departmentValidator.validateDepartmentNumber(req.number());
 
-        departmentValidator.validateDepartmentManager(req.getManagerRegistration());
+        departmentValidator.validateDepartmentManager(req.managerRegistration());
 
-        for(Integer registration : req.getManagerSupportRegistration()){
+        for(Integer registration : req.managerSupportRegistration()){
 
            departmentValidator.validateDepartmentSupportManager(registration);
 
         }
 
-        for(Integer registration : req.getTeamMembersRegistration()){
+        for(Integer registration : req.teamMembersRegistration()){
 
             departmentValidator.validateDepartmentMembers(registration);
 
@@ -151,15 +151,15 @@ public class DepartmentService {
         Department existingDepartment = departmentRepository.findByNumber(number).orElseThrow(
                 () -> new DepartmentNotFoundException("Department not found with number: " + number));
         
-        departmentValidator.validateDepartmentNumber(req.getNumber());
+        departmentValidator.validateDepartmentNumber(req.number());
 
-        departmentValidator.validateDepartmentName(req.getName());
+        departmentValidator.validateDepartmentName(req.name());
 
-        departmentValidator.validateDepartmentManager(req.getManagerRegistration());
+        departmentValidator.validateDepartmentManager(req.managerRegistration());
 
-        departmentValidator.validateDepartmentSupportManager(req.getManagerSupportRegistration());
+        departmentValidator.validateDepartmentSupportManager(req.managerSupportRegistration());
 
-        departmentValidator.validateDepartmentMembers(req.getTeamMembersRegistration());
+        departmentValidator.validateDepartmentMembers(req.teamMembersRegistration());
 
         departmentMapper.updateEntity(existingDepartment, req);
 

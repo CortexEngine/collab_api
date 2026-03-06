@@ -6,125 +6,115 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.*;
 
-import lombok.Data;
+public record CollaboratorRequestDTO(
 
-@Data
-public class CollaboratorRequestDTO {
-
-    // Identificação
     @NotBlank
     @Size(max = 120)
-    private String name;
+    String name,
 
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    LocalDate birthDate,
 
     @Size(max = 30)
-    private String maritalStatus;
+    String maritalStatus,
 
     @Size(max = 60)
-    private String nationality;
+    String nationality,
 
-    // Contato
     @Email
     @Size(max = 180)
-    private String email;
+    String email,
 
     @Size(max = 20)
-    private String phone;
+    String phone,
 
     @Size(max = 255)
-    private String address;
+    String address,
 
-    // Profissional
     @Size(max = 120)
-    private String position;
+    String position,
 
-    private Integer department;
+    Integer department,
 
     @NotNull
-    private boolean manager;
+    Boolean manager,
     
     @NotNull
-    private boolean supportManager;
+    Boolean supportManager,
 
     @FutureOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate admissionDate;
+    LocalDate admissionDate,
 
     @Size(max = 60)
-    private String contractType;
+    String contractType,
 
     @PositiveOrZero
-    private Double salary;
+    Double salary,
 
     @NotNull
-    private Integer registration;
+    Integer registration,
 
     @Size(max = 20)
-    private String workload;
+    Integer workSchedule,
 
-    // Bancárias
     @NotNull
     @Size(max = 3)
-    private String bank;
+    String bank,
 
     @NotNull
     @Size(max = 10)
-    private String agency;
+    String agency,
 
     @NotNull
     @Size(max = 20)
-    private String account;
+    String account,
 
     @NotNull
     @Size(max = 20)
-    private String typeAccount;
+    String typeAccount,
 
     @NotNull
     @Size(max = 100)
-    private String pix;
+    String pix,
 
-    // Documentos
     @NotNull
     @Size(max = 20)
-    private String workWallet;
+    String workWallet,
 
     @Size(max = 20)
-    private String voterRegistration;
+    String voterRegistration,
 
     @Size(max = 40)
-    private String reservistCertificate;
+    String reservistCertificate,
 
     @Size(max = 20)
-    private String PIS;
+    String PIS,
 
     @Size(max = 20)
-    private String CNH;
+    String CNH,
 
     @NotNull
     @Size(max = 14)
-    private String CPF;
+    String CPF,
 
     @NotNull
     @Size(max = 20)
-    private String RG;
+    String RG,
 
-    // Emergência
     @Size(max = 120)
-    private String emergencyContact;
+    String emergencyContact,
 
     @Size(max = 20)
-    private String phoneEmergency;
+    String phoneEmergency,
 
-    // Adicionais
     @Size(max = 60)
-    private String education;
+    String education,
 
     @Size(max = 120)
-    private String course;
+    String course,
 
     @Size(max = 120)
-    private String observations;
-}
+    String observations
+) {};
