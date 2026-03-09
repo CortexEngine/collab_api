@@ -1,7 +1,6 @@
 package com.example.collab.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.collab.repository.DepartmentRepository;
 import com.example.collab.service.validation.DepartmentValidator;
@@ -23,7 +22,6 @@ public class DepartmentService {
 
     private final DepartmentMapper departmentMapper;
     
-    @Autowired
     public DepartmentService(DepartmentRepository departmentRepository, DepartmentValidator departmentValidator, DepartmentMapper departmentMapper){
 
         this.departmentRepository = departmentRepository;

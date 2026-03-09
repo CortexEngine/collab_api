@@ -2,7 +2,6 @@ package com.example.collab.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,6 @@ public class DepartmentController {
 
     private DepartmentService departmentService;
 
-    @Autowired
     public DepartmentController(DepartmentService departmentService) {
 
         this.departmentService = departmentService;

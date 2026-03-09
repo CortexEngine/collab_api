@@ -2,7 +2,6 @@ package com.example.collab.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +18,7 @@ public class CollaboratorController {
 
     
     private CollaboratorService collaboratorService;
-    
-    @Autowired
+
     public CollaboratorController(CollaboratorService collaboratorService){
 
         this.collaboratorService = collaboratorService;

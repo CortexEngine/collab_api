@@ -2,7 +2,6 @@ package com.example.collab.service.validation;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.collab.repository.*;
@@ -16,7 +15,6 @@ public class DepartmentValidator {
 
     private CollaboratorRepository collaboratorRepository;
 
-    @Autowired
     public DepartmentValidator(DepartmentRepository departmentRepository, CollaboratorRepository collaboratorRepository){
 
         this.departmentRepository = departmentRepository;

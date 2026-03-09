@@ -2,7 +2,6 @@ package com.example.collab.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.collab.domain.model.Collaborator;
@@ -25,8 +24,7 @@ public class CollaboratorService {
     private final CollaboratorValidator collaboratorValidator;
 
     private final CollaboratorMapper collaboratorMapper;
-    
-    @Autowired
+
     public CollaboratorService(CollaboratorRepository collaboratorRepository, CollaboratorValidator collaboratorValidator, CollaboratorMapper collaboratorMapper){
         
         this.collaboratorRepository = collaboratorRepository;
