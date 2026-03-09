@@ -49,10 +49,7 @@ public class Collaborator {
 
     private Integer registration;
 
-    @ManyToOne
-    @ElementCollection
-    @JoinColumn(name = "work_schedule_id", referencedColumnName = "id")
-    private WorkSchedule workSchedule;
+    private Integer workSchedule;
 
     private Boolean manager;
 

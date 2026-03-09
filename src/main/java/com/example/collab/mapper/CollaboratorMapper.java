@@ -7,14 +7,12 @@ import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
 import com.example.collab.domain.model.Collaborator;
 import com.example.collab.domain.model.Department;
-import com.example.collab.domain.model.WorkSchedule;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CollaboratorMapper {
 
-    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
     @Mapping(target = "email", source = "email", qualifiedByName = "toEmail")
     @Mapping(target = "phone", source = "phone", qualifiedByName = "toPhone")
     @Mapping(target = "bank", source = "bank", qualifiedByName = "toBank")
@@ -33,7 +31,6 @@ public interface CollaboratorMapper {
     Collaborator toEntity(CollaboratorRequestDTO dto);
 
     @Mapping(target = "registration", source = "registration")
-    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "toWorkSchedule")
     @Mapping(target = "reservistCertificate", source = "reservistCertificate")
     @Mapping(target = "email", source = "email", qualifiedByName = "toEmail")
     @Mapping(target = "phone", source = "phone", qualifiedByName = "toPhone")
@@ -52,7 +49,6 @@ public interface CollaboratorMapper {
     @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
     void updateEntity(@MappingTarget Collaborator collaborator, CollaboratorRequestDTO dto);
 
-    @Mapping(target = "workSchedule", source = "workSchedule", qualifiedByName = "fromWorkSchedule")
     @Mapping(target = "email", source = "email", qualifiedByName = "fromEmail")
     @Mapping(target = "phone", source = "phone", qualifiedByName = "fromPhone")
     @Mapping(target = "bank", source = "bank", qualifiedByName = "fromBank")
@@ -175,13 +171,6 @@ public interface CollaboratorMapper {
 
     }
 
-    @Named("toWorkSchedule")
-    default WorkSchedule toWorkSchedule(Long value) {
-
-        return null;
-
-    }
-
     @Named("fromEmail")
     default String fromEmail(Email email) {
 
@@ -285,12 +274,6 @@ public interface CollaboratorMapper {
 
         return department != null ? department.getNumber() : null;
 
-    }
-
-    @Named("fromWorkSchedule")
-    default Long fromWorkSchedule(WorkSchedule workSchedule) {
-
-        return workSchedule != null ? workSchedule.getId() : null;
     }
 
 }
