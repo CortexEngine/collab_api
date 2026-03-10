@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.hibernate.envers.Audited;
 
+import com.example.collab.domain.valueobject.*;
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
@@ -43,7 +44,7 @@ public class Collaborator {
 
     private LocalDate admissionDate;
 
-    private String contractType;
+    private ContractType contractType;
 
     private Double salary;
 

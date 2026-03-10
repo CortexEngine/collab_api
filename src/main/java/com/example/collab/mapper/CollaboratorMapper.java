@@ -2,6 +2,7 @@ package com.example.collab.mapper;
 
 import org.mapstruct.*;
 
+import com.example.collab.domain.valueobject.ContractType;
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
@@ -19,6 +20,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "agency", source = "agency", qualifiedByName = "toAgency")
     @Mapping(target = "account", source = "account", qualifiedByName = "toAccount")
     @Mapping(target = "typeAccount", source = "typeAccount", qualifiedByName = "toTypeAccount")
+    @Mapping(target = "contractType", source = "contractType", qualifiedByName = "toContractType")
     @Mapping(target = "pix", source = "pix", qualifiedByName = "toPIX")
     @Mapping(target = "workWallet", source = "workWallet", qualifiedByName = "toWorkWallet")
     @Mapping(target = "voterRegistration", source = "voterRegistration", qualifiedByName = "toVoterRegistration")
@@ -38,6 +40,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "agency", source = "agency", qualifiedByName = "toAgency")
     @Mapping(target = "account", source = "account", qualifiedByName = "toAccount")
     @Mapping(target = "typeAccount", source = "typeAccount", qualifiedByName = "toTypeAccount")
+    @Mapping(target = "contractType", source = "contractType", qualifiedByName = "toContractType")
     @Mapping(target = "pix", source = "pix", qualifiedByName = "toPIX")
     @Mapping(target = "workWallet", source = "workWallet", qualifiedByName = "toWorkWallet")
     @Mapping(target = "voterRegistration", source = "voterRegistration", qualifiedByName = "toVoterRegistration")
@@ -55,6 +58,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "agency", source = "agency", qualifiedByName = "fromAgency")
     @Mapping(target = "account", source = "account", qualifiedByName = "fromAccount")
     @Mapping(target = "typeAccount", source = "typeAccount", qualifiedByName = "fromTypeAccount")
+    @Mapping(target = "contractType", source = "contractType", qualifiedByName = "fromContractType")
     @Mapping(target = "pix", source = "pix", qualifiedByName = "fromPIX")
     @Mapping(target = "workWallet", source = "workWallet", qualifiedByName = "fromWorkWallet")
     @Mapping(target = "voterRegistration", source = "voterRegistration", qualifiedByName = "fromVoterRegistration")
@@ -171,6 +175,13 @@ public interface CollaboratorMapper {
 
     }
 
+    @Named("toContractType")
+    default ContractType toContractType(String value) {
+
+        return value != null && !value.isBlank() ? new ContractType(value) : null;
+
+    }
+
     @Named("fromEmail")
     default String fromEmail(Email email) {
 
@@ -273,6 +284,13 @@ public interface CollaboratorMapper {
     default Integer fromDepartment(Department department) {
 
         return department != null ? department.getNumber() : null;
+
+    }
+
+    @Named("fromContractType")
+    default String fromContractType(ContractType contractType) {
+
+        return contractType != null ? contractType.getType() : null;
 
     }
 

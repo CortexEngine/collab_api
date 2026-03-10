@@ -33,7 +33,7 @@ class CollaboratorMapperTest {
             false,
             false,
             LocalDate.now().plusDays(1),
-            "CLT",
+            "Hourly",
             5000.0,
             12345,
             null,
