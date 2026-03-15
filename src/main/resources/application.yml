@@ -13,7 +13,7 @@ spring:
       ddl-auto: update
     open-in-view: false
     properties:
-      org.hibernate.envers.audit_table_suffix: _history
-      org.hibernate.envers.revision_field_name: rev
-      org.hibernate.envers.revision_type_field_name: revtype
-      org.hibernate.envers.store_data_at_delete: true
+      "[org.hibernate.envers.audit_table_suffix]": _history,
+      "[org.hibernate.envers.revision_field_name]": rev,
+      "[org.hibernate.envers.revision_type_field_name]": revtype,
+      "[org.hibernate.envers.store_data_at_delete]": true
