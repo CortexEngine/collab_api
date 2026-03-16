@@ -26,6 +26,7 @@ public class KafkaConsumerConfig {
         properties.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, 10000);
 
         return new DefaultKafkaConsumerFactory<>(properties);
+        
     }
 
     @Bean
@@ -38,5 +39,6 @@ public class KafkaConsumerConfig {
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
 
         return factory;
+
     }
 }
