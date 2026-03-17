@@ -1,4 +1,4 @@
-package com.example.collab.domain.model;
+package com.example.collab.domain.valueobject;
 
 public enum OutboxStatus {
     PENDING,

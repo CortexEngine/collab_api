@@ -3,6 +3,8 @@ package com.example.collab.domain.model;
 import java.time.Instant;
 import java.util.UUID;
 
+import com.example.collab.domain.valueobject.OutboxStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
