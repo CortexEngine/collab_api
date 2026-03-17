@@ -84,7 +84,6 @@ public class Collaborator {
 
     private Phone phoneEmergency;
 
-
     private String education;
 
     private String course;
