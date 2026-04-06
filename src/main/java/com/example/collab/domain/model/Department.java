@@ -9,7 +9,8 @@ import org.hibernate.envers.Audited;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Audited
 public class Department {
 

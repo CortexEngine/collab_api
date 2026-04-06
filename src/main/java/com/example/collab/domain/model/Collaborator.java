@@ -13,7 +13,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Audited
 public class Collaborator {
 

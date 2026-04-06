@@ -5,15 +5,12 @@ import java.util.UUID;
 
 import com.example.collab.domain.valueobject.OutboxStatus;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class OutboxEvent {
 
     @Id
