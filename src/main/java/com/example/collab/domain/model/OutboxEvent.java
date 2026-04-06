@@ -29,6 +29,7 @@ public class OutboxEvent {
 
     private String payload;
 
+    @Enumerated(EnumType.STRING)
     private OutboxStatus status;
 
     private Integer attempts = 0;
