@@ -10,5 +10,7 @@ import com.example.collab.domain.valueobject.OutboxStatus;
 public interface OutboxEventRepository extends JpaRepository<OutboxEvent, Long> {
 
     List<OutboxEvent> findTop50ByStatusOrderByCreatedAtAsc(OutboxStatus status);
+
+    List<OutboxEvent> findTop100ByStatusOrderByIdAsc(OutboxStatus status);
     
 }
