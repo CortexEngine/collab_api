@@ -2,7 +2,9 @@ package com.example.collab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication
 public class CollabApplication {
 
@@ -11,6 +13,7 @@ public class CollabApplication {
 		SpringApplication.run(CollabApplication.class, args);
 
 		System.err.println("Está rodando!");
+		
 	}
 
 }
