@@ -14,22 +14,23 @@ import org.springframework.kafka.core.ProducerFactory;
 public class KafkaProducerConfig {
 
     @Bean
-    public ProducerFactory<String, Object> producerFactory(KafkaProperties kafkaProperties) {
+    public ProducerFactory<String, String> producerFactory(KafkaProperties kafkaProperties) {
 
-      Map<String, Object> properties = kafkaProperties.buildProducerProperties();
+        Map<String, Object> properties = kafkaProperties.buildProducerProperties();
 
-      properties.put(ProducerConfig.ACKS_CONFIG, "all");
-      properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+        properties.put(ProducerConfig.ACKS_CONFIG, "all");
+
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
 
         return new DefaultKafkaProducerFactory<>(properties);
 
     }
 
     @Bean
-    public KafkaTemplate<String, Object> kafkaTemplate(ProducerFactory<String, Object> producerFactory) {
+    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
 
         return new KafkaTemplate<>(producerFactory);
-
+        
     }
 
 }

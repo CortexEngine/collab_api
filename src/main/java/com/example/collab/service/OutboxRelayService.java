@@ -17,9 +17,9 @@ import com.example.collab.repository.OutboxEventRepository;
 public class OutboxRelayService {
 
     private final OutboxEventRepository outboxEventRepository;
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public OutboxRelayService(OutboxEventRepository outboxEventRepository, KafkaTemplate<String, Object> kafkaTemplate) {
+    public OutboxRelayService(OutboxEventRepository outboxEventRepository, KafkaTemplate<String, String> kafkaTemplate) {
 
         this.outboxEventRepository = outboxEventRepository;
 
