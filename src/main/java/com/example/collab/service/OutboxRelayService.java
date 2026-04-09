@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -18,22 +19,25 @@ public class OutboxRelayService {
 
     private final OutboxEventRepository outboxEventRepository;
     private final KafkaTemplate<String, String> kafkaTemplate;
+    private final int maxAttempts;
 
-    public OutboxRelayService(OutboxEventRepository outboxEventRepository, KafkaTemplate<String, String> kafkaTemplate) {
-
+    public OutboxRelayService(OutboxEventRepository outboxEventRepository, KafkaTemplate<String, String> kafkaTemplate, @Value("${app.kafka.outbox.max-attempts:5}") int maxAttempts) 
+    {
         this.outboxEventRepository = outboxEventRepository;
 
         this.kafkaTemplate = kafkaTemplate;
-        
+
+        this.maxAttempts = maxAttempts;
+
     }
 
     @Scheduled(fixedDelayString = "${app.kafka.outbox.fixed-delay-ms:5000}")
     @Transactional
     public void publishPendingEvents() {
 
-        List<OutboxEvent> pendingEvents = outboxEventRepository.findTop100ByStatusOrderByIdAsc(OutboxStatus.PENDING);
+        List<OutboxEvent> events = outboxEventRepository.findTop100ByStatusInAndAttemptsLessThanOrderByIdAsc( List.of(OutboxStatus.PENDING, OutboxStatus.FAILED), maxAttempts);
 
-        for (OutboxEvent event : pendingEvents) {
+        for (OutboxEvent event : events) {
 
             try {
 
@@ -47,17 +51,17 @@ public class OutboxRelayService {
 
             } catch (Exception ex) {
 
-                event.setStatus(OutboxStatus.FAILED);
-
                 event.setAttempts(event.getAttempts() + 1);
 
                 event.setLastError(ex.getMessage());
+
+                event.setStatus(OutboxStatus.FAILED);
 
             }
 
         }
 
-        outboxEventRepository.saveAll(pendingEvents);
-
+        outboxEventRepository.saveAll(events);
+        
     }
 }

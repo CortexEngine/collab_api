@@ -46,3 +46,6 @@ app:
       department-created: collab.department.created
       department-updated: collab.department.updated
       department-deleted: collab.department.deleted
+    outbox:
+      fixed-delay-ms: 5000
+      max-attempts: 5
