@@ -13,7 +13,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Audited
 public class Collaborator {
 
@@ -83,7 +84,6 @@ public class Collaborator {
     private String emergencyContact;
 
     private Phone phoneEmergency;
-
 
     private String education;
 
