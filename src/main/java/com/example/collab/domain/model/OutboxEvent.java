@@ -27,6 +27,7 @@ public class OutboxEvent {
 
     private String topic;
 
+    @Lob
     private String payload;
 
     @Enumerated(EnumType.STRING)
