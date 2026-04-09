@@ -1,21 +1,23 @@
 package com.example.collab.repository;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 
 import com.example.collab.domain.model.OutboxEvent;
 import com.example.collab.domain.valueobject.OutboxStatus;
 
+import jakarta.persistence.LockModeType;
+
 public interface OutboxEventRepository extends JpaRepository<OutboxEvent, Long> {
 
-    List<OutboxEvent> findTop50ByStatusOrderByCreatedAtAsc(OutboxStatus status);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    List<OutboxEvent> findByStatusInAndAttemptsLessThanOrderByIdAsc(Collection<OutboxStatus> statuses,Integer maxAttempts,Pageable pageable);
 
-    List<OutboxEvent> findTop100ByStatusOrderByIdAsc(OutboxStatus status);
+    List<OutboxEvent> findByStatusAndProcessingStartedAtBefore(OutboxStatus status,Instant threshold);
     
-    List<OutboxEvent> findTop100ByStatusInAndAttemptsLessThanOrderByIdAsc(
-            Collection<OutboxStatus> statuses,
-            Integer maxAttempts
-    );
 }

@@ -40,6 +40,8 @@ public class OutboxEvent {
 
     private String lastError;
 
+    private Instant processingStartedAt;
+
     @PrePersist
     public void prePersist() {
 
