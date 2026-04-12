@@ -1,8 +1,10 @@
 package com.example.collab.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.collab.repository.DepartmentRepository;
+import com.example.collab.service.port.DomainEventPublisher;
 import com.example.collab.service.validation.DepartmentValidator;
 import com.example.collab.mapper.DepartmentMapper;
 import com.example.collab.dto.request.DepartmentRequestDTO;
@@ -21,8 +23,10 @@ public class DepartmentService {
     private final DepartmentValidator departmentValidator;
 
     private final DepartmentMapper departmentMapper;
+
+    private final DomainEventPublisher eventPublisher;
     
-    public DepartmentService(DepartmentRepository departmentRepository, DepartmentValidator departmentValidator, DepartmentMapper departmentMapper){
+    public DepartmentService(DepartmentRepository departmentRepository, DepartmentValidator departmentValidator, DepartmentMapper departmentMapper, DomainEventPublisher eventPublisher){
 
         this.departmentRepository = departmentRepository;
 
@@ -30,8 +34,11 @@ public class DepartmentService {
 
         this.departmentMapper = departmentMapper;
 
+        this.eventPublisher = eventPublisher;
+
     }
 
+    @Transactional
     public DepartmentResponseDTO createDepartment(DepartmentRequestDTO req){
 
         departmentValidator.validateDepartmentName(req.name());
@@ -58,7 +65,11 @@ public class DepartmentService {
             
             Department savedDepartment = departmentRepository.save(department);
 
-            return departmentMapper.toResponse(savedDepartment); 
+            DepartmentResponseDTO response = departmentMapper.toResponse(savedDepartment);
+
+            eventPublisher.publish("DEPARTMENT", savedDepartment.getId().toString(), "DEPARTMENT_CREATED", response);
+
+            return response;
         }
 
         throw new BadRequestException("Error creating department");
@@ -134,16 +145,23 @@ public class DepartmentService {
 
     }
 
+    @Transactional
     public Integer deleteDepartmentByNumber(Integer number){
 
         Department department =  departmentRepository.findByNumber(number)
         .orElseThrow(() -> new DepartmentNotFoundException("Department number not found"));
 
+        String aggregateId = department.getId().toString();
+        DepartmentResponseDTO snapshot = departmentMapper.toResponse(department);
+
         departmentRepository.delete(department);
+
+        eventPublisher.publish("DEPARTMENT", aggregateId, "DEPARTMENT_DELETED", snapshot);
 
         return number;
     }
 
+    @Transactional
     public DepartmentResponseDTO updateDepartment(Integer number, DepartmentRequestDTO req){
 
         Department existingDepartment = departmentRepository.findByNumber(number).orElseThrow(
@@ -163,7 +181,11 @@ public class DepartmentService {
 
         Department updatedDepartment = departmentRepository.save(existingDepartment);
 
-        return departmentMapper.toResponse(updatedDepartment);
+        DepartmentResponseDTO response = departmentMapper.toResponse(updatedDepartment);
+
+        eventPublisher.publish("DEPARTMENT", updatedDepartment.getId().toString(), "DEPARTMENT_UPDATED", response);
+
+        return response;
 
     }
 
