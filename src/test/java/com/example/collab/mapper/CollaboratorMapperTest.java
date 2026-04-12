@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import com.example.collab.domain.model.Collaborator;
+import com.example.collab.domain.valueobject.CollaboratorStatus;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 
@@ -34,6 +35,7 @@ class CollaboratorMapperTest {
             false,
             LocalDate.now().plusDays(1),
             "Hourly",
+            CollaboratorStatus.Active,
             5000.0,
             12345,
             null,
