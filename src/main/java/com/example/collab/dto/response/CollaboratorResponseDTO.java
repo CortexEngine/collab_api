@@ -2,6 +2,7 @@ package com.example.collab.dto.response;
 
 import java.time.LocalDate;
 
+import com.example.collab.domain.valueobject.CollaboratorStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record CollaboratorResponseDTO (
@@ -35,6 +36,8 @@ public record CollaboratorResponseDTO (
     LocalDate admissionDate,
 
     String contractType,
+
+    CollaboratorStatus status,
 
     Double salary, 
 

@@ -2,6 +2,7 @@ package com.example.collab.dto.request;
 
 import java.time.LocalDate;
 
+import com.example.collab.domain.valueobject.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.*;
@@ -49,6 +50,9 @@ public record CollaboratorRequestDTO(
 
     @Size(max = 60)
     String contractType,
+
+    @NotNull
+    CollaboratorStatus status,
 
     @PositiveOrZero
     Double salary,
