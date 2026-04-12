@@ -47,6 +47,7 @@ public class Collaborator {
 
     private ContractType contractType;
 
+    @Enumerated(EnumType.STRING)
     private CollaboratorStatus status;
 
     private Double salary;
