@@ -30,6 +30,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "toRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "toPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
+    @Mapping(target = "status", source = "status")
     Collaborator toEntity(CollaboratorRequestDTO dto);
 
     @Mapping(target = "registration", source = "registration")
@@ -50,6 +51,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "toRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "toPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "toDepartment")
+    @Mapping(target = "status", source = "status")
     void updateEntity(@MappingTarget Collaborator collaborator, CollaboratorRequestDTO dto);
 
     @Mapping(target = "email", source = "email", qualifiedByName = "fromEmail")
@@ -68,6 +70,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "fromRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "fromPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "fromDepartment")
+    @Mapping(target = "status", source = "status")
     CollaboratorResponseDTO toResponse(Collaborator collaborator);
 
     @Named("toEmail")
