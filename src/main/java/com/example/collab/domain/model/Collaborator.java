@@ -47,6 +47,8 @@ public class Collaborator {
 
     private ContractType contractType;
 
+    private CollaboratorStatus status;
+
     private Double salary;
 
     private Integer registration;
