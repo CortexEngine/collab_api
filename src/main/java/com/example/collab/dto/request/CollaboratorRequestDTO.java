@@ -56,7 +56,7 @@ public record CollaboratorRequestDTO(
     @NotNull
     Integer registration,
 
-    @Size(max = 20)
+    @PositiveOrZero
     Integer workSchedule,
 
     @NotNull
