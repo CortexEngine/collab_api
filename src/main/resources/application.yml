@@ -19,10 +19,10 @@ spring:
       "[org.hibernate.envers.store_data_at_delete]": true
 
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
     admin:
       auto-create: true
-      fail-fast: true
+      fail-fast: ${KAFKA_ADMIN_FAIL_FAST:false}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer

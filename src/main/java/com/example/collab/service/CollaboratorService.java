@@ -66,9 +66,11 @@ public class CollaboratorService {
 
             Collaborator savedCollaborator = collaboratorRepository.save(collaborator);
 
-            eventPublisher.publish("COLLABORATOR", savedCollaborator.getId().toString(), "COLLABORATOR_CREATED", collaboratorMapper.toResponse(savedCollaborator));
+            CollaboratorResponseDTO response = collaboratorMapper.toResponse(savedCollaborator);
 
-            return collaboratorMapper.toResponse(savedCollaborator);
+            eventPublisher.publish("COLLABORATOR", savedCollaborator.getId().toString(), "COLLABORATOR_CREATED", response);
+
+            return response;
 
         }
 
