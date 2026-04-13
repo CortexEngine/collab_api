@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import com.example.collab.domain.model.Department;
 import com.example.collab.dto.request.DepartmentRequestDTO;
@@ -20,6 +21,7 @@ import com.example.collab.dto.response.DepartmentResponseDTO;
 import com.example.collab.exception.resource.DepartmentNotFoundException;
 import com.example.collab.mapper.DepartmentMapper;
 import com.example.collab.repository.DepartmentRepository;
+import com.example.collab.service.port.DomainEventPublisher;
 import com.example.collab.service.validation.DepartmentValidator;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +36,9 @@ class DepartmentServiceTest {
 
     @Mock
     private DepartmentMapper departmentMapper;
+
+    @Mock
+    private DomainEventPublisher eventPublisher;
 
     @InjectMocks
     private DepartmentService departmentService;
@@ -52,6 +57,7 @@ class DepartmentServiceTest {
         );
 
         Department department = new Department();
+        ReflectionTestUtils.setField(department, "id", 1L);
         department.setName("Engineering");
         department.setNumber(101);
 

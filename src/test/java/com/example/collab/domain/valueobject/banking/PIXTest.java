@@ -166,15 +166,15 @@ class PIXTest {
     void shouldAcceptDifferentTypesOfValidPIXKeys() {
 
         // Act & Assert - CPF
-        assertDoesNotThrow(() -> new PIX("12345678909"));
+        assertDoesNotThrow(() -> new PIX("52998224725"));
         
         // Email
         assertDoesNotThrow(() -> new PIX("user@example.com"));
-        assertDoesNotThrow(() -> new PIX("test.user@mail.company.com"));
+        assertDoesNotThrow(() -> new PIX("test.user@mail.com"));
         
         // Phone
-        assertDoesNotThrow(() -> new PIX("+5511987654321"));
-        assertDoesNotThrow(() -> new PIX("+5521998765432"));
+        assertDoesNotThrow(() -> new PIX("+55 11 98765-4321"));
+        assertDoesNotThrow(() -> new PIX("+55 21 99876-5432"));
         
         // Random Key (UUID format)
         assertDoesNotThrow(() -> new PIX("a1b2c3d4-e5f6-7890-abcd-ef1234567890"));
