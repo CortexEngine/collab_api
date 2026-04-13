@@ -60,6 +60,12 @@ class OutboxRelayServiceTest {
             return result;
         });
 
+        doAnswer(invocation -> {
+            ((java.util.function.Consumer<org.springframework.transaction.TransactionStatus>) invocation.getArgument(0))
+                .accept(null);
+            return null;
+        }).when(tx).executeWithoutResult(any());
+
         when(repository.findByStatusInAndAttemptsLessThanOrderByIdAsc(
                 List.of(OutboxStatus.PENDING, OutboxStatus.FAILED), 5, PageRequest.of(0, 100)))
             .thenReturn(List.of(pendingEvent));
@@ -93,6 +99,12 @@ class OutboxRelayServiceTest {
                     .doInTransaction(null);
             return result;
         });
+
+        doAnswer(invocation -> {
+            ((java.util.function.Consumer<org.springframework.transaction.TransactionStatus>) invocation.getArgument(0))
+                .accept(null);
+            return null;
+        }).when(tx).executeWithoutResult(any());
 
         when(repository.findByStatusInAndAttemptsLessThanOrderByIdAsc(
                 List.of(OutboxStatus.PENDING, OutboxStatus.FAILED), 5, PageRequest.of(0, 100)))
@@ -139,7 +151,7 @@ class OutboxRelayServiceTest {
         stuckEvent.setProcessingStartedAt(Instant.now().minusSeconds(125));
 
         when(repository.findByStatusAndProcessingStartedAtBefore(
-                OutboxStatus.PROCESSING, any(Instant.class)))
+            eq(OutboxStatus.PROCESSING), any(Instant.class)))
             .thenReturn(List.of(stuckEvent));
 
         outboxRelayService.releaseStuckProcessing(Instant.now().minusSeconds(120));
