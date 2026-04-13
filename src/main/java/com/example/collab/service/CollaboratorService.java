@@ -3,6 +3,7 @@ package com.example.collab.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.collab.domain.model.Collaborator;
 import com.example.collab.domain.valueobject.document.*;
@@ -14,6 +15,7 @@ import com.example.collab.exception.business.InvalidCollaboratorException;
 import com.example.collab.exception.resource.NotFoundCollaboratorException;
 import com.example.collab.mapper.CollaboratorMapper;
 import com.example.collab.repository.CollaboratorRepository;
+import com.example.collab.service.port.DomainEventPublisher;
 import com.example.collab.service.validation.CollaboratorValidator;
 
 @Service
@@ -25,7 +27,9 @@ public class CollaboratorService {
 
     private final CollaboratorMapper collaboratorMapper;
 
-    public CollaboratorService(CollaboratorRepository collaboratorRepository, CollaboratorValidator collaboratorValidator, CollaboratorMapper collaboratorMapper){
+    private final DomainEventPublisher eventPublisher;
+
+    public CollaboratorService(CollaboratorRepository collaboratorRepository, CollaboratorValidator collaboratorValidator, CollaboratorMapper collaboratorMapper, DomainEventPublisher eventPublisher){
         
         this.collaboratorRepository = collaboratorRepository;
         
@@ -33,8 +37,11 @@ public class CollaboratorService {
         
         this.collaboratorMapper = collaboratorMapper;
 
+        this.eventPublisher = eventPublisher;
+
     }
 
+    @Transactional
     public CollaboratorResponseDTO createCollaborator(CollaboratorRequestDTO req) {
 
         collaboratorValidator.validateNewCollaboratorDocuments(
@@ -59,7 +66,11 @@ public class CollaboratorService {
 
             Collaborator savedCollaborator = collaboratorRepository.save(collaborator);
 
-            return collaboratorMapper.toResponse(savedCollaborator);
+            CollaboratorResponseDTO response = collaboratorMapper.toResponse(savedCollaborator);
+
+            eventPublisher.publish("COLLABORATOR", savedCollaborator.getId().toString(), "COLLABORATOR_CREATED", response);
+
+            return response;
 
         }
 
@@ -149,32 +160,41 @@ public class CollaboratorService {
                 .toList();
     }
 
+    @Transactional
     public String deleteCollaboratorByRegistration(Integer registration) {
 
         Collaborator collaborator = collaboratorRepository.findByRegistration(registration).orElseThrow(
                 () -> new BadRequestException("Collaborator not found with registration: " + registration));
 
         String name = collaborator.getName();
+        String aggregateId = collaborator.getId().toString();
 
         collaboratorRepository.delete(collaborator);
+
+        eventPublisher.publish("COLLABORATOR", aggregateId, "COLLABORATOR_DELETED", collaboratorMapper.toResponse(collaborator));
 
         return name;
 
     }
 
+    @Transactional
     public CPF deleteCollaboratorByCPF(CPF cpf) {
 
         Collaborator collaborator = collaboratorRepository.findByCPF(cpf).orElseThrow(
                 () -> new BadRequestException("Collaborator not found with CPF: " + cpf));
 
         CPF cpfValue = collaborator.getCPF();
+        String aggregateId = collaborator.getId().toString();
 
         collaboratorRepository.delete(collaborator);
+
+        eventPublisher.publish("COLLABORATOR", aggregateId, "COLLABORATOR_DELETED", collaboratorMapper.toResponse(collaborator));
 
         return cpfValue;
 
     }
 
+    @Transactional
     public CollaboratorResponseDTO updateCollaborator(Integer registration, CollaboratorRequestDTO req) {
 
         Collaborator existingCollaborator = collaboratorRepository.findByRegistration(registration).orElseThrow(
@@ -188,7 +208,11 @@ public class CollaboratorService {
 
         Collaborator updatedCollaborator = collaboratorRepository.save(existingCollaborator);
 
-        return collaboratorMapper.toResponse(updatedCollaborator);
+        CollaboratorResponseDTO response = collaboratorMapper.toResponse(updatedCollaborator);
+
+        eventPublisher.publish("COLLABORATOR", updatedCollaborator.getId().toString(), "COLLABORATOR_UPDATED", response);
+
+        return response;
 
     }
 

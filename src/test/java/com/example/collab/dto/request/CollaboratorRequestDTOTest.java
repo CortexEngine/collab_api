@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.example.collab.domain.valueobject.CollaboratorStatus;
+
 @DisplayName("CollaboratorRequestDTO Tests")
 class CollaboratorRequestDTOTest {
 
@@ -27,6 +29,7 @@ class CollaboratorRequestDTOTest {
             false,
             LocalDate.now().plusDays(1),
             "CLT",
+            CollaboratorStatus.Active,
             5000.0,
             12345,
             null,

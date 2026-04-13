@@ -13,13 +13,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import com.example.collab.domain.model.Collaborator;
+import com.example.collab.domain.valueobject.CollaboratorStatus;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 import com.example.collab.exception.resource.NotFoundCollaboratorException;
 import com.example.collab.mapper.CollaboratorMapper;
 import com.example.collab.repository.CollaboratorRepository;
+import com.example.collab.service.port.DomainEventPublisher;
 import com.example.collab.service.validation.CollaboratorValidator;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +37,9 @@ class CollaboratorServiceTest {
 
     @Mock
     private CollaboratorMapper collaboratorMapper;
+
+    @Mock
+    private DomainEventPublisher eventPublisher;
 
     @InjectMocks
     private CollaboratorService collaboratorService;
@@ -55,6 +61,7 @@ class CollaboratorServiceTest {
             false,
             LocalDate.now().plusDays(1),
             "Hourly",
+            CollaboratorStatus.Active,
             5000.0,
             12345,
             null,
@@ -78,6 +85,7 @@ class CollaboratorServiceTest {
         );
 
         Collaborator collaborator = new Collaborator();
+        ReflectionTestUtils.setField(collaborator, "id", 1L);
         collaborator.setName("John Doe");
         collaborator.setRegistration(12345);
 
@@ -96,6 +104,7 @@ class CollaboratorServiceTest {
             false,
             LocalDate.now().plusDays(1),
             "CLT",
+            CollaboratorStatus.Active,
             5000.0,
             12345,
             null,
@@ -137,7 +146,7 @@ class CollaboratorServiceTest {
 
         CollaboratorResponseDTO response = new CollaboratorResponseDTO(
             1L, "John Doe", null, null, null, null, null, null, null,
-            null, false, false, null, null, null, 12345, null,
+            null, false, false, null, null, null, null, 12345, null,
             null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null
         );
