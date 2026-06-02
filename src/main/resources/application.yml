@@ -34,24 +34,53 @@ spring:
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
+
+    security:
+      protocol: ${KAFKA_SECURITY_PROTOCOL:SASL_SSL}
+
+    properties:
+      "[sasl.mechanism]": ${KAFKA_SASL_MECHANISM:SCRAM-SHA-512}
+      "[ssl.endpoint.identification.algorithm]": HTTPS
+      "[ssl.truststore.location]": ${KAFKA_SSL_TRUSTSTORE_LOCATION:}
+      "[ssl.truststore.password]": ${KAFKA_SSL_TRUSTSTORE_PASSWORD:}
+      "[ssl.truststore.type]": ${KAFKA_SSL_TRUSTSTORE_TYPE:PKCS12}
+
     admin:
-      auto-create: true
-      fail-fast: ${KAFKA_ADMIN_FAIL_FAST:false}
+      auto-create: ${KAFKA_ADMIN_AUTO_CREATE:false}
+      fail-fast: ${KAFKA_ADMIN_FAIL_FAST:true}
+      properties:
+        "[sasl.jaas.config]": ${KAFKA_ADMIN_SASL_JAAS_CONFIG:}
+        "[ssl.keystore.location]": ${KAFKA_ADMIN_SSL_KEYSTORE_LOCATION:}
+        "[ssl.keystore.password]": ${KAFKA_ADMIN_SSL_KEYSTORE_PASSWORD:}
+        "[ssl.keystore.type]": ${KAFKA_ADMIN_SSL_KEYSTORE_TYPE:PKCS12}
+        "[ssl.key.password]": ${KAFKA_ADMIN_SSL_KEY_PASSWORD:}
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       acks: all
       retries: 5
       properties:
+        "[sasl.jaas.config]": ${KAFKA_PRODUCER_SASL_JAAS_CONFIG:}
+        "[ssl.keystore.location]": ${KAFKA_PRODUCER_SSL_KEYSTORE_LOCATION:}
+        "[ssl.keystore.password]": ${KAFKA_PRODUCER_SSL_KEYSTORE_PASSWORD:}
+        "[ssl.keystore.type]": ${KAFKA_PRODUCER_SSL_KEYSTORE_TYPE:PKCS12}
+        "[ssl.key.password]": ${KAFKA_PRODUCER_SSL_KEY_PASSWORD:}
         "[delivery.timeout.ms]": 120000
         "[request.timeout.ms]": 30000
         "[enable.idempotence]": true
+
     consumer:
-      group-id: collab-api
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:collab-api}
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
+        "[sasl.jaas.config]": ${KAFKA_CONSUMER_SASL_JAAS_CONFIG:}
+        "[ssl.keystore.location]": ${KAFKA_CONSUMER_SSL_KEYSTORE_LOCATION:}
+        "[ssl.keystore.password]": ${KAFKA_CONSUMER_SSL_KEYSTORE_PASSWORD:}
+        "[ssl.keystore.type]": ${KAFKA_CONSUMER_SSL_KEYSTORE_TYPE:PKCS12}
+        "[ssl.key.password]": ${KAFKA_CONSUMER_SSL_KEY_PASSWORD:}
         "[spring.json.trusted.packages]": "com.example.collab.*"
 
 app:
