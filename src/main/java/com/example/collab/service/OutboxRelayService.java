@@ -5,6 +5,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,6 +20,8 @@ import com.example.collab.repository.OutboxEventRepository;
 
 @Service
 public class OutboxRelayService {
+
+    private static final Logger log = LoggerFactory.getLogger(OutboxRelayService.class);
 
     private final OutboxEventRepository repository;
     private final KafkaTemplate<String, String> kafkaTemplate;
@@ -85,6 +89,11 @@ public class OutboxRelayService {
 
             } catch (Exception ex) {
 
+                String rootCauseMessage = getRootCauseMessage(ex);
+
+                log.warn("Falha ao publicar evento outbox id={} topic={} aggregateId={} cause={}",
+                        event.getId(), event.getTopic(), event.getAggregateId(), rootCauseMessage, ex);
+
                 tx.executeWithoutResult(s -> {
 
                     OutboxEvent db = repository.findById(event.getId()).orElseThrow();
@@ -95,7 +104,7 @@ public class OutboxRelayService {
 
                     db.setProcessingStartedAt(null);
 
-                    db.setLastError(ex.getMessage());
+                    db.setLastError(rootCauseMessage);
 
                 });
 
@@ -145,6 +154,26 @@ public class OutboxRelayService {
         c.setPayload(e.getPayload());
 
         return c;
+
+    }
+
+    private String getRootCauseMessage(Throwable throwable) {
+
+        Throwable cause = throwable;
+
+        while (cause.getCause() != null && cause.getCause() != cause) {
+
+            cause = cause.getCause();
+
+        }
+
+        if (cause.getMessage() != null && !cause.getMessage().isBlank()) {
+
+            return cause.getMessage();
+
+        }
+
+        return cause.toString();
 
     }
     
