@@ -47,15 +47,23 @@ public class DepartmentService {
 
         departmentValidator.validateDepartmentManager(req.managerRegistration());
 
-        for(Integer registration : req.managerSupportRegistration()){
+        if (req.managerSupportRegistration() != null) {
 
-           departmentValidator.validateDepartmentSupportManager(registration);
+            for(Integer registration : req.managerSupportRegistration()){
+
+                departmentValidator.validateDepartmentSupportManager(registration);
+
+            }
 
         }
 
-        for(Integer registration : req.teamMembersRegistration()){
+        if (req.teamMembersRegistration() != null) {
 
-            departmentValidator.validateDepartmentMembers(registration);
+            for(Integer registration : req.teamMembersRegistration()){
+
+                departmentValidator.validateDepartmentMembers(registration);
+
+            }
 
         }
 
