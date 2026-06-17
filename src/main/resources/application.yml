@@ -7,54 +7,58 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
-    hikari:
-      pool-name: collab-hikari
-      maximum-pool-size: 20
-      minimum-idle: 5
-      connection-timeout: 30000
-      idle-timeout: 600000
-      max-lifetime: 1800000
-      leak-detection-threshold: 20000
 
-  # Declina o uso do docker
   docker:
     compose:
       enabled: false
+      
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
-  # Atualiza os schemas do banco de dados --DEV
   jpa:
     hibernate:
       ddl-auto: update
-    open-in-view: false
-    properties:
-      "[org.hibernate.envers.audit_table_suffix]": _history
-      "[org.hibernate.envers.revision_field_name]": rev
-      "[org.hibernate.envers.revision_type_field_name]": revtype
-      "[org.hibernate.envers.store_data_at_delete]": true
 
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
-    admin:
-      auto-create: true
-      fail-fast: ${KAFKA_ADMIN_FAIL_FAST:false}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9093}
+
+    security:
+      protocol: SASL_SSL
+
+    ssl:
+      trust-store-location: classpath:kafka.truststore.p12
+      trust-store-password: ${KAFKA_SSL_TRUSTSTORE_PASSWORD}
+      trust-store-type: PKCS12
+
+    properties:
+      "[sasl.mechanism]": SCRAM-SHA-512
+      "[sasl.jaas.config]": ${KAFKA_PRODUCER_SASL_JAAS_CONFIG}
+      "[ssl.endpoint.identification.algorithm]": ""
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      acks: all
-      retries: 5
-      properties:
-        "[delivery.timeout.ms]": 120000
-        "[request.timeout.ms]": 30000
-        "[enable.idempotence]": true
+
     consumer:
-      group-id: collab-api
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:collab-api}
       auto-offset-reset: earliest
+
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      properties:
-        "[spring.json.trusted.packages]": "com.example.collab.*"
 
 app:
+  jwt:
+    secret: "${JWT_SECRET}"
+    expiration-ms: ${JWT_EXPIRATION_MS}
+  auth:
+    users:
+      - username: ${JWT_USERNAME_1}
+        password: "${JWT_PASSWORD_1}"
+        roles: ${JWT_ROLES_1}
+      - username: ${JWT_USERNAME_2}
+        password: "${JWT_PASSWORD_2}"
+        roles: ${JWT_ROLES_2}
   kafka:
     topics:
       collaborator-created: collab.collaborator.created
@@ -63,6 +67,3 @@ app:
       department-created: collab.department.created
       department-updated: collab.department.updated
       department-deleted: collab.department.deleted
-    outbox:
-      fixed-delay-ms: 5000
-      max-attempts: 5

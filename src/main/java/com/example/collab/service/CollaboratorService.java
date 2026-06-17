@@ -199,8 +199,6 @@ public class CollaboratorService {
 
         Collaborator existingCollaborator = collaboratorRepository.findByRegistration(registration).orElseThrow(
                 () -> new BadRequestException("Collaborator not found with registration: " + registration));
-        
-        collaboratorValidator.validateNewCollaboratorData(req.registration());
 
         collaboratorValidator.validateCollaboratorManager(req.registration());
 

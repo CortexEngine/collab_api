@@ -2,3 +2,4 @@
 .vscode
 .vim
 target/
+src/main/resources/kafka.truststore.p12

@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.ConstraintViolationException;
 
 import java.util.LinkedHashMap;
@@ -73,6 +74,16 @@ public class GlobalExceptionHandler {
                 details);
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+
+    }
+
+    // HTTP 401
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ErrorResponse> handleResponseStatus(ResponseStatusException ex, WebRequest req) {
+
+        var body = ErrorResponse.of(ex.getStatusCode().value(),ex.getReason(),ex.getReason(),path(req));
+
+        return new ResponseEntity<>(body, ex.getStatusCode());
 
     }
 

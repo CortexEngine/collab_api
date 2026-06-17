@@ -2,7 +2,6 @@ package com.example.collab.config;
 
 import java.util.Map;
 
-import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +15,9 @@ public class KafkaProducerConfig {
     @Bean
     public ProducerFactory<String, String> producerFactory(KafkaProperties kafkaProperties) {
 
-        Map<String, Object> properties = kafkaProperties.buildProducerProperties();
+        Map<String, Object> props = kafkaProperties.buildProducerProperties();
 
-        properties.put(ProducerConfig.ACKS_CONFIG, "all");
-
-        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
-
-        return new DefaultKafkaProducerFactory<>(properties);
+        return new DefaultKafkaProducerFactory<>(props);
 
     }
 

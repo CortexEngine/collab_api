@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -38,6 +39,11 @@ class OutboxRelayServiceTest {
 
     private OutboxRelayService outboxRelayService;
 
+    @SuppressWarnings("unchecked")
+    private static <T> T anyTyped() {
+        return (T) any();
+    }
+
     @BeforeEach
     void setUp() {
         outboxRelayService = new OutboxRelayService(repository, kafkaTemplate, tx, 5);
@@ -55,16 +61,16 @@ class OutboxRelayServiceTest {
         pendingEvent.setPayload("{\"id\":10}");
 
         when(tx.execute(any())).thenAnswer(invocation -> {
-            Object result = ((org.springframework.transaction.support.TransactionCallback<?>) invocation.getArgument(0))
-                    .doInTransaction(null);
-            return result;
+            final org.springframework.transaction.support.TransactionCallback<Object> callback =
+                    invocation.getArgument(0);
+            return callback.doInTransaction(null);
         });
 
         doAnswer(invocation -> {
-            ((java.util.function.Consumer<org.springframework.transaction.TransactionStatus>) invocation.getArgument(0))
-                .accept(null);
+            final Consumer<org.springframework.transaction.TransactionStatus> action = invocation.getArgument(0);
+            action.accept(null);
             return null;
-        }).when(tx).executeWithoutResult(any());
+        }).when(tx).executeWithoutResult(anyTyped());
 
         when(repository.findByStatusInAndAttemptsLessThanOrderByIdAsc(
                 List.of(OutboxStatus.PENDING, OutboxStatus.FAILED), 5, PageRequest.of(0, 100)))
@@ -95,16 +101,16 @@ class OutboxRelayServiceTest {
         pendingEvent.setPayload("{\"id\":10}");
 
         when(tx.execute(any())).thenAnswer(invocation -> {
-            Object result = ((org.springframework.transaction.support.TransactionCallback<?>) invocation.getArgument(0))
-                    .doInTransaction(null);
-            return result;
+            final org.springframework.transaction.support.TransactionCallback<Object> callback =
+                    invocation.getArgument(0);
+            return callback.doInTransaction(null);
         });
 
         doAnswer(invocation -> {
-            ((java.util.function.Consumer<org.springframework.transaction.TransactionStatus>) invocation.getArgument(0))
-                .accept(null);
+            final Consumer<org.springframework.transaction.TransactionStatus> action = invocation.getArgument(0);
+            action.accept(null);
             return null;
-        }).when(tx).executeWithoutResult(any());
+        }).when(tx).executeWithoutResult(anyTyped());
 
         when(repository.findByStatusInAndAttemptsLessThanOrderByIdAsc(
                 List.of(OutboxStatus.PENDING, OutboxStatus.FAILED), 5, PageRequest.of(0, 100)))
@@ -127,9 +133,9 @@ class OutboxRelayServiceTest {
     @DisplayName("Should not publish when there are no pending events")
     void shouldNotPublishWhenThereAreNoPendingEvents() {
         when(tx.execute(any())).thenAnswer(invocation -> {
-            Object result = ((org.springframework.transaction.support.TransactionCallback<?>) invocation.getArgument(0))
-                    .doInTransaction(null);
-            return result;
+            final org.springframework.transaction.support.TransactionCallback<Object> callback =
+                    invocation.getArgument(0);
+            return callback.doInTransaction(null);
         });
 
         when(repository.findByStatusInAndAttemptsLessThanOrderByIdAsc(
