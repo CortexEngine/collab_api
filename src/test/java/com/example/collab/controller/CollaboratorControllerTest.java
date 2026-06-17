@@ -10,19 +10,29 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.collab.config.security.JwtAuthenticationFilter;
+import com.example.collab.config.security.JwtService;
 import com.example.collab.dto.response.CollaboratorResponseDTO;
 import com.example.collab.service.CollaboratorService;
 
 @WebMvcTest(CollaboratorController.class)
+@AutoConfigureMockMvc(addFilters = false)
 @DisplayName("CollaboratorController Tests")
 class CollaboratorControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockitoBean
+    private JwtService jwtService;
+
+    @MockitoBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @MockitoBean
     private CollaboratorService collaboratorService;

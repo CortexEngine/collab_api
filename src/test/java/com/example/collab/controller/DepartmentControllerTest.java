@@ -13,17 +13,21 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.collab.config.security.JwtAuthenticationFilter;
+import com.example.collab.config.security.JwtService;
 import com.example.collab.dto.request.DepartmentRequestDTO;
 import com.example.collab.dto.response.DepartmentResponseDTO;
 import com.example.collab.service.DepartmentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(DepartmentController.class)
+@AutoConfigureMockMvc(addFilters = false)
 @DisplayName("DepartmentController Tests")
 class DepartmentControllerTest {
 
@@ -32,6 +36,12 @@ class DepartmentControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @MockitoBean
+    private JwtService jwtService;
+
+    @MockitoBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @MockitoBean
     private DepartmentService departmentService;
