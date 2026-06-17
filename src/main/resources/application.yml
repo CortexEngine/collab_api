@@ -11,6 +11,10 @@ spring:
   docker:
     compose:
       enabled: false
+      
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
   jpa:
     hibernate:
@@ -44,6 +48,17 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
 app:
+  jwt:
+    secret: "${JWT_SECRET}"
+    expiration-ms: ${JWT_EXPIRATION_MS}
+  auth:
+    users:
+      - username: ${JWT_USERNAME_1}
+        password: "${JWT_PASSWORD_1}"
+        roles: ${JWT_ROLES_1}
+      - username: ${JWT_USERNAME_2}
+        password: "${JWT_PASSWORD_2}"
+        roles: ${JWT_ROLES_2}
   kafka:
     topics:
       collaborator-created: collab.collaborator.created
