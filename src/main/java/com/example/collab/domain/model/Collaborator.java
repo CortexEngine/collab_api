@@ -93,4 +93,7 @@ public class Collaborator {
     private String course;
 
     private String observations;
+
+    private Photo photo;
+    
 }
