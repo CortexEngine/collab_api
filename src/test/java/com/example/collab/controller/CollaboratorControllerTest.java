@@ -44,7 +44,7 @@ class CollaboratorControllerTest {
             1L, "John Doe", null, null, null, null, null, null, null,
             null, false, false, null, null, null, null, 12345,
             null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null
         );
 
         when(collaboratorService.getAllCollaborators()).thenReturn(List.of(response));

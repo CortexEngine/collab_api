@@ -124,6 +124,7 @@ class CollaboratorServiceTest {
             null,
             null,
             null,
+            null,
             null
         );
 
@@ -148,7 +149,7 @@ class CollaboratorServiceTest {
             1L, "John Doe", null, null, null, null, null, null, null,
             null, false, false, null, null, null, null, 12345, null,
             null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null
         );
 
         when(collaboratorRepository.findByRegistration(12345)).thenReturn(Optional.of(collaborator));
