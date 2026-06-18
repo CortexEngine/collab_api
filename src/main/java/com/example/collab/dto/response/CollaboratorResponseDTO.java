@@ -77,6 +77,8 @@ public record CollaboratorResponseDTO (
 
     String course,
 
-    String observations
+    String observations,
+
+    String photo
 
 ) {};

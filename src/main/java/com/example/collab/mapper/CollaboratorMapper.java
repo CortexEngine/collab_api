@@ -6,6 +6,7 @@ import com.example.collab.domain.valueobject.ContractType;
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.domain.valueobject.contact.*;
 import com.example.collab.domain.valueobject.document.*;
+import com.example.collab.domain.valueobject.Photo;
 import com.example.collab.domain.model.Collaborator;
 import com.example.collab.domain.model.Department;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
@@ -70,6 +71,7 @@ public interface CollaboratorMapper {
     @Mapping(target = "RG", source = "RG", qualifiedByName = "fromRG")
     @Mapping(target = "phoneEmergency", source = "phoneEmergency", qualifiedByName = "fromPhoneEmergency")
     @Mapping(target = "department", source = "department", qualifiedByName = "fromDepartment")
+    @Mapping(target = "photo", source = "photo", qualifiedByName = "fromPhoto")
     @Mapping(target = "status", source = "status")
     CollaboratorResponseDTO toResponse(Collaborator collaborator);
 
@@ -294,6 +296,20 @@ public interface CollaboratorMapper {
     default String fromContractType(ContractType contractType) {
 
         return contractType != null ? contractType.getType() : null;
+
+    }
+
+    @Named("toPhoto")
+    default Photo toPhoto(String value) {
+
+        return value != null && !value.isBlank() ? new Photo(value) : null;
+
+    }
+
+    @Named("fromPhoto")
+    default String fromPhoto(Photo photo) {
+
+        return photo != null ? photo.getPath() : null;
 
     }
 

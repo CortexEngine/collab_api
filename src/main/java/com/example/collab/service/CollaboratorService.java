@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.collab.domain.model.Collaborator;
+import com.example.collab.domain.valueobject.Photo;
 import com.example.collab.domain.valueobject.document.*;
 import com.example.collab.domain.valueobject.banking.*;
 import com.example.collab.dto.request.CollaboratorRequestDTO;
@@ -29,15 +31,19 @@ public class CollaboratorService {
 
     private final DomainEventPublisher eventPublisher;
 
-    public CollaboratorService(CollaboratorRepository collaboratorRepository, CollaboratorValidator collaboratorValidator, CollaboratorMapper collaboratorMapper, DomainEventPublisher eventPublisher){
+    private final PhotoStorageService photoStorageService;
+
+    public CollaboratorService(CollaboratorRepository collaboratorRepository, CollaboratorValidator collaboratorValidator, CollaboratorMapper collaboratorMapper, DomainEventPublisher eventPublisher, PhotoStorageService photoStorageService){
         
         this.collaboratorRepository = collaboratorRepository;
         
         this.collaboratorValidator = collaboratorValidator;
-        
+
         this.collaboratorMapper = collaboratorMapper;
 
         this.eventPublisher = eventPublisher;
+
+        this.photoStorageService = photoStorageService;
 
     }
 
@@ -191,6 +197,32 @@ public class CollaboratorService {
         eventPublisher.publish("COLLABORATOR", aggregateId, "COLLABORATOR_DELETED", collaboratorMapper.toResponse(collaborator));
 
         return cpfValue;
+
+    }
+
+    @Transactional
+    public CollaboratorResponseDTO uploadPhoto(Integer registration, MultipartFile file) {
+
+        Collaborator collaborator = collaboratorRepository.findByRegistration(registration).orElseThrow(
+                () -> new BadRequestException("Collaborator not found with registration: " + registration));
+
+        if (collaborator.getPhoto() != null) {
+
+            photoStorageService.deletePhoto(collaborator.getPhoto().getPath());
+
+        }
+
+        String path = photoStorageService.savePhoto(file);
+
+        collaborator.setPhoto(new Photo(path));
+
+        Collaborator updatedCollaborator = collaboratorRepository.save(collaborator);
+
+        CollaboratorResponseDTO response = collaboratorMapper.toResponse(updatedCollaborator);
+
+        eventPublisher.publish("COLLABORATOR", updatedCollaborator.getId().toString(), "COLLABORATOR_UPDATED", response);
+
+        return response;
 
     }
 
